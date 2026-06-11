@@ -20,12 +20,16 @@
     .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
     .pill{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font:750 14px/1.2 ui-sans-serif,system-ui,sans-serif}
     .source-box{border:2px solid rgba(23,63,95,.28);background:#f7fbff;border-radius:22px;padding:18px;margin-top:18px}
+    .zh-box{border-left:6px solid var(--accent);background:#f7fbff}
+    .zh{font-family:"Noto Serif TC","PingFang TC","Microsoft JhengHei",ui-serif,Georgia,serif}
     .source-box p{margin:.35rem 0}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px}
     .label{font:900 12px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
     .phrase{font-size:clamp(27px,5vw,40px);font-weight:900;line-height:1.1;color:var(--accent)}
     .snippet{background:#fff7e8;border-left:6px solid var(--accent2);padding:14px 16px;border-radius:14px;margin:12px 0;font-size:clamp(18px,3.5vw,22px)}
+    .def{margin:.55rem 0}
+    .def strong{color:var(--accent2)}
     .practice{border-left:6px solid var(--green);background:#f3fbf6}
     .answer{color:var(--muted)}
     @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
@@ -54,6 +58,12 @@
       <p>The article is useful for English learners because it uses compact news-style verbs such as <strong>drill</strong>, <strong>fire</strong>, <strong>mark</strong>, and <strong>supply</strong>. These verbs carry a lot of meaning in only a few words.</p>
     </section>
 
+    <section class="zh-box zh">
+      <h2>繁體中文摘要</h2>
+      <p>NPR 報導，台灣進行一場軍事演練，使用美國提供的 HIMARS 火箭系統。這次演練受到注意，因為該系統朝台灣海峽方向發射；台灣海峽因兩岸緊張情勢，一直是國際社會密切關注的區域。</p>
+      <p>這篇文章適合用來學英文新聞寫作，因為標題和內文使用許多精簡但含義很重的動詞，例如 <strong>drill</strong>（演練）、<strong>fire</strong>（發射）、<strong>mark</strong>（標誌著）和 <strong>supply</strong>（提供）。</p>
+    </section>
+
     <section>
       <h2>Article Snippets to Notice</h2>
       <div class="snippet">“Taiwan drills with U.S. rocket system…”</div>
@@ -67,27 +77,32 @@
       <div class="grid">
         <article class="card">
           <div class="label">Verb</div><div class="phrase">to drill</div>
-          <p><strong>Meaning:</strong> to practice a procedure repeatedly, especially for military, safety, or emergency training.</p>
+          <p class="def"><strong>English definition:</strong> to practice a procedure repeatedly, especially for military, safety, or emergency training.</p>
+          <p class="def zh"><strong>中文定義：</strong>反覆練習某種程序或行動，常用於軍事、救災、消防或安全訓練；可譯為「演練、操練」。</p>
           <p><strong>Example:</strong> The soldiers drilled with a new system before the live exercise.</p>
         </article>
         <article class="card">
           <div class="label">Verb phrase</div><div class="phrase">to fire into/toward</div>
-          <p><strong>Meaning:</strong> to shoot or launch a weapon in a particular direction or area.</p>
+          <p class="def"><strong>English definition:</strong> to shoot or launch a weapon in a particular direction or area.</p>
+          <p class="def zh"><strong>中文定義：</strong>朝某個方向或區域射擊、發射武器；新聞中常用於飛彈、火箭或砲彈發射。</p>
           <p><strong>Example:</strong> The unit fired rockets toward a designated training zone.</p>
         </article>
         <article class="card">
           <div class="label">News verb</div><div class="phrase">to mark</div>
-          <p><strong>Meaning:</strong> to show that something is significant or historically notable.</p>
+          <p class="def"><strong>English definition:</strong> to show that something is significant or historically notable.</p>
+          <p class="def zh"><strong>中文定義：</strong>表示某件事具有重要意義或成為一個值得記錄的時間點；可譯為「標誌著、代表」。</p>
           <p><strong>Example:</strong> The test marked the first public use of the equipment.</p>
         </article>
         <article class="card">
           <div class="label">Adjective</div><div class="phrase">U.S.-supplied</div>
-          <p><strong>Meaning:</strong> provided by the United States. The hyphen helps the words work together before a noun.</p>
+          <p class="def"><strong>English definition:</strong> provided by the United States. The hyphen helps the words work together before a noun.</p>
+          <p class="def zh"><strong>中文定義：</strong>由美國提供的。連字號讓 <em>U.S.</em> 和 <em>supplied</em> 一起修飾後面的名詞，例如 <em>U.S.-supplied equipment</em>。</p>
           <p><strong>Example:</strong> Officials displayed U.S.-supplied defense equipment during the exercise.</p>
         </article>
         <article class="card">
           <div class="label">Noun phrase</div><div class="phrase">the Taiwan Strait</div>
-          <p><strong>Meaning:</strong> the body of water between Taiwan and mainland China; a common term in international news.</p>
+          <p class="def"><strong>English definition:</strong> the body of water between Taiwan and mainland China; a common term in international news.</p>
+          <p class="def zh"><strong>中文定義：</strong>台灣與中國大陸之間的海域；在國際新聞中常用來討論區域安全、軍事活動與外交緊張情勢。</p>
           <p><strong>Example:</strong> Activity in the Taiwan Strait is closely watched by regional governments.</p>
         </article>
       </div>
