@@ -161,16 +161,20 @@ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc
 .title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
 .empty{{color:var(--muted);font-size:14px}}
 .viewer-shell{{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}}
-.viewer-top{{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fffaf2}}
+.viewer-top{{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fffaf2}}
 #current-title{{font-weight:900;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}}
-.open{{color:var(--accent);font-weight:900;text-decoration:none;white-space:nowrap}}
 iframe{{width:100%;flex:1;border:0;background:white}}
 .close-menu{{display:none}}
 @media(max-width:860px){{
   body{{padding-top:calc(58px + env(safe-area-inset-top));overflow:hidden}}
   .mobile-bar{{display:flex;position:fixed;top:0;left:0;right:0;height:calc(58px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 12px 8px;align-items:center;gap:10px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:40}}
-  .menu-button{{border:1px solid var(--line);background:var(--accent);color:white;border-radius:999px;min-height:40px;padding:0 15px;font-weight:900}}
-  .mobile-title{{font-weight:900;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:15px}}
+  .menu-button{{border:1px solid var(--line);background:var(--accent);color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-weight:900;flex:0 0 auto}}
+  .hamburger{{display:block;width:19px;height:14px;position:relative}}
+  .hamburger::before,.hamburger::after,.hamburger span{{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}}
+  .hamburger::before{{top:0}}
+  .hamburger span{{top:6px}}
+  .hamburger::after{{bottom:0}}
+  .site-title{{font-family:ui-serif,Georgia,serif;font-weight:900;font-size:21px;letter-spacing:-.035em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
   .app{{display:block;min-height:calc(100vh - 58px - env(safe-area-inset-top))}}
   aside{{position:fixed;top:0;bottom:0;left:0;width:min(88vw,360px);height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;z-index:60;background:rgba(255,253,248,.98)}}
   body.menu-open aside{{transform:translateX(0)}}
@@ -183,12 +187,11 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   .viewer-shell{{height:100%;border-radius:18px}}
   .viewer-top{{padding:10px 12px}}
   #current-title{{display:none}}
-  .open{{font-size:14px}}
 }}
 </style>
 </head>
 <body>
-<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-controls="lesson-menu" aria-expanded="false">Browse</button><div id="mobile-title" class="mobile-title">{html.escape(latest_title)}</div></div>
+<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English Lessons</div></div>
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
@@ -203,7 +206,7 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   </aside>
   <main>
     <div class="viewer-shell">
-      <div class="viewer-top"><div id="current-title">{html.escape(latest_title)}</div><a id="open-link" class="open" href="{html.escape(latest_url)}" target="_blank" rel="noopener">Open full page</a></div>
+      <div class="viewer-top"><div id="current-title">{html.escape(latest_title)}</div></div>
       <iframe id="viewer" src="{html.escape(latest_url)}" title="English lesson viewer"></iframe>
     </div>
   </main>
@@ -212,8 +215,6 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
 const title=document.getElementById('current-title');
-const mobileTitle=document.getElementById('mobile-title');
-const open=document.getElementById('open-link');
 const menuButton=document.getElementById('menu-button');
 const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
@@ -226,10 +227,8 @@ function select(url){{
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
   viewer.src=link.dataset.url;
-  open.href=link.dataset.url;
   const text=link.querySelector('.title')?.textContent||'English lesson';
   title.textContent=text;
-  if(mobileTitle) mobileTitle.textContent=text;
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
 }}
