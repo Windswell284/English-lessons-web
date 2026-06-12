@@ -87,7 +87,8 @@ def infer_date(path: Path) -> tuple[str, str]:
     if m:
         iso = '-'.join(m.groups())
         return iso, iso
-    return path.stem, path.stem
+    # Undated legacy/test lessons should never outrank date-based daily lessons.
+    return path.stem, '0000-' + path.stem
 
 
 def collect_items() -> list[Item]:
@@ -101,11 +102,66 @@ def collect_items() -> list[Item]:
     return sorted(items, key=lambda x: x.sort_key, reverse=True)
 
 
+def standalone_nav_html(items: list[Item], current: Item) -> str:
+    daily = [x for x in items if x.kind == 'daily'][:OLD_DAILY_LIMIT + 1]
+    prefix = './' if current.dest.parent == LESSONS_DIR else '../lessons/'
+    links = []
+    for idx, x in enumerate(daily):
+        href = prefix + x.dest.name
+        active = ' active' if x.dest.name == current.dest.name else ''
+        label = 'Today / Latest' if idx == 0 else x.date_label
+        links.append(
+            f'<a class="standalone-nav-link{active}" href="{html.escape(href)}">'
+            f'<span class="standalone-date">{html.escape(label)}</span>'
+            f'<span class="standalone-title">{html.escape(x.title)}</span></a>'
+        )
+    links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
+    return f'''<style id="standalone-lesson-nav-style">
+.standalone-nav-bar{{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:58px;padding:8px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
+body{{padding-top:70px!important}}
+.standalone-menu-button{{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}}
+.standalone-hamburger{{display:block;width:19px;height:14px;position:relative}}
+.standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}}
+.standalone-hamburger::before{{top:0}}.standalone-hamburger span{{top:6px}}.standalone-hamburger::after{{bottom:0}}
+.standalone-site-title{{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(23px,6vw,32px);letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18}}
+.standalone-backdrop{{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}}
+.standalone-drawer{{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
+body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.standalone-menu-open .standalone-backdrop{{opacity:1;pointer-events:auto}}
+.standalone-close{{float:right;border:1px solid #ded3c4;background:#efe4d3;border-radius:999px;min-height:36px;padding:0 12px;font-weight:900;color:#1f1c18}}
+.standalone-drawer h2{{clear:both;margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}}
+.standalone-drawer p{{margin:0 0 14px;color:#6d6459;font-size:14px}}.standalone-drawer h3{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}}
+.standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
+.standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
+</style>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English Lessons</div></div>
+<div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English<br>Lessons</h2><p>Updates 10 AM Taiwan / HK time</p><h3>Daily lessons</h3>{links_html}</nav>
+<script id="standalone-lesson-nav-script">
+(() => {{
+  const btn=document.getElementById('standalone-menu-button');
+  const close=document.getElementById('standalone-close-menu');
+  const backdrop=document.getElementById('standalone-backdrop');
+  const setMenu=open=>{{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')}};
+  btn?.addEventListener('click',()=>setMenu(true)); close?.addEventListener('click',()=>setMenu(false)); backdrop?.addEventListener('click',()=>setMenu(false));
+  document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
+}})();
+</script>'''
+
+
+def inject_standalone_nav(text: str, items: list[Item], current: Item) -> str:
+    if 'id="standalone-lesson-menu"' in text or '<body' not in text.lower():
+        return text
+    nav = standalone_nav_html(items, current)
+    return re.sub(r'(<body[^>]*>)', r'\1\n' + nav, text, count=1, flags=re.IGNORECASE)
+
+
 def copy_items(items: list[Item]) -> None:
     LESSONS_DIR.mkdir(parents=True, exist_ok=True)
     REVIEWS_DIR.mkdir(parents=True, exist_ok=True)
     for item in items:
         shutil.copy2(item.src, item.dest)
+        text = item.dest.read_text(encoding='utf-8', errors='ignore')
+        item.dest.write_text(inject_standalone_nav(text, items, item), encoding='utf-8')
 
 
 def nav(items: list[Item], kind: str, limit: int | None = None) -> str:
