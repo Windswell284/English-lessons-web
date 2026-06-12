@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = Path('/opt/data/english-lessons')
 LESSONS_DIR = ROOT / 'lessons'
 REVIEWS_DIR = ROOT / 'reviews'
-OLD_DAILY_LIMIT = 5
+OLD_DAILY_LIMIT = 9  # plus Today / Latest = 10 daily lesson links total
 
 
 class TitleParser(HTMLParser):
@@ -132,9 +132,6 @@ def build_index(items: list[Item]) -> str:
     generated = datetime.now().strftime('%Y-%m-%d %H:%M')
     today_nav = nav([latest], 'daily') if latest else '<p class="empty">No latest lesson yet.</p>'
     old_nav = nav(old_daily, 'daily', limit=OLD_DAILY_LIMIT)
-    weekly_nav = nav(items, 'weekly')
-    monthly_nav = nav(items, 'monthly')
-
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -197,12 +194,9 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
     <button id="close-menu" class="close-menu" type="button">Close</button>
     <h1>Daily English<br>Lessons</h1>
-    <p class="sub">A readable archive for daily English lessons plus weekly/monthly reviews.</p>
-    <span class="badge">Last site build: {html.escape(generated)}</span>
+    <p class="sub">Updates 10 AM Taiwan / HK time</p>
     <h2>Today / Latest</h2>{today_nav}
-    <h2>Old lessons</h2>{old_nav}
-    <h2>Weekly reviews</h2>{weekly_nav}
-    <h2>Monthly reviews</h2>{monthly_nav}
+    <h2>Daily lessons</h2>{old_nav}
   </aside>
   <main>
     <div class="viewer-shell">
@@ -247,7 +241,7 @@ def main() -> None:
     items = collect_items()
     copy_items(items)
     (ROOT / 'index.html').write_text(build_index(items), encoding='utf-8')
-    print(f'Built site with {len([x for x in items if x.kind == "daily"])} daily lessons, {len([x for x in items if x.kind == "weekly"])} weekly reviews, {len([x for x in items if x.kind == "monthly"])} monthly reviews')
+    print(f'Built site with {len([x for x in items if x.kind == "daily"])} daily lessons; navigation shows up to 10 daily lesson links only')
     print(ROOT / 'index.html')
 
 
