@@ -116,9 +116,11 @@ def standalone_nav_html(items: list[Item], current: Item) -> str:
             f'<span class="standalone-title">{html.escape(x.title)}</span></a>'
         )
     links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
-    return f'''<style id="standalone-lesson-nav-style">
+    return f'''<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
+<style id="standalone-lesson-nav-style">
 .standalone-nav-bar{{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:58px;padding:8px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
-body{{padding-top:70px!important}}
+html:not(.standalone-embedded) body{{padding-top:70px!important}}
+html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{{display:none!important}}
 .standalone-menu-button{{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}}
 .standalone-hamburger{{display:block;width:19px;height:14px;position:relative}}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}}
@@ -257,7 +259,7 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   <main>
     <div class="viewer-shell">
       <div class="viewer-top"><div id="current-title">{html.escape(latest_title)}</div></div>
-      <iframe id="viewer" src="{html.escape(latest_url)}" title="English lesson viewer"></iframe>
+      <iframe id="viewer" src="{html.escape(latest_url)}?embedded=1" title="English lesson viewer"></iframe>
     </div>
   </main>
 </div>
@@ -276,7 +278,7 @@ function select(url){{
   const link=links.find(a=>a.dataset.url===url)||links[0];
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
-  viewer.src=link.dataset.url;
+  viewer.src=link.dataset.url+(link.dataset.url.includes('?')?'&':'?')+'embedded=1';
   const text=link.querySelector('.title')?.textContent||'English lesson';
   title.textContent=text;
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
@@ -287,7 +289,7 @@ menuButton?.addEventListener('click',()=>setMenu(true));
 closeMenu?.addEventListener('click',()=>setMenu(false));
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
-select(decodeURIComponent(location.hash.slice(1))||{latest_url!r});
+select(decodeURIComponent(location.hash.slice(1)).replace(/[?&]embedded=1$/,'')||{latest_url!r});
 </script>
 </body>
 </html>'''
