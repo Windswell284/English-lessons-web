@@ -215,13 +215,9 @@ Each daily English lesson should be a current-events vocabulary page based on a 
 
 Required format:
 
-- Source box with article title, source, date, link.
-- Small source note like:
-
-```text
-Article base: title/source link + short learning snippets only.
-```
-
+- Source box with article title, source, date, link only.
+- Do not include a `Focus:` pill/bubble.
+- Do not include the small `Article base: title/source link + short learning snippets only.` description below the article link.
 - English summary heading: `Article Summary`.
 - Traditional Chinese summary heading: `文章摘要`.
 - Vocabulary heading: `5 Daily Keywords`.
