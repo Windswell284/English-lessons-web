@@ -137,7 +137,7 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
 </style>
 <div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English Lessons</div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English<br>Lessons</h2><p>Updates 10 AM Taiwan / HK time</p><h3>Daily lessons</h3>{links_html}</nav>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English<br>Lessons</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3>{links_html}</nav>
 <script id="standalone-lesson-nav-script">
 (() => {{
   const btn=document.getElementById('standalone-menu-button');
@@ -216,8 +216,6 @@ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc
 .title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
 .empty{{color:var(--muted);font-size:14px}}
 .viewer-shell{{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}}
-.viewer-top{{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fffaf2}}
-#current-title{{font-weight:900;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}}
 iframe{{width:100%;flex:1;border:0;background:white}}
 .close-menu{{display:none}}
 @media(max-width:860px){{
@@ -240,8 +238,6 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   aside .sub{{font-size:14px}}
   main{{padding:8px;height:calc(100dvh - 58px - env(safe-area-inset-top))}}
   .viewer-shell{{height:100%;border-radius:18px}}
-  .viewer-top{{padding:10px 12px}}
-  #current-title{{display:none}}
 }}
 </style>
 </head>
@@ -252,13 +248,12 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
     <button id="close-menu" class="close-menu" type="button">Close</button>
     <h1>Daily English<br>Lessons</h1>
-    <p class="sub">Updates 10 AM Taiwan / HK time</p>
+    <p class="sub">Updates 9 AM Hong Kong / Taiwan time</p>
     <h2>Today / Latest</h2>{today_nav}
     <h2>Daily lessons</h2>{old_nav}
   </aside>
   <main>
     <div class="viewer-shell">
-      <div class="viewer-top"><div id="current-title">{html.escape(latest_title)}</div></div>
       <iframe id="viewer" src="{html.escape(latest_url)}?embedded=1" title="English lesson viewer"></iframe>
     </div>
   </main>
@@ -266,7 +261,6 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 <script>
 const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
-const title=document.getElementById('current-title');
 const menuButton=document.getElementById('menu-button');
 const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
@@ -279,8 +273,6 @@ function select(url){{
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
   viewer.src=link.dataset.url+(link.dataset.url.includes('?')?'&':'?')+'embedded=1';
-  const text=link.querySelector('.title')?.textContent||'English lesson';
-  title.textContent=text;
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
 }}
