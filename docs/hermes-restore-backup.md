@@ -224,6 +224,7 @@ Article base: title/source link + short learning snippets only.
 - English summary heading: `Article Summary`.
 - Traditional Chinese summary heading: `文章摘要`.
 - Vocabulary heading: `5 Daily Keywords`.
+- Page `<title>`, lesson `<h1>`, and navigation names should use the clean article/topic title only; do not prefix them with labels like `Current Events English:`.
 - Exactly 5 vocabulary cards.
 - Each vocabulary card includes:
   - vocabulary word/phrase
