@@ -234,6 +234,8 @@ Article base: title/source link + short learning snippets only.
   - `中文定義`
   - article/headline/RSS excerpt labeled exactly `In article:` with highlighted term
 - Optional final section only if useful: `Word Origins & Notes`.
+- Site update label should read exactly `Updates 9 AM Hong Kong / Taiwan time`.
+- Desktop/non-phone homepage shell should not show a separate duplicate current-lesson title bar above the embedded lesson viewer; the embedded lesson already shows the date/topic title.
 - Do not include quiz, mini practice, Language Focus, writing exercises, comprehension questions, Source context, Article Snippets, Behind the Headline, or Open full page link.
 - Do not use old labels like `Short English Summary`, `繁體中文摘要`, `5 Useful Words & Patterns`, `5 Useful Words & Phrases`, or `Word Origins & Fun Notes`.
 
