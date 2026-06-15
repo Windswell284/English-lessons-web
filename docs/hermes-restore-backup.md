@@ -225,7 +225,7 @@ Required format:
 - Exactly 5 vocabulary cards.
 - Each vocabulary card includes:
   - vocabulary word/phrase shown first, with no part-of-speech/type label above it
-  - pronunciation button using browser Web Speech API where practical
+  - pronunciation button using browser Web Speech API where practical, with a clean inline SVG speaker icon (`class="sound-icon"`) instead of the `🔊` emoji or external `sound-icon.svg` file
   - English definition
   - `中文定義`
   - article/headline/RSS excerpt labeled exactly `In article:` with highlighted term
