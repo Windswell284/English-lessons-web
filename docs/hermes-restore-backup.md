@@ -25,6 +25,15 @@ Restore from this backup:
 
 ## Public sites and repos
 
+## GitHub backup copies
+
+This restore document is also saved inside the existing lesson repositories at:
+
+- Chinese repo: `docs/hermes-restore-backup.md`
+- English repo: `docs/hermes-restore-backup.md`
+
+The publish scripts refresh these copies during site publishing.
+
 ### Chinese lessons
 
 - Live site: https://chinese-lessons-web.vercel.app
