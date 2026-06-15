@@ -24,8 +24,6 @@ h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acce
 .title{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}
 .empty{color:var(--muted);font-size:14px}
 .viewer-shell{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}
-.viewer-top{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fffaf2}
-#current-title{font-weight:900;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 iframe{width:100%;flex:1;border:0;background:white}
 .close-menu{display:none}
 @media(max-width:860px){
@@ -48,8 +46,6 @@ iframe{width:100%;flex:1;border:0;background:white}
   aside .sub{font-size:14px}
   main{padding:8px;height:calc(100dvh - 58px - env(safe-area-inset-top))}
   .viewer-shell{height:100%;border-radius:18px}
-  .viewer-top{padding:10px 12px}
-  #current-title{display:none}
 }
 </style>
 </head>
@@ -60,7 +56,7 @@ iframe{width:100%;flex:1;border:0;background:white}
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
     <button id="close-menu" class="close-menu" type="button">Close</button>
     <h1>Daily English<br>Lessons</h1>
-    <p class="sub">Updates 10 AM Taiwan / HK time</p>
+    <p class="sub">Updates 9 AM Hong Kong / Taiwan time</p>
     <h2>Today / Latest</h2><a class="nav-item" href="#lessons/daily-english-2026-06-15.html" data-url="lessons/daily-english-2026-06-15.html"><span class="date">Jun 15, 2026</span><span class="title">UK-Japan Investment</span></a>
     <h2>Daily lessons</h2><a class="nav-item" href="#lessons/daily-english-2026-06-14.html" data-url="lessons/daily-english-2026-06-14.html"><span class="date">Jun 14, 2026</span><span class="title">US-Iran Deal Timing</span></a>
 <a class="nav-item" href="#lessons/daily-english-2026-06-13.html" data-url="lessons/daily-english-2026-06-13.html"><span class="date">Jun 13, 2026</span><span class="title">Hormuz Reopening Deal</span></a>
@@ -71,7 +67,6 @@ iframe{width:100%;flex:1;border:0;background:white}
   </aside>
   <main>
     <div class="viewer-shell">
-      <div class="viewer-top"><div id="current-title">UK-Japan Investment</div></div>
       <iframe id="viewer" src="lessons/daily-english-2026-06-15.html?embedded=1" title="English lesson viewer"></iframe>
     </div>
   </main>
@@ -79,7 +74,6 @@ iframe{width:100%;flex:1;border:0;background:white}
 <script>
 const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
-const title=document.getElementById('current-title');
 const menuButton=document.getElementById('menu-button');
 const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
@@ -92,8 +86,6 @@ function select(url){
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
   viewer.src=link.dataset.url+(link.dataset.url.includes('?')?'&':'?')+'embedded=1';
-  const text=link.querySelector('.title')?.textContent||'English lesson';
-  title.textContent=text;
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
 }
