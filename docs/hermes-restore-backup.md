@@ -45,7 +45,8 @@ The publish scripts refresh these copies during site publishing.
 
 ### English lessons
 
-- Live site: https://english-lessons-web-blue.vercel.app
+- Live site: https://5dailywords.com
+- Legacy Vercel alias: https://english-lessons-web-blue.vercel.app
 - GitHub repo: https://github.com/Windswell284/English-lessons-web
 - Local source lessons: `/opt/data/english-lessons/`
 - Local generated website: `/opt/data/english-lessons-web/`
