@@ -227,7 +227,7 @@ Article base: title/source link + short learning snippets only.
 - Page `<title>`, lesson `<h1>`, and navigation names should use the clean article/topic title only; do not prefix them with labels like `Current Events English:`.
 - Exactly 5 vocabulary cards.
 - Each vocabulary card includes:
-  - vocabulary word/phrase
+  - vocabulary word/phrase shown first, with no part-of-speech/type label above it
   - pronunciation button using browser Web Speech API where practical
   - English definition
   - `中文定義`
