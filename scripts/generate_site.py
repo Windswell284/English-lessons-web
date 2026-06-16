@@ -233,6 +233,7 @@ def collect_items() -> list[Item]:
 def standalone_nav_html(items: list[Item], current: Item) -> str:
     daily = [x for x in items if x.kind == 'daily'][:OLD_DAILY_LIMIT + 1]
     prefix = './' if current.dest.parent == LESSONS_DIR else '../lessons/'
+    contact_href = './contact-us.html' if current.dest.parent == ROOT else '../contact-us.html'
     links = []
     for idx, x in enumerate(daily):
         href = prefix + x.dest.name
@@ -249,6 +250,10 @@ def standalone_nav_html(items: list[Item], current: Item) -> str:
             COLLAPSED_DAILY_TOTAL,
             '<button id="standalone-expand-lessons" class="standalone-expand-lessons" type="button" '
             'aria-expanded="false" aria-label="Show more lessons">…</button>'
+        )
+        links.insert(
+            COLLAPSED_DAILY_TOTAL + 1,
+            f'<a class="standalone-contact-link" href="{html.escape(contact_href)}">Contact us</a>'
         )
     links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
     return f'''<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
@@ -273,6 +278,8 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
 body.standalone-lessons-expanded .standalone-nav-extra{{display:block}}
 .standalone-expand-lessons{{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed #ded3c4;background:#fffaf2;border-radius:16px;color:#173f5f;font-size:24px;font-weight:950;line-height:1;cursor:pointer}}
 body.standalone-lessons-expanded .standalone-expand-lessons{{display:none}}
+.standalone-contact-link{{display:block;text-align:center;text-decoration:none;color:#173f5f;font-weight:900;padding:10px 12px;margin:2px 0 12px;border-radius:999px}}
+.standalone-contact-link:hover{{background:#efe4d3}}
 .standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
 </style>
 <div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div></div>
@@ -345,6 +352,7 @@ def build_index(items: list[Item]) -> str:
     old_nav_parts = [nav_link(x) for x in old_visible]
     if old_extra:
         old_nav_parts.append('<button id="expand-lessons" class="expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons">…</button>')
+        old_nav_parts.append('<a class="contact-link" href="contact-us.html">Contact us</a>')
         old_nav_parts.extend(nav_link(x, 'nav-item nav-extra') for x in old_extra)
     old_nav = '\n'.join(old_nav_parts) or '<p class="empty">No previous lessons yet.</p>'
     return f'''<!doctype html>
@@ -373,6 +381,8 @@ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc
 body.lessons-expanded .nav-extra{{display:block}}
 .expand-lessons{{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed var(--line);background:var(--paper);border-radius:16px;color:var(--accent);font-size:24px;font-weight:950;line-height:1;cursor:pointer}}
 body.lessons-expanded .expand-lessons{{display:none}}
+.contact-link{{display:block;text-align:center;text-decoration:none;color:var(--accent);font-weight:900;padding:10px 12px;margin:2px 0 12px;border-radius:999px}}
+.contact-link:hover{{background:var(--soft)}}
 .nav-item:hover,.nav-item.active{{border-color:rgba(23,63,95,.55);transform:translateY(-1px);box-shadow:0 8px 20px rgba(45,31,16,.08)}}
 .date{{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}
 .title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
