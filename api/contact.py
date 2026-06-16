@@ -132,10 +132,10 @@ class handler(BaseHTTPRequestHandler):
             stored = _store_airtable(record)
             notified = _notify_telegram(record)
 
-            if not stored and not notified:
-                # Do not silently accept submissions before at least one delivery target is configured.
-                return _json(self, 503, {"error": "Contact form delivery is not configured yet."})
-            return _json(self, 200, {"ok": True, "stored": stored, "notified": notified})
+            if not stored:
+                # Do not silently accept submissions before durable Airtable storage is configured.
+                return _json(self, 503, {"error": "Contact form storage is not configured yet."})
+            return _json(self, 200, {"ok": True, "notified": notified})
         except ValueError as exc:
             return _json(self, 400, {"error": str(exc)})
         except urllib.error.HTTPError as exc:
