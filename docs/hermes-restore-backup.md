@@ -223,6 +223,7 @@ Required format:
 - Vocabulary heading: `5 Daily Keywords`.
 - Page `<title>`, lesson `<h1>`, and navigation names should use the clean article/topic title only; do not prefix them with labels like `Current Events English:`.
 - Exactly 5 vocabulary cards.
+- Vocabulary mix should be mostly single words, not phrases: normally 3–5 of the 5 items should be single words, with at most 0–2 phrases when especially useful.
 - Each vocabulary card includes:
   - vocabulary word/phrase shown first, with no part-of-speech/type label above it
   - pronunciation button using browser Web Speech API where practical, with a clean inline SVG speaker icon (`class="sound-icon"`) instead of the `🔊` emoji or external `sound-icon.svg` file
