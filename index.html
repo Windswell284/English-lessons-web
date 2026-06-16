@@ -25,7 +25,6 @@ h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acce
 .empty{color:var(--muted);font-size:14px}
 .viewer-shell{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}
 iframe{width:100%;flex:1;border:0;background:white}
-.close-menu{display:none}
 .language-control{position:fixed;top:14px;right:18px;z-index:45;display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.94);box-shadow:0 10px 25px rgba(36,24,12,.1);backdrop-filter:blur(10px)}
 .language-control-mobile{display:none}
 .globe-icon{width:22px;height:22px;color:var(--accent);flex:0 0 auto}
@@ -50,8 +49,7 @@ iframe{width:100%;flex:1;border:0;background:white}
   body.menu-open aside{transform:translateX(0)}
   .backdrop{display:block;position:fixed;inset:0;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:50}
   body.menu-open .backdrop{opacity:1;pointer-events:auto}
-  .close-menu{display:inline-flex;align-items:center;justify-content:center;float:right;border:1px solid var(--line);background:var(--soft);border-radius:999px;min-height:36px;padding:0 12px;font-weight:900}
-  aside h1{font-size:38px;clear:both}
+  aside h1{font-size:38px}
   aside .sub{font-size:14px}
   main{padding:8px;height:calc(100dvh - 58px - env(safe-area-inset-top))}
   .viewer-shell{height:100%;border-radius:18px}
@@ -64,7 +62,6 @@ iframe{width:100%;flex:1;border:0;background:white}
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
-    <button id="close-menu" class="close-menu" type="button">Close</button>
     <h1>Daily English</h1>
     <p class="sub">Updates 9 AM Hong Kong / Taiwan time</p>
     <h2>Today / Latest</h2><a class="nav-item" href="#lessons/daily-english-2026-06-16.html" data-url="lessons/daily-english-2026-06-16.html"><span class="date">Jun 16, 2026</span><span class="title">Thames Water Nationalisation</span></a>
@@ -86,7 +83,6 @@ iframe{width:100%;flex:1;border:0;background:white}
 const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
-const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
 const nativeSelects=[...document.querySelectorAll('.native-select')];
 const allowedNative=new Set(['tc','sc','ko','ja']);
@@ -115,7 +111,6 @@ nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{
   if(active)viewer.src=lessonSrc(active.dataset.url);
 }));
 menuButton?.addEventListener('click',()=>setMenu(true));
-closeMenu?.addEventListener('click',()=>setMenu(false));
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 syncNativeSelects();
