@@ -262,9 +262,9 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
 .standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
 .standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English Lessons</div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English<br>Lessons</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3>{links_html}</nav>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3>{links_html}</nav>
 <script id="standalone-lesson-nav-script">
 (() => {{
   const btn=document.getElementById('standalone-menu-button');
@@ -382,13 +382,13 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 </style>
 </head>
 <body>
-<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English Lessons</div><div class="language-control language-control-mobile" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-mobile" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English</div><div class="language-control language-control-mobile" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-mobile" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
 <div class="language-control language-control-desktop" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-desktop" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div>
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
     <button id="close-menu" class="close-menu" type="button">Close</button>
-    <h1>Daily English<br>Lessons</h1>
+    <h1>Daily English</h1>
     <p class="sub">Updates 9 AM Hong Kong / Taiwan time</p>
     <h2>Today / Latest</h2>{today_nav}
     <h2>Daily lessons</h2>{old_nav}
