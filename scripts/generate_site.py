@@ -17,6 +17,7 @@ SOURCE_DIR = Path('/opt/data/english-lessons')
 LESSONS_DIR = ROOT / 'lessons'
 REVIEWS_DIR = ROOT / 'reviews'
 OLD_DAILY_LIMIT = 9  # plus Today / Latest = 10 daily lesson links total
+COLLAPSED_DAILY_TOTAL = 5  # initial nav shows 5 total, then “…” expands the rest
 TRANSLATION_CACHE = Path('/opt/data/.cache/5dailywords_native_translations.json')
 NATIVE_LANGS = {
     'tc': {'label': '繁體中文', 'target': 'zh-TW', 'summary': '文章摘要', 'definition': '中文定義：'},
@@ -236,11 +237,18 @@ def standalone_nav_html(items: list[Item], current: Item) -> str:
     for idx, x in enumerate(daily):
         href = prefix + x.dest.name
         active = ' active' if x.dest.name == current.dest.name else ''
+        collapsed = ' standalone-nav-extra' if idx >= COLLAPSED_DAILY_TOTAL else ''
         label = 'Today / Latest' if idx == 0 else x.date_label
         links.append(
-            f'<a class="standalone-nav-link{active}" href="{html.escape(href)}">'
+            f'<a class="standalone-nav-link{active}{collapsed}" href="{html.escape(href)}">'
             f'<span class="standalone-date">{html.escape(label)}</span>'
             f'<span class="standalone-title">{html.escape(x.title)}</span></a>'
+        )
+    if len(daily) > COLLAPSED_DAILY_TOTAL:
+        links.insert(
+            COLLAPSED_DAILY_TOTAL,
+            '<button id="standalone-expand-lessons" class="standalone-expand-lessons" type="button" '
+            'aria-expanded="false" aria-label="Show more lessons">…</button>'
         )
     links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
     return f'''<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
@@ -261,6 +269,10 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
 .standalone-drawer h2{{margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}}
 .standalone-drawer p{{margin:0 0 14px;color:#6d6459;font-size:14px}}.standalone-drawer h3{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}}
 .standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
+.standalone-nav-extra{{display:none}}
+body.standalone-lessons-expanded .standalone-nav-extra{{display:block}}
+.standalone-expand-lessons{{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed #ded3c4;background:#fffaf2;border-radius:16px;color:#173f5f;font-size:24px;font-weight:950;line-height:1;cursor:pointer}}
+body.standalone-lessons-expanded .standalone-expand-lessons{{display:none}}
 .standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
 </style>
 <div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div></div>
@@ -271,8 +283,11 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
   const btn=document.getElementById('standalone-menu-button');
   const backdrop=document.getElementById('standalone-backdrop');
   const drawerTop=document.getElementById('standalone-drawer-top');
+  const expandLessons=document.getElementById('standalone-expand-lessons');
+  if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
   const setMenu=open=>{{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')}};
   btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false)); drawerTop?.addEventListener('click',()=>setMenu(false));
+  expandLessons?.addEventListener('click',()=>{{document.body.classList.add('standalone-lessons-expanded');expandLessons.setAttribute('aria-expanded','true')}});
   document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
 }})();
 </script>'''
@@ -298,19 +313,22 @@ def copy_items(items: list[Item]) -> None:
     save_translation_cache(cache)
 
 
+def nav_link(x: Item, class_name: str = 'nav-item') -> str:
+    return (
+        f'<a class="{class_name}" href="#{html.escape(x.rel_url)}" data-url="{html.escape(x.rel_url)}">'
+        f'<span class="date">{html.escape(x.date_label)}</span>'
+        f'<span class="title">{html.escape(x.title)}</span>'
+        f'</a>'
+    )
+
+
 def nav(items: list[Item], kind: str, limit: int | None = None) -> str:
     xs = [x for x in items if x.kind == kind]
     if limit is not None:
         xs = xs[:limit]
     if not xs:
         return '<p class="empty">No items yet.</p>'
-    return '\n'.join(
-        f'<a class="nav-item" href="#{html.escape(x.rel_url)}" data-url="{html.escape(x.rel_url)}">'
-        f'<span class="date">{html.escape(x.date_label)}</span>'
-        f'<span class="title">{html.escape(x.title)}</span>'
-        f'</a>'
-        for x in xs
-    )
+    return '\n'.join(nav_link(x) for x in xs)
 
 
 def build_index(items: list[Item]) -> str:
@@ -321,7 +339,14 @@ def build_index(items: list[Item]) -> str:
     latest_title = latest.title if latest else 'No daily lesson yet'
     generated = datetime.now().strftime('%Y-%m-%d %H:%M')
     today_nav = nav([latest], 'daily') if latest else '<p class="empty">No latest lesson yet.</p>'
-    old_nav = nav(old_daily, 'daily', limit=OLD_DAILY_LIMIT)
+    collapsed_old_count = max(COLLAPSED_DAILY_TOTAL - (1 if latest else 0), 0)
+    old_visible = old_daily[:collapsed_old_count]
+    old_extra = old_daily[collapsed_old_count:OLD_DAILY_LIMIT]
+    old_nav_parts = [nav_link(x) for x in old_visible]
+    if old_extra:
+        old_nav_parts.append('<button id="expand-lessons" class="expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons">…</button>')
+        old_nav_parts.extend(nav_link(x, 'nav-item nav-extra') for x in old_extra)
+    old_nav = '\n'.join(old_nav_parts) or '<p class="empty">No previous lessons yet.</p>'
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -344,6 +369,10 @@ h1{{font-family:ui-serif,Georgia,serif;font-size:42px;line-height:1.02;letter-sp
 .badge{{display:inline-flex;min-height:34px;align-items:center;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--soft);font-size:13px;font-weight:800;margin:0 0 18px}}
 h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:22px 0 10px}}
 .nav-item{{display:block;text-decoration:none;color:var(--ink);padding:12px;border:1px solid var(--line);background:var(--paper);border-radius:16px;margin:9px 0;transition:.15s ease}}
+.nav-extra{{display:none}}
+body.lessons-expanded .nav-extra{{display:block}}
+.expand-lessons{{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed var(--line);background:var(--paper);border-radius:16px;color:var(--accent);font-size:24px;font-weight:950;line-height:1;cursor:pointer}}
+body.lessons-expanded .expand-lessons{{display:none}}
 .nav-item:hover,.nav-item.active{{border-color:rgba(23,63,95,.55);transform:translateY(-1px);box-shadow:0 8px 20px rgba(45,31,16,.08)}}
 .date{{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}
 .title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
@@ -405,6 +434,7 @@ const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
 const drawerTop=document.getElementById('drawer-top');
+const expandLessons=document.getElementById('expand-lessons');
 const backdrop=document.getElementById('backdrop');
 const nativeSelects=[...document.querySelectorAll('.native-select')];
 const allowedNative=new Set(['tc','sc','ko','ja']);
@@ -420,6 +450,7 @@ function select(url){{
   const link=links.find(a=>a.dataset.url===url)||links[0];
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
+  if(link.classList.contains('nav-extra'))document.body.classList.add('lessons-expanded');
   viewer.src=lessonSrc(link.dataset.url);
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
@@ -434,6 +465,7 @@ nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{{
 }}));
 menuButton?.addEventListener('click',()=>setMenu(true));
 drawerTop?.addEventListener('click',()=>setMenu(false));
+expandLessons?.addEventListener('click',()=>{{document.body.classList.add('lessons-expanded');expandLessons.setAttribute('aria-expanded','true')}});
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
 syncNativeSelects();
