@@ -3,7 +3,6 @@ import json
 import os
 import re
 import urllib.error
-import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
@@ -53,29 +52,6 @@ def _notify_telegram(record):
     )
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     _post_json(url, {"chat_id": chat_id, "text": text[:3900]})
-    return True
-
-
-def _store_airtable(record):
-    api_key = os.environ.get("CONTACT_AIRTABLE_API_KEY")
-    base_id = os.environ.get("CONTACT_AIRTABLE_BASE_ID")
-    table = os.environ.get("CONTACT_AIRTABLE_TABLE", "Contact Submissions")
-    if not api_key or not base_id:
-        return False
-    table_path = urllib.parse.quote(table, safe="")
-    url = f"https://api.airtable.com/v0/{base_id}/{table_path}"
-    fields = {
-        "Submitted At": record["submitted_at"],
-        "Type": record["type_label"],
-        "First Name": record["first_name"],
-        "Last Name": record["last_name"],
-        "Email": record["email"],
-        "Subject": record["subject"],
-        "Message": record["message"],
-        "Page": record.get("page", ""),
-        "User Agent": record.get("user_agent", ""),
-    }
-    _post_json(url, {"fields": fields}, headers={"Authorization": f"Bearer {api_key}"})
     return True
 
 
@@ -129,13 +105,12 @@ class handler(BaseHTTPRequestHandler):
             record = _validate(data)
             record["user_agent"] = self.headers.get("User-Agent", "")[:300]
 
-            stored = _store_airtable(record)
             notified = _notify_telegram(record)
 
-            if not stored:
-                # Do not silently accept submissions before durable Airtable storage is configured.
-                return _json(self, 503, {"error": "Contact form storage is not configured yet."})
-            return _json(self, 200, {"ok": True, "notified": notified})
+            if not notified:
+                # Do not silently accept submissions before Telegram delivery is configured.
+                return _json(self, 503, {"error": "Contact form delivery is not configured yet."})
+            return _json(self, 200, {"ok": True, "notified": True})
         except ValueError as exc:
             return _json(self, 400, {"error": str(exc)})
         except urllib.error.HTTPError as exc:
