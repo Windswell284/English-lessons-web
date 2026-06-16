@@ -45,7 +45,9 @@ def _notify_telegram(record):
     text = (
         "📬 5dailywords contact submission\n"
         f"Type: {record['type_label']}\n"
-        f"Email: {record.get('email') or 'not provided'}\n"
+        f"Name: {record['first_name']} {record['last_name']}\n"
+        f"Email: {record['email']}\n"
+        f"Subject: {record['subject']}\n"
         f"Page: {record.get('page') or 'not provided'}\n\n"
         f"{record['message']}"
     )
@@ -65,7 +67,10 @@ def _store_airtable(record):
     fields = {
         "Submitted At": record["submitted_at"],
         "Type": record["type_label"],
-        "Email": record.get("email", ""),
+        "First Name": record["first_name"],
+        "Last Name": record["last_name"],
+        "Email": record["email"],
+        "Subject": record["subject"],
         "Message": record["message"],
         "Page": record.get("page", ""),
         "User Agent": record.get("user_agent", ""),
@@ -76,21 +81,37 @@ def _store_airtable(record):
 
 def _validate(data):
     contact_type = str(data.get("type", "")).strip().lower()
-    message = str(data.get("message", "")).strip()
+    first_name = str(data.get("first_name", "")).strip()
+    last_name = str(data.get("last_name", "")).strip()
     email = str(data.get("email", "")).strip()
+    subject = str(data.get("subject", "")).strip()
+    message = str(data.get("message", "")).strip()
     page = str(data.get("page", "")).strip()[:500]
     if contact_type not in ALLOWED_TYPES:
         raise ValueError("Please choose a contact type.")
+    if not first_name:
+        raise ValueError("Please enter your first name.")
+    if not last_name:
+        raise ValueError("Please enter your last name.")
+    if not email:
+        raise ValueError("Please enter your email address.")
+    if not subject:
+        raise ValueError("Please enter a subject.")
     if not message:
         raise ValueError("Please enter a message.")
+    if len(subject) > 160:
+        raise ValueError("Subject is too long.")
     if len(message) > MAX_MESSAGE_LEN:
         raise ValueError("Message is too long.")
-    if email and not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
-        raise ValueError("Please enter a valid email address or leave it blank.")
+    if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
+        raise ValueError("Please enter a valid email address.")
     return {
         "type": contact_type,
         "type_label": ALLOWED_TYPES[contact_type],
+        "first_name": first_name,
+        "last_name": last_name,
         "email": email,
+        "subject": subject,
         "message": message,
         "page": page,
         "submitted_at": datetime.now(timezone.utc).isoformat(),
