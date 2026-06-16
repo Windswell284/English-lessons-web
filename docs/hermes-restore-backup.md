@@ -25,6 +25,8 @@ Restore from this backup:
 
 ## Public sites and repos
 
+- Public website branding is neutral. Do not include personal names in public titles, subtitles, page body, footers, navigation, README files, restore docs copied to repos, generated pages, or future site updates. Use `Daily English Lessons` and `Daily Chinese` / `Daily Chinese Lessons` instead of personal wording.
+
 ## GitHub backup copies
 
 This restore document is also saved inside the existing lesson repositories at:
