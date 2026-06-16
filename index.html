@@ -26,6 +26,11 @@ h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acce
 .viewer-shell{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}
 iframe{width:100%;flex:1;border:0;background:white}
 .close-menu{display:none}
+.language-control{position:fixed;top:14px;right:18px;z-index:45;display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.94);box-shadow:0 10px 25px rgba(36,24,12,.1);backdrop-filter:blur(10px)}
+.language-control-mobile{display:none}
+.globe-icon{width:22px;height:22px;color:var(--accent);flex:0 0 auto}
+.language-divider{width:1px;height:24px;background:var(--line);display:block}
+.native-select{border:0;background:transparent;color:var(--ink);font-weight:850;font-size:14px;outline:none;max-width:132px}
 @media(max-width:860px){
   body{padding-top:calc(58px + env(safe-area-inset-top));overflow:hidden}
   .mobile-bar{display:flex;position:fixed;top:0;left:0;right:0;height:calc(58px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 12px 8px;align-items:center;gap:10px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:40}
@@ -35,7 +40,11 @@ iframe{width:100%;flex:1;border:0;background:white}
   .hamburger::before{top:0}
   .hamburger span{top:6px}
   .hamburger::after{bottom:0}
-  .site-title{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(25px,6.3vw,32px);letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .site-title{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+  .language-control{position:static;min-height:38px;padding:6px 8px;gap:7px;box-shadow:none;background:transparent;border-color:var(--line);margin-left:auto;flex:0 0 auto}
+  .language-control-mobile{display:inline-flex}
+  .language-control-desktop{display:none}
+  .globe-icon{width:20px;height:20px}.language-divider{height:22px}.native-select{max-width:86px;font-size:13px}
   .app{display:block;min-height:calc(100vh - 58px - env(safe-area-inset-top))}
   aside{position:fixed;top:0;bottom:0;left:0;width:min(88vw,360px);height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;z-index:60;background:rgba(255,253,248,.98)}
   body.menu-open aside{transform:translateX(0)}
@@ -50,7 +59,8 @@ iframe{width:100%;flex:1;border:0;background:white}
 </style>
 </head>
 <body>
-<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English Lessons</div></div>
+<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English Lessons</div><div class="language-control language-control-mobile" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-mobile" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="language-control language-control-desktop" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-desktop" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div>
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
@@ -78,6 +88,12 @@ const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
 const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
+const nativeSelects=[...document.querySelectorAll('.native-select')];
+const allowedNative=new Set(['tc','sc','ko','ja']);
+let nativeLanguage=localStorage.getItem('nativeLanguage')||'tc';
+if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
+function lessonSrc(url){return url+(url.includes('?')?'&':'?')+'embedded=1&native='+encodeURIComponent(nativeLanguage)}
+function syncNativeSelects(){nativeSelects.forEach(select=>select.value=nativeLanguage)}
 function setMenu(opened){
   document.body.classList.toggle('menu-open', opened);
   menuButton?.setAttribute('aria-expanded', opened ? 'true' : 'false');
@@ -86,16 +102,24 @@ function select(url){
   const link=links.find(a=>a.dataset.url===url)||links[0];
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
-  viewer.src=link.dataset.url+(link.dataset.url.includes('?')?'&':'?')+'embedded=1';
+  viewer.src=lessonSrc(link.dataset.url);
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
 }
 links.forEach(a=>a.addEventListener('click',e=>{e.preventDefault();select(a.dataset.url)}));
+nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{
+  nativeLanguage=allowedNative.has(selectEl.value)?selectEl.value:'tc';
+  localStorage.setItem('nativeLanguage',nativeLanguage);
+  syncNativeSelects();
+  const active=links.find(a=>a.classList.contains('active'))||links[0];
+  if(active)viewer.src=lessonSrc(active.dataset.url);
+}));
 menuButton?.addEventListener('click',()=>setMenu(true));
 closeMenu?.addEventListener('click',()=>setMenu(false));
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
-select(decodeURIComponent(location.hash.slice(1)).replace(/[?&]embedded=1$/,'')||'lessons/daily-english-2026-06-16.html');
+syncNativeSelects();
+select(decodeURIComponent(location.hash.slice(1)).replace(/[?&]embedded=1.*$/,'')||'lessons/daily-english-2026-06-16.html');
 </script>
 </body>
 </html>
