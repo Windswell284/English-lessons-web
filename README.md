@@ -1,4 +1,4 @@
-# Peter’s Daily English Lessons
+# Daily English Lessons
 
 Static website for daily English lessons.
 
