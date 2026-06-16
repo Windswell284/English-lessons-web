@@ -326,7 +326,7 @@ def build_index(items: list[Item]) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Daily English Lessons</title>
+<title>Daily English</title>
 <style>
 :root{{--bg:#f4f0e8;--paper:#fffdf8;--ink:#1f1c18;--muted:#6d6459;--line:#ded3c4;--accent:#173f5f;--soft:#efe4d3;--shadow:0 18px 45px rgba(36,24,12,.12)}}
 *{{box-sizing:border-box}}
