@@ -26,6 +26,7 @@ Restore from this backup:
 ## Public sites and repos
 
 - Public website branding is neutral. Do not include personal names in public titles, subtitles, page body, footers, navigation, README files, restore docs copied to repos, generated pages, or future site updates. Use `Daily English Lessons` and `Daily Chinese` / `Daily Chinese Lessons` instead of personal wording.
+- 5dailywords mobile/top header branding should display the shorter title `Daily English` instead of `Daily English Lessons` so it does not get cut off on phones.
 
 ## GitHub backup copies
 
