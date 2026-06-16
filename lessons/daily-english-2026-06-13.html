@@ -49,7 +49,11 @@ html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalon
 .standalone-hamburger{display:block;width:19px;height:14px;position:relative}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
 .standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
-.standalone-site-title{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(23px,6vw,32px);letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18}
+.standalone-site-title{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(23px,6vw,32px);letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
+.standalone-language-control{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}
+.standalone-globe-icon{width:20px;height:20px;color:#173f5f;flex:0 0 auto}
+.standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:850;font-size:13px;outline:none;max-width:86px}
 .standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
 .standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
@@ -66,7 +70,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
 .standalone-contact-link:hover{background:#efe4d3}
 .standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
 <nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-16.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Thames Water Nationalisation</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-15.html"><span class="standalone-date">Jun 15, 2026</span><span class="standalone-title">UK-Japan Investment</span></a>
@@ -84,8 +88,22 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
   const backdrop=document.getElementById('standalone-backdrop');
   const drawerTop=document.getElementById('standalone-drawer-top');
   const expandLessons=document.getElementById('standalone-expand-lessons');
+  const nativeSelect=document.getElementById('standalone-native-language');
+  const allowedNative=new Set(['tc','sc','ko','ja']);
+  let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
+  if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
   if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
   const setMenu=open=>{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')};
+  const nativeKey=lang=>'native'+lang.charAt(0).toUpperCase()+lang.slice(1);
+  const applyNativeLanguage=()=>{
+    document.documentElement.dataset.nativeLanguage=nativeLanguage;
+    localStorage.setItem('nativeLanguage',nativeLanguage);
+    if(nativeSelect)nativeSelect.value=nativeLanguage;
+    document.querySelectorAll('.native-heading').forEach(el=>{const value=el.dataset[nativeKey(nativeLanguage)]||el.dataset.nativeTc;if(value)el.textContent=value;});
+    document.querySelectorAll('.native-text').forEach(el=>{const value=el.dataset[nativeKey(nativeLanguage)]||el.dataset.nativeTc;const body=el.querySelector('.native-body');if(body)body.textContent=value;else if(value)el.textContent=value;});
+  };
+  nativeSelect?.addEventListener('change',()=>{nativeLanguage=allowedNative.has(nativeSelect.value)?nativeSelect.value:'tc';applyNativeLanguage();});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyNativeLanguage);else applyNativeLanguage();
   btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false)); drawerTop?.addEventListener('click',()=>setMenu(false));
   expandLessons?.addEventListener('click',()=>{document.body.classList.add('standalone-lessons-expanded');expandLessons.setAttribute('aria-expanded','true')});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
