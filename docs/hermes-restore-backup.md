@@ -1,4 +1,4 @@
-# Peter Hermes Lesson Preferences Restore Backup
+# Hermes Lesson Preferences Restore Backup
 
 Generated: 2026-06-15T03:01:21Z
 
@@ -396,7 +396,7 @@ A fresh Hermes restore should do the following:
 
 ## Copy/paste summary for a future agent
 
-Peter’s lesson preferences:
+Lesson preferences:
 
 - Chinese and English lessons are daily current-events vocab-first web pages.
 - Chinese lessons use exactly 6 vocabulary cards; English lessons use exactly 5 vocabulary cards.
