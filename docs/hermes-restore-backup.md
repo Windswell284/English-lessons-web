@@ -28,7 +28,7 @@ Restore from this backup:
 - Public website branding is neutral. Do not include personal names in public titles, subtitles, page body, footers, navigation, README files, restore docs copied to repos, generated pages, or future site updates. Use `Daily English Lessons` and `Daily Chinese` / `Daily Chinese Lessons` instead of personal wording.
 - 5dailywords mobile/top header branding should display the shorter title `Daily English` instead of `Daily English Lessons` so it does not get cut off on phones.
 - 5dailywords navigation drawer should not include an internal Close button; users should dismiss it by tapping/clicking the backdrop/main page area, selecting a lesson, pressing Escape, or tapping the blank/header area above the first nav link.
-- 5dailywords English vocabulary cards should order detail rows as `English definition`, then `In article:`, then the native-language definition row (`中文定義` / selected-language equivalent).
+- 5dailywords English vocabulary cards should order detail rows as unlabeled English definition, then `In article:`, then unlabeled native-language definition; do not show `English definition:` or `中文定義:` labels.
 - 5dailywords English lessons should make the 5th/final vocabulary item one level harder than the first four when the article supports it, using a genuine C1-ish article term or precise technical phrase.
 
 ## GitHub backup copies
@@ -235,8 +235,8 @@ Required format:
 - Each vocabulary card includes:
   - vocabulary word/phrase shown first, with no part-of-speech/type label above it
   - pronunciation button using browser Web Speech API where practical, with a clean inline SVG speaker icon (`class="sound-icon"`) instead of the `🔊` emoji or external `sound-icon.svg` file
-  - English definition
-  - `中文定義`
+  - unlabeled English definition
+  - unlabeled native-language definition (Traditional Chinese by default)
   - article/headline/RSS excerpt labeled exactly `In article:` with highlighted term
 - Optional final section only if useful: `Word Origins & Notes`.
 - Site update label should read exactly `Updates 9 AM Hong Kong / Taiwan time`.
@@ -409,7 +409,7 @@ Lesson preferences:
 - Chinese and English lessons are daily current-events vocab-first web pages.
 - Chinese lessons use exactly 6 vocabulary cards; English lessons use exactly 5 vocabulary cards.
 - Chinese: Traditional Chinese, `中文摘要`, `Key Words`, no quiz, 國中挑戰版, source link/summary/vocab only, no full copyrighted article. Vocab should be 3–5 two-character words and 1–3 longer terms, with mixed/interleaved ordering. Include Zhuyin, Chinese definition, English definition, and original source sentence with highlight. Use single-button Pinyin/ㄅㄆㄇ toggle on normal daily pages.
-- English: source box, `Article Summary`, `文章摘要`, `5 Daily Keywords`, audio buttons, English definition + `中文定義`, real source excerpt labeled `In article:`. Vocab should match June 13 harder-intermediate benchmark, not easy headline words.
+- English: source box, `Article Summary`, `文章摘要`, `5 Daily Keywords`, audio buttons, unlabeled English/native definitions, real source excerpt labeled `In article:`. Vocab should match June 13 harder-intermediate benchmark, not easy headline words.
 - Both sites: mobile-first, daily-only nav capped at 10 links, hamburger direct-page nav, no duplicate iframe nav, Vercel hosting, GitHub sync when possible, confirmations after publish.
 
 Keep this file somewhere safe outside Hermes.
