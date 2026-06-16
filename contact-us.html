@@ -22,12 +22,14 @@
       </section>
       <form id="contact-form">
         <div class="row"><label for="type">Contact type</label><select id="type" name="type" required><option value="feature">💡 Request a Feature</option><option value="feedback">💬 Share Feedback</option><option value="bug">🐞 Report a Bug or Issue</option></select></div>
-        <div class="row"><label for="email">Email optional</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"><p class="hint">Only include this if you want a reply.</p></div>
-        <div class="row"><label for="message">Message</label><textarea id="message" name="message" required maxlength="4000" placeholder="Write your note here…"></textarea></div>
+        <div class="row"><label for="first_name">First name</label><input id="first_name" name="first_name" type="text" autocomplete="given-name" required></div>
+        <div class="row"><label for="last_name">Last name</label><input id="last_name" name="last_name" type="text" autocomplete="family-name" required></div>
+        <div class="row"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="row"><label for="subject">Subject</label><input id="subject" name="subject" type="text" required maxlength="160"></div>
+        <div class="row"><label for="message">Message</label><textarea id="message" name="message" required maxlength="4000"></textarea></div>
         <input id="page" name="page" type="hidden">
         <div class="actions"><button type="submit">Send message</button><span id="status" class="status" role="status" aria-live="polite"></span></div>
       </form>
-      <p class="fineprint">Submissions are sent securely to the site owner. Please do not include passwords or sensitive personal information.</p>
     </main>
   </div>
 <script>
