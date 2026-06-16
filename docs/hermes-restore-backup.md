@@ -29,6 +29,7 @@ Restore from this backup:
 - 5dailywords mobile/top header branding should display the shorter title `Daily English` instead of `Daily English Lessons` so it does not get cut off on phones.
 - 5dailywords navigation drawer should not include an internal Close button; users should dismiss it by tapping/clicking the backdrop/main page area, selecting a lesson, or pressing Escape.
 - 5dailywords English vocabulary cards should order detail rows as `English definition`, then `In article:`, then the native-language definition row (`中文定義` / selected-language equivalent).
+- 5dailywords English lessons should make the 5th/final vocabulary item one level harder than the first four when the article supports it, using a genuine C1-ish article term or precise technical phrase.
 
 ## GitHub backup copies
 
