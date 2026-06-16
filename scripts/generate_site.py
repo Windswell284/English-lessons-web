@@ -98,18 +98,13 @@ def enrich_native_language(text: str, cache: dict[str, str]) -> str:
         body_html = match.group(1)
         plain = re.sub(r'<[^>]+>', '', body_html)
         attrs = native_attrs(plain, cache)
-        label_attrs = ' '.join(
-            f'data-label-{code}="{html.escape(meta["definition"], quote=True)}"'
-            for code, meta in NATIVE_LANGS.items()
-        )
         return (
             f'<p class="def zh native-text" data-native-role="definition" {attrs}>'
-            f'<strong class="native-label" {label_attrs}>中文定義：</strong>'
             f'<span class="native-body">{html.escape(html.unescape(plain))}</span></p>'
         )
 
     text = re.sub(
-        r'<p class="def zh"><strong>中文定義：</strong>(.*?)</p>',
+        r'<p class="def zh">(?:<strong>中文定義：</strong>)?(.*?)</p>',
         definition_repl,
         text,
         flags=re.DOTALL,
@@ -130,9 +125,7 @@ def enrich_native_language(text: str, cache: dict[str, str]) -> str:
     });
     document.querySelectorAll('.native-text').forEach(el => {
       const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
-      const label = el.querySelector('.native-label');
       const body = el.querySelector('.native-body');
-      if(label) label.textContent = label.dataset['label' + lang.charAt(0).toUpperCase() + lang.slice(1)] || label.dataset.labelTc || label.textContent;
       if(body) body.textContent = value;
       else if(value) el.textContent = value;
     });
