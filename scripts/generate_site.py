@@ -256,6 +256,8 @@ html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalon
 .standalone-backdrop{{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}}
 .standalone-drawer{{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
 body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.standalone-menu-open .standalone-backdrop{{opacity:1;pointer-events:auto}}
+.standalone-drawer-top{{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}}
+.standalone-drawer-top:focus-visible{{outline:3px solid rgba(23,63,95,.35);outline-offset:3px;border-radius:16px}}
 .standalone-drawer h2{{margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}}
 .standalone-drawer p{{margin:0 0 14px;color:#6d6459;font-size:14px}}.standalone-drawer h3{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}}
 .standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
@@ -263,13 +265,14 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
 </style>
 <div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3>{links_html}</nav>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button>{links_html}</nav>
 <script id="standalone-lesson-nav-script">
 (() => {{
   const btn=document.getElementById('standalone-menu-button');
   const backdrop=document.getElementById('standalone-backdrop');
+  const drawerTop=document.getElementById('standalone-drawer-top');
   const setMenu=open=>{{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')}};
-  btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false));
+  btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false)); drawerTop?.addEventListener('click',()=>setMenu(false));
   document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
 }})();
 </script>'''
@@ -330,6 +333,7 @@ def build_index(items: list[Item]) -> str:
 *{{box-sizing:border-box}}
 body{{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
 button{{font:inherit}}
+.drawer-top{{display:block;margin:0;padding:0;border:0;background:transparent;text-align:left;color:inherit;width:100%}}
 .mobile-bar{{display:none}}
 .backdrop{{display:none}}
 .app{{min-height:100vh;display:grid;grid-template-columns:360px 1fr}}
@@ -367,6 +371,8 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   .globe-icon{{width:20px;height:20px}}.language-divider{{height:22px}}.native-select{{max-width:86px;font-size:13px}}
   .app{{display:block;min-height:calc(100vh - 58px - env(safe-area-inset-top))}}
   aside{{position:fixed;top:0;bottom:0;left:0;width:min(88vw,360px);height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;z-index:60;background:rgba(255,253,248,.98)}}
+  .drawer-top{{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}}
+  .drawer-top:focus-visible{{outline:3px solid rgba(23,63,95,.35);outline-offset:3px;border-radius:16px}}
   body.menu-open aside{{transform:translateX(0)}}
   .backdrop{{display:block;position:fixed;inset:0;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:50}}
   body.menu-open .backdrop{{opacity:1;pointer-events:auto}}
@@ -383,9 +389,9 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
-    <h1>Daily English</h1>
+    <button id="drawer-top" class="drawer-top" type="button" aria-label="Hide lesson navigation"><h1>Daily English</h1>
     <p class="sub">Updates 9 AM Hong Kong / Taiwan time</p>
-    <h2>Today / Latest</h2>{today_nav}
+    <h2>Today / Latest</h2></button>{today_nav}
     <h2>Daily lessons</h2>{old_nav}
   </aside>
   <main>
@@ -398,6 +404,7 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
+const drawerTop=document.getElementById('drawer-top');
 const backdrop=document.getElementById('backdrop');
 const nativeSelects=[...document.querySelectorAll('.native-select')];
 const allowedNative=new Set(['tc','sc','ko','ja']);
@@ -426,6 +433,7 @@ nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{{
   if(active)viewer.src=lessonSrc(active.dataset.url);
 }}));
 menuButton?.addEventListener('click',()=>setMenu(true));
+drawerTop?.addEventListener('click',()=>setMenu(false));
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
 syncNativeSelects();
