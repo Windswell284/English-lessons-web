@@ -28,12 +28,12 @@
     .zh{font-family:"Noto Serif TC","PingFang TC","Microsoft JhengHei",ui-serif,Georgia,serif}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .vocab-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px}
-    .phrase-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .phrase-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
     .phrase{font-size:clamp(26px,4.8vw,38px);font-weight:900;line-height:1.1;color:var(--accent)}
-    .speak-button{flex:0 0 auto;border:1px solid var(--line);background:var(--soft);color:var(--accent);border-radius:999px;min-width:42px;min-height:38px;padding:6px 10px;font:900 15px/1 ui-sans-serif,system-ui,sans-serif;cursor:pointer}
-    .speak-button:focus-visible{outline:4px solid rgba(23,63,95,.22);outline-offset:3px}
+    .speak-button{flex:0 0 auto;border:0;background:transparent;color:var(--accent);border-radius:0;width:24px;height:24px;min-width:0;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font:900 15px/1 ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+    .speak-button:focus-visible{outline:3px solid rgba(23,63,95,.22);outline-offset:3px;border-radius:6px}
     .speak-button:active{transform:translateY(1px)}
-    .sound-icon{display:block;width:18px;height:18px}
+    .sound-icon{display:block;width:15px;height:15px}
     .def{margin:.55rem 0}
     .def strong{color:var(--accent2)}
     .orig{background:#fff7e8;border-left:5px solid var(--accent2);padding:12px 14px;border-radius:14px;margin:.75rem 0;font-size:clamp(18px,3.4vw,22px)}
