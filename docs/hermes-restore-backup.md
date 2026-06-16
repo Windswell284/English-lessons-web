@@ -89,7 +89,7 @@ Publish scripts should self-load `/opt/data/.env` so scheduled jobs do not depen
 - Use a 3-line hamburger menu for direct/standalone lesson pages.
 - Direct lesson pages must have navigation; embedded homepage lesson views should hide duplicate standalone nav via `?embedded=1`.
 - Menus should be daily-only unless explicitly restored.
-- Daily lesson navigation should be capped at 10 total daily links.
+- Daily lesson navigation should be capped at 10 total daily links; nav panels initially show 5 total lesson links, then a `…` control expands the remaining links up to the 10-link cap.
 - Do not show weekly/monthly review sections in website navigation unless explicitly asked.
 - Do not show old/test pages in public navigation after a test is accepted.
 - Remove accepted test pages from source and generated folders, rebuild, publish, and verify old URLs return 404.
