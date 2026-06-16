@@ -2,8 +2,11 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 import shutil
+import urllib.parse
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime
 from html.parser import HTMLParser
@@ -14,6 +17,130 @@ SOURCE_DIR = Path('/opt/data/english-lessons')
 LESSONS_DIR = ROOT / 'lessons'
 REVIEWS_DIR = ROOT / 'reviews'
 OLD_DAILY_LIMIT = 9  # plus Today / Latest = 10 daily lesson links total
+TRANSLATION_CACHE = Path('/opt/data/.cache/5dailywords_native_translations.json')
+NATIVE_LANGS = {
+    'tc': {'label': '繁體中文', 'target': 'zh-TW', 'summary': '文章摘要', 'definition': '中文定義：'},
+    'sc': {'label': '简体中文', 'target': 'zh-CN', 'summary': '文章摘要', 'definition': '简体中文定义：'},
+    'ko': {'label': '한국어', 'target': 'ko', 'summary': '기사 요약', 'definition': '한국어 정의:'},
+    'ja': {'label': '日本語', 'target': 'ja', 'summary': '記事要約', 'definition': '日本語の定義：'},
+}
+
+
+def load_translation_cache() -> dict[str, str]:
+    try:
+        return json.loads(TRANSLATION_CACHE.read_text(encoding='utf-8'))
+    except Exception:
+        return {}
+
+
+def save_translation_cache(cache: dict[str, str]) -> None:
+    TRANSLATION_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    TRANSLATION_CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True), encoding='utf-8')
+
+
+def translate_native(text: str, target: str, cache: dict[str, str]) -> str:
+    clean = ' '.join(html.unescape(text).split())
+    if not clean or target == 'zh-TW':
+        return clean
+    key = f'zh-TW|{target}|{clean}'
+    if key in cache:
+        return cache[key]
+    try:
+        url = (
+            'https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-TW'
+            f'&tl={urllib.parse.quote(target)}&dt=t&q={urllib.parse.quote(clean)}'
+        )
+        with urllib.request.urlopen(url, timeout=20) as response:
+            data = json.loads(response.read().decode('utf-8'))
+        translated = ''.join(part[0] for part in data[0]).strip()
+    except Exception:
+        translated = clean
+    cache[key] = translated
+    return translated
+
+
+def native_attrs(text: str, cache: dict[str, str]) -> str:
+    values = {'tc': ' '.join(html.unescape(text).split())}
+    values['sc'] = translate_native(values['tc'], 'zh-CN', cache)
+    values['ko'] = translate_native(values['tc'], 'ko', cache)
+    values['ja'] = translate_native(values['tc'], 'ja', cache)
+    return ' '.join(f'data-native-{code}="{html.escape(value, quote=True)}"' for code, value in values.items())
+
+
+def enrich_native_language(text: str, cache: dict[str, str]) -> str:
+    """Add static multilingual translation attributes to Chinese translation sections."""
+    if 'data-native-lang-script' in text:
+        return text
+
+    text = re.sub(
+        r'<h2>文章摘要</h2>',
+        '<h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約">文章摘要</h2>',
+        text,
+        count=1,
+    )
+
+    def zh_summary_repl(match: re.Match[str]) -> str:
+        paragraph = match.group(1)
+        plain = re.sub(r'<[^>]+>', '', paragraph)
+        attrs = native_attrs(plain, cache)
+        return f'<p class="native-text" {attrs}>{html.escape(html.unescape(plain))}</p>'
+
+    text = re.sub(
+        r'<section class="zh-box zh">(.*?)</section>',
+        lambda section: re.sub(r'<p>(.*?)</p>', zh_summary_repl, section.group(0), flags=re.DOTALL),
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+    def definition_repl(match: re.Match[str]) -> str:
+        body_html = match.group(1)
+        plain = re.sub(r'<[^>]+>', '', body_html)
+        attrs = native_attrs(plain, cache)
+        label_attrs = ' '.join(
+            f'data-label-{code}="{html.escape(meta["definition"], quote=True)}"'
+            for code, meta in NATIVE_LANGS.items()
+        )
+        return (
+            f'<p class="def zh native-text" data-native-role="definition" {attrs}>'
+            f'<strong class="native-label" {label_attrs}>中文定義：</strong>'
+            f'<span class="native-body">{html.escape(html.unescape(plain))}</span></p>'
+        )
+
+    text = re.sub(
+        r'<p class="def zh"><strong>中文定義：</strong>(.*?)</p>',
+        definition_repl,
+        text,
+        flags=re.DOTALL,
+    )
+
+    script = '''<script data-native-lang-script>
+(function(){
+  const allowed = new Set(['tc','sc','ko','ja']);
+  const params = new URLSearchParams(location.search);
+  let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
+  if(!allowed.has(lang)) lang = 'tc';
+  document.documentElement.dataset.nativeLanguage = lang;
+  localStorage.setItem('nativeLanguage', lang);
+  function applyNativeLanguage(){
+    document.querySelectorAll('.native-heading').forEach(el => {
+      const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
+      if(value) el.textContent = value;
+    });
+    document.querySelectorAll('.native-text').forEach(el => {
+      const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
+      const label = el.querySelector('.native-label');
+      const body = el.querySelector('.native-body');
+      if(label) label.textContent = label.dataset['label' + lang.charAt(0).toUpperCase() + lang.slice(1)] || label.dataset.labelTc || label.textContent;
+      if(body) body.textContent = value;
+      else if(value) el.textContent = value;
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyNativeLanguage);
+  else applyNativeLanguage();
+})();
+</script>'''
+    return text.replace('</body>', script + '\n</body>') if '</body>' in text else text + script
 
 
 class TitleParser(HTMLParser):
@@ -160,10 +287,14 @@ def inject_standalone_nav(text: str, items: list[Item], current: Item) -> str:
 def copy_items(items: list[Item]) -> None:
     LESSONS_DIR.mkdir(parents=True, exist_ok=True)
     REVIEWS_DIR.mkdir(parents=True, exist_ok=True)
+    cache = load_translation_cache()
     for item in items:
         shutil.copy2(item.src, item.dest)
         text = item.dest.read_text(encoding='utf-8', errors='ignore')
+        if item.kind == 'daily':
+            text = enrich_native_language(text, cache)
         item.dest.write_text(inject_standalone_nav(text, items, item), encoding='utf-8')
+    save_translation_cache(cache)
 
 
 def nav(items: list[Item], kind: str, limit: int | None = None) -> str:
@@ -218,6 +349,11 @@ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc
 .viewer-shell{{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}}
 iframe{{width:100%;flex:1;border:0;background:white}}
 .close-menu{{display:none}}
+.language-control{{position:fixed;top:14px;right:18px;z-index:45;display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.94);box-shadow:0 10px 25px rgba(36,24,12,.1);backdrop-filter:blur(10px)}}
+.language-control-mobile{{display:none}}
+.globe-icon{{width:22px;height:22px;color:var(--accent);flex:0 0 auto}}
+.language-divider{{width:1px;height:24px;background:var(--line);display:block}}
+.native-select{{border:0;background:transparent;color:var(--ink);font-weight:850;font-size:14px;outline:none;max-width:132px}}
 @media(max-width:860px){{
   body{{padding-top:calc(58px + env(safe-area-inset-top));overflow:hidden}}
   .mobile-bar{{display:flex;position:fixed;top:0;left:0;right:0;height:calc(58px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 12px 8px;align-items:center;gap:10px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:40}}
@@ -227,7 +363,11 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   .hamburger::before{{top:0}}
   .hamburger span{{top:6px}}
   .hamburger::after{{bottom:0}}
-  .site-title{{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(25px,6.3vw,32px);letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+  .site-title{{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}}
+  .language-control{{position:static;min-height:38px;padding:6px 8px;gap:7px;box-shadow:none;background:transparent;border-color:var(--line);margin-left:auto;flex:0 0 auto}}
+  .language-control-mobile{{display:inline-flex}}
+  .language-control-desktop{{display:none}}
+  .globe-icon{{width:20px;height:20px}}.language-divider{{height:22px}}.native-select{{max-width:86px;font-size:13px}}
   .app{{display:block;min-height:calc(100vh - 58px - env(safe-area-inset-top))}}
   aside{{position:fixed;top:0;bottom:0;left:0;width:min(88vw,360px);height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;z-index:60;background:rgba(255,253,248,.98)}}
   body.menu-open aside{{transform:translateX(0)}}
@@ -242,7 +382,8 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 </style>
 </head>
 <body>
-<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English Lessons</div></div>
+<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English Lessons</div><div class="language-control language-control-mobile" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-mobile" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="language-control language-control-desktop" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-desktop" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div>
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
@@ -264,6 +405,12 @@ const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
 const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
+const nativeSelects=[...document.querySelectorAll('.native-select')];
+const allowedNative=new Set(['tc','sc','ko','ja']);
+let nativeLanguage=localStorage.getItem('nativeLanguage')||'tc';
+if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
+function lessonSrc(url){{return url+(url.includes('?')?'&':'?')+'embedded=1&native='+encodeURIComponent(nativeLanguage)}}
+function syncNativeSelects(){{nativeSelects.forEach(select=>select.value=nativeLanguage)}}
 function setMenu(opened){{
   document.body.classList.toggle('menu-open', opened);
   menuButton?.setAttribute('aria-expanded', opened ? 'true' : 'false');
@@ -272,16 +419,24 @@ function select(url){{
   const link=links.find(a=>a.dataset.url===url)||links[0];
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
-  viewer.src=link.dataset.url+(link.dataset.url.includes('?')?'&':'?')+'embedded=1';
+  viewer.src=lessonSrc(link.dataset.url);
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
 }}
 links.forEach(a=>a.addEventListener('click',e=>{{e.preventDefault();select(a.dataset.url)}}));
+nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{{
+  nativeLanguage=allowedNative.has(selectEl.value)?selectEl.value:'tc';
+  localStorage.setItem('nativeLanguage',nativeLanguage);
+  syncNativeSelects();
+  const active=links.find(a=>a.classList.contains('active'))||links[0];
+  if(active)viewer.src=lessonSrc(active.dataset.url);
+}}));
 menuButton?.addEventListener('click',()=>setMenu(true));
 closeMenu?.addEventListener('click',()=>setMenu(false));
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
-select(decodeURIComponent(location.hash.slice(1)).replace(/[?&]embedded=1$/,'')||{latest_url!r});
+syncNativeSelects();
+select(decodeURIComponent(location.hash.slice(1)).replace(/[?&]embedded=1.*$/,'')||{latest_url!r});
 </script>
 </body>
 </html>'''
