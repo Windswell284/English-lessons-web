@@ -211,6 +211,8 @@ Verifier path:
 
 Skill name to restore/update: `daily-english-lessons`
 
+- Homepage native-language selector: show a simple globe icon, a vertical divider, then a dropdown in the top-right homepage header. Default is `繁體中文`; include options `繁體中文`, `简体中文`, `한국어`, and `日本語`. The selected value controls the native-language translation sections in lesson pages, including the article-summary translation and vocabulary-definition translations.
+
 ### Content format
 
 Each daily English lesson should be a current-events vocabulary page based on a reputable English-language article.
