@@ -251,10 +251,7 @@ def standalone_nav_html(items: list[Item], current: Item) -> str:
             '<button id="standalone-expand-lessons" class="standalone-expand-lessons" type="button" '
             'aria-expanded="false" aria-label="Show more lessons">…</button>'
         )
-        links.insert(
-            COLLAPSED_DAILY_TOTAL + 1,
-            f'<a class="standalone-contact-link" href="{html.escape(contact_href)}">Contact us</a>'
-        )
+    links.append(f'<a class="standalone-contact-link" href="{html.escape(contact_href)}">Contact us</a>')
     links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
     return f'''<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
@@ -352,8 +349,8 @@ def build_index(items: list[Item]) -> str:
     old_nav_parts = [nav_link(x) for x in old_visible]
     if old_extra:
         old_nav_parts.append('<button id="expand-lessons" class="expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons">…</button>')
-        old_nav_parts.append('<a class="contact-link" href="contact-us.html">Contact us</a>')
         old_nav_parts.extend(nav_link(x, 'nav-item nav-extra') for x in old_extra)
+    old_nav_parts.append('<a class="contact-link" href="contact-us.html">Contact us</a>')
     old_nav = '\n'.join(old_nav_parts) or '<p class="empty">No previous lessons yet.</p>'
     return f'''<!doctype html>
 <html lang="en">
