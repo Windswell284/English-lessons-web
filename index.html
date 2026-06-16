@@ -20,6 +20,10 @@ h1{font-family:ui-serif,Georgia,serif;font-size:42px;line-height:1.02;letter-spa
 .badge{display:inline-flex;min-height:34px;align-items:center;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--soft);font-size:13px;font-weight:800;margin:0 0 18px}
 h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:22px 0 10px}
 .nav-item{display:block;text-decoration:none;color:var(--ink);padding:12px;border:1px solid var(--line);background:var(--paper);border-radius:16px;margin:9px 0;transition:.15s ease}
+.nav-extra{display:none}
+body.lessons-expanded .nav-extra{display:block}
+.expand-lessons{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed var(--line);background:var(--paper);border-radius:16px;color:var(--accent);font-size:24px;font-weight:950;line-height:1;cursor:pointer}
+body.lessons-expanded .expand-lessons{display:none}
 .nav-item:hover,.nav-item.active{border-color:rgba(23,63,95,.55);transform:translateY(-1px);box-shadow:0 8px 20px rgba(45,31,16,.08)}
 .date{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
 .title{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}
@@ -72,9 +76,10 @@ iframe{width:100%;flex:1;border:0;background:white}
 <a class="nav-item" href="#lessons/daily-english-2026-06-14.html" data-url="lessons/daily-english-2026-06-14.html"><span class="date">Jun 14, 2026</span><span class="title">US-Iran Deal Timing</span></a>
 <a class="nav-item" href="#lessons/daily-english-2026-06-13.html" data-url="lessons/daily-english-2026-06-13.html"><span class="date">Jun 13, 2026</span><span class="title">Hormuz Reopening Deal</span></a>
 <a class="nav-item" href="#lessons/daily-english-2026-06-12.html" data-url="lessons/daily-english-2026-06-12.html"><span class="date">Jun 12, 2026</span><span class="title">El Niño Under Way</span></a>
-<a class="nav-item" href="#lessons/daily-english-2026-06-11.html" data-url="lessons/daily-english-2026-06-11.html"><span class="date">Jun 11, 2026</span><span class="title">Taiwan Drills with U.S. Rocket System</span></a>
-<a class="nav-item" href="#lessons/daily-english-2026-06-10.html" data-url="lessons/daily-english-2026-06-10.html"><span class="date">Jun 10, 2026</span><span class="title">U.S. and Iran Exchange Strikes</span></a>
-<a class="nav-item" href="#lessons/daily-english-2026-06-09.html" data-url="lessons/daily-english-2026-06-09.html"><span class="date">Jun 9, 2026</span><span class="title">TSMC and Chip Prices</span></a>
+<button id="expand-lessons" class="expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons">…</button>
+<a class="nav-item nav-extra" href="#lessons/daily-english-2026-06-11.html" data-url="lessons/daily-english-2026-06-11.html"><span class="date">Jun 11, 2026</span><span class="title">Taiwan Drills with U.S. Rocket System</span></a>
+<a class="nav-item nav-extra" href="#lessons/daily-english-2026-06-10.html" data-url="lessons/daily-english-2026-06-10.html"><span class="date">Jun 10, 2026</span><span class="title">U.S. and Iran Exchange Strikes</span></a>
+<a class="nav-item nav-extra" href="#lessons/daily-english-2026-06-09.html" data-url="lessons/daily-english-2026-06-09.html"><span class="date">Jun 9, 2026</span><span class="title">TSMC and Chip Prices</span></a>
   </aside>
   <main>
     <div class="viewer-shell">
@@ -87,6 +92,7 @@ const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
 const drawerTop=document.getElementById('drawer-top');
+const expandLessons=document.getElementById('expand-lessons');
 const backdrop=document.getElementById('backdrop');
 const nativeSelects=[...document.querySelectorAll('.native-select')];
 const allowedNative=new Set(['tc','sc','ko','ja']);
@@ -102,6 +108,7 @@ function select(url){
   const link=links.find(a=>a.dataset.url===url)||links[0];
   if(!link)return;
   links.forEach(a=>a.classList.toggle('active',a===link));
+  if(link.classList.contains('nav-extra'))document.body.classList.add('lessons-expanded');
   viewer.src=lessonSrc(link.dataset.url);
   if(location.hash!=='#'+link.dataset.url)history.replaceState(null,'','#'+link.dataset.url);
   setMenu(false);
@@ -116,6 +123,7 @@ nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{
 }));
 menuButton?.addEventListener('click',()=>setMenu(true));
 drawerTop?.addEventListener('click',()=>setMenu(false));
+expandLessons?.addEventListener('click',()=>{document.body.classList.add('lessons-expanded');expandLessons.setAttribute('aria-expanded','true')});
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 syncNativeSelects();
