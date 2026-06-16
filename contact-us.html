@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact Us | Daily English</title>
+<style>
+:root{--bg:#f4f0e8;--paper:#fffdf8;--ink:#1f1c18;--muted:#6d6459;--line:#ded3c4;--accent:#173f5f;--soft:#efe4d3;--ok:#236b4e;--bad:#9b2f24;--shadow:0 18px 45px rgba(36,24,12,.12)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}.wrap{width:min(760px,calc(100% - 32px));margin:0 auto;padding:34px 0 52px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}.brand{font-family:ui-serif,Georgia,serif;font-size:clamp(30px,7vw,54px);line-height:1;font-weight:950;letter-spacing:-.05em}.home{color:var(--accent);font-weight:850;text-decoration:none;border:1px solid var(--line);background:rgba(255,253,248,.75);border-radius:999px;padding:9px 13px;white-space:nowrap}.card{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:clamp(20px,5vw,34px)}h1{font-family:ui-serif,Georgia,serif;font-size:clamp(34px,7vw,58px);line-height:1.02;letter-spacing:-.05em;margin:0 0 10px}.intro{color:var(--muted);font-size:17px;margin:0 0 24px}.contact-types{display:grid;gap:12px;margin:0 0 24px}.type{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);background:#fffaf2;border-radius:18px}.emoji{font-size:24px;line-height:1.2}.type strong{display:block;font-size:17px}.type span:last-child{display:block;color:var(--muted);font-size:14px;margin-top:2px}form{display:grid;gap:14px}label{font-weight:900;color:var(--accent);font-size:13px;letter-spacing:.08em;text-transform:uppercase}select,input,textarea{width:100%;border:1px solid var(--line);border-radius:16px;background:white;color:var(--ink);font:inherit;padding:12px 14px;outline:none}textarea{min-height:150px;resize:vertical}select:focus,input:focus,textarea:focus{border-color:rgba(23,63,95,.65);box-shadow:0 0 0 4px rgba(23,63,95,.12)}.hint{margin:-6px 0 0;color:var(--muted);font-size:13px}.row{display:grid;gap:8px}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}button{border:0;background:var(--accent);color:white;border-radius:999px;padding:12px 18px;font-weight:950;cursor:pointer}.status{font-weight:800}.status.ok{color:var(--ok)}.status.bad{color:var(--bad)}.fineprint{margin:18px 0 0;color:var(--muted);font-size:13px}@media(max-width:560px){.top{align-items:flex-start;flex-direction:column}.home{align-self:flex-start}.wrap{width:min(100% - 24px,760px);padding-top:20px}.card{border-radius:20px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top"><div class="brand">Daily English</div><a class="home" href="/">← Lessons</a></div>
+    <main class="card">
+      <h1>Contact Us</h1>
+      <p class="intro">Have an idea, feedback, or a problem with the lesson site? Send a short note here.</p>
+      <section class="contact-types" aria-label="Contact options">
+        <div class="type"><span class="emoji" aria-hidden="true">💡</span><span><strong>Request a Feature</strong><span>Suggest something that would make the lessons more useful.</span></span></div>
+        <div class="type"><span class="emoji" aria-hidden="true">💬</span><span><strong>Share Feedback</strong><span>Tell us what works well or what could be improved.</span></span></div>
+        <div class="type"><span class="emoji" aria-hidden="true">🐞</span><span><strong>Report a Bug or Issue</strong><span>Let us know if something is broken or confusing.</span></span></div>
+      </section>
+      <form id="contact-form">
+        <div class="row"><label for="type">Contact type</label><select id="type" name="type" required><option value="feature">💡 Request a Feature</option><option value="feedback">💬 Share Feedback</option><option value="bug">🐞 Report a Bug or Issue</option></select></div>
+        <div class="row"><label for="email">Email optional</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"><p class="hint">Only include this if you want a reply.</p></div>
+        <div class="row"><label for="message">Message</label><textarea id="message" name="message" required maxlength="4000" placeholder="Write your note here…"></textarea></div>
+        <input id="page" name="page" type="hidden">
+        <div class="actions"><button type="submit">Send message</button><span id="status" class="status" role="status" aria-live="polite"></span></div>
+      </form>
+      <p class="fineprint">Submissions are sent securely to the site owner. Please do not include passwords or sensitive personal information.</p>
+    </main>
+  </div>
+<script>
+const form=document.getElementById('contact-form');
+const statusEl=document.getElementById('status');
+document.getElementById('page').value=document.referrer||location.href;
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  statusEl.className='status';
+  statusEl.textContent='Sending…';
+  const payload=Object.fromEntries(new FormData(form).entries());
+  try{
+    const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(data.error||'Message could not be sent yet.');
+    form.reset();
+    statusEl.className='status ok';
+    statusEl.textContent='Sent — thank you!';
+  }catch(err){
+    statusEl.className='status bad';
+    statusEl.textContent=err.message||'Message could not be sent yet.';
+  }
+});
+</script>
+</body>
+</html>
