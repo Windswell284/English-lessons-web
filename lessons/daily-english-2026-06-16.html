@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thames Water Nationalisation</title>
+  <style>
+    :root{
+      --bg:#f4f0e8; --paper:#fffdf8; --ink:#1f1c18; --muted:#6d6459; --line:#ded3c4;
+      --accent:#173f5f; --accent2:#8f3f2f; --soft:#efe4d3; --blue-soft:#f7fbff;
+      --green-soft:#eef7ef; --shadow:0 18px 45px rgba(36,24,12,.12);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:ui-serif,Georgia,"Times New Roman",serif;line-height:1.72}
+    .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
+    header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:clamp(22px,4vw,38px);margin:18px 0}
+    .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+    h1{font-size:clamp(28px,5.1vw,48px);line-height:1.08;letter-spacing:-.035em;margin:10px 0 14px}
+    h2{font-size:clamp(27px,5vw,42px);line-height:1.12;letter-spacing:-.035em;margin:0 0 16px}
+    p,li{font-size:clamp(19px,3.8vw,23px)}
+    a{color:var(--accent);font-weight:800}
+    .subtitle{color:var(--muted);max-width:72ch}
+    .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font:750 14px/1.2 ui-sans-serif,system-ui,sans-serif}
+    .source-box{border:2px solid rgba(23,63,95,.28);background:var(--blue-soft);border-radius:22px;padding:18px;margin-top:18px}
+    .source-box p{margin:.35rem 0}
+    .zh-box{border-left:6px solid var(--accent);background:var(--blue-soft)}
+    .zh{font-family:"Noto Serif TC","PingFang TC","Microsoft JhengHei",ui-serif,Georgia,serif}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .vocab-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px}
+    .phrase-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .phrase{font-size:clamp(26px,4.8vw,38px);font-weight:900;line-height:1.1;color:var(--accent)}
+    .speak-button{flex:0 0 auto;border:1px solid var(--line);background:var(--soft);color:var(--accent);border-radius:999px;min-width:42px;min-height:38px;padding:6px 10px;font:900 15px/1 ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+    .speak-button:focus-visible{outline:4px solid rgba(23,63,95,.22);outline-offset:3px}
+    .speak-button:active{transform:translateY(1px)}
+    .sound-icon{display:block;width:18px;height:18px}
+    .def{margin:.55rem 0}
+    .def strong{color:var(--accent2)}
+    .orig{background:#fff7e8;border-left:5px solid var(--accent2);padding:12px 14px;border-radius:14px;margin:.75rem 0;font-size:clamp(18px,3.4vw,22px)}
+    mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
+    .notes{background:var(--green-soft)}
+    @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
+<style id="standalone-lesson-nav-style">
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:58px;padding:8px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:70px!important}
+html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
+.standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.standalone-hamburger{display:block;width:19px;height:14px;position:relative}
+.standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
+.standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
+.standalone-site-title{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(23px,6vw,32px);letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18}
+.standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
+.standalone-close{float:right;border:1px solid #ded3c4;background:#efe4d3;border-radius:999px;min-height:36px;padding:0 12px;font-weight:900;color:#1f1c18}
+.standalone-drawer h2{clear:both;margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}
+.standalone-drawer p{margin:0 0 14px;color:#6d6459;font-size:14px}.standalone-drawer h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}
+.standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
+.standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}
+</style>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English Lessons</div></div>
+<div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English<br>Lessons</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3><a class="standalone-nav-link active" href="./daily-english-2026-06-16.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Thames Water Nationalisation</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-15.html"><span class="standalone-date">Jun 15, 2026</span><span class="standalone-title">UK-Japan Investment</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-14.html"><span class="standalone-date">Jun 14, 2026</span><span class="standalone-title">US-Iran Deal Timing</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-13.html"><span class="standalone-date">Jun 13, 2026</span><span class="standalone-title">Hormuz Reopening Deal</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-12.html"><span class="standalone-date">Jun 12, 2026</span><span class="standalone-title">El Niño Under Way</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-11.html"><span class="standalone-date">Jun 11, 2026</span><span class="standalone-title">Taiwan Drills with U.S. Rocket System</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-10.html"><span class="standalone-date">Jun 10, 2026</span><span class="standalone-title">U.S. and Iran Exchange Strikes</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-09.html"><span class="standalone-date">Jun 9, 2026</span><span class="standalone-title">TSMC and Chip Prices</span></a></nav>
+<script id="standalone-lesson-nav-script">
+(() => {
+  const btn=document.getElementById('standalone-menu-button');
+  const close=document.getElementById('standalone-close-menu');
+  const backdrop=document.getElementById('standalone-backdrop');
+  const setMenu=open=>{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')};
+  btn?.addEventListener('click',()=>setMenu(true)); close?.addEventListener('click',()=>setMenu(false)); backdrop?.addEventListener('click',()=>setMenu(false));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+})();
+</script>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Daily English · Current Events · June 16, 2026</div>
+      <h1>Thames Water Nationalisation</h1>
+      <p class="subtitle">Today’s lesson uses a BBC News business article about the UK government’s objection to a rescue proposal for Thames Water and the policy language used when a major utility is at risk.</p>
+      <div class="pills"><span class="pill">Level: intermediate</span><span class="pill">Time: 5–10 minutes</span></div>
+      <div class="source-box">
+        <div class="eyebrow">Source article</div>
+        <p><strong>Title:</strong> “Thames Water moves step closer to nationalisation after government objects to rescue deal”</p>
+        <p><strong>Source:</strong> BBC News</p>
+        <p><strong>Published:</strong> June 16, 2026</p>
+        <p><strong>Read the original article:</strong> <a href="https://www.bbc.com/news/articles/cly089d0wl7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener">BBC News article link</a></p>
+      </div>
+    </header>
+
+    <section>
+      <h2>Article Summary</h2>
+      <p>BBC News reported that the UK government objected to a proposed rescue package for Thames Water, moving the country’s largest water company closer to a possible form of temporary nationalisation. The company has faced pressure over debt, sewage spills, leaks, and criticism of its performance.</p>
+      <p>The article explains that lenders proposed writing off part of the company’s debt and providing new money, but the government raised concerns about consumer protection, environmental protection, and the burden that the plan could place on customers.</p>
+    </section>
+
+    <section class="zh-box zh">
+      <h2>文章摘要</h2>
+      <p>BBC News 報導，英國政府反對泰晤士水務的一項救援方案，使這家英國最大供水公司更接近可能的暫時國有化。該公司近年因高額債務、污水排放、管線漏水與營運表現受到批評。</p>
+      <p>文章指出，放款方提出減免部分債務並注入新資金，但英國政府擔心這項方案不足以保護消費者與環境，也可能把不合理的負擔轉嫁給用戶。</p>
+    </section>
+
+    <section>
+      <h2>5 Daily Keywords</h2>
+      <div class="grid">
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">leniency</div><button class="speak-button" type="button" data-say="leniency" aria-label="Play pronunciation for leniency"><svg class="sound-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="orig"><strong>In article:</strong> “A group of its existing lenders has offered to write off £9.4bn of its near £20bn debt pile and inject billions in new money, but want <mark>leniency</mark> from future pollution fines in return.”</p>
+          <p class="def"><strong>English definition:</strong> a softer or less severe treatment than the rules might normally allow, especially in punishment, regulation, or enforcement.</p>
+          <p class="def zh"><strong>中文定義：</strong>寬待、從寬處理；在處罰、監管或執法上比通常規則更不嚴厲的做法。</p>
+          <p><strong>Usage note:</strong> In policy news, <em>leniency</em> often suggests a regulator may reduce penalties or apply rules less strictly.</p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">debt facility</div><button class="speak-button" type="button" data-say="debt facility" aria-label="Play pronunciation for debt facility"><svg class="sound-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="orig"><strong>In article:</strong> “London &amp; Valley Water, a consortium of large financial institutions and investors, said some £3.35bn of cash would be put into the company along with a new £6.55bn <mark>debt facility</mark>.”</p>
+          <p class="def"><strong>English definition:</strong> an arranged borrowing line that lets a company access loans under agreed conditions, often as part of a restructuring or financing plan.</p>
+          <p class="def zh"><strong>中文定義：</strong>債務融資額度；公司可依約定條件借款的安排，常見於重整或融資計畫。</p>
+          <p><strong>Usage note:</strong> <em>Facility</em> in finance does not mean a building; it means an agreed source of funding.</p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">full compliance</div><button class="speak-button" type="button" data-say="full compliance" aria-label="Play pronunciation for full compliance"><svg class="sound-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="orig"><strong>In article:</strong> “A spokesman for the group has previously said the proposed rescue deal would ‘fund significant improvements for customers, clean up local rivers and achieve <mark>full compliance</mark> as quickly as possible’.”</p>
+          <p class="def"><strong>English definition:</strong> complete obedience to laws, regulations, standards, or official requirements.</p>
+          <p class="def zh"><strong>中文定義：</strong>完全合規；完全遵守法律、規定、標準或官方要求。</p>
+          <p><strong>Usage note:</strong> <em>Compliance</em> is very common in business, law, environmental regulation, banking, and corporate governance.</p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">undue burden</div><button class="speak-button" type="button" data-say="undue burden" aria-label="Play pronunciation for undue burden"><svg class="sound-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="orig"><strong>In article:</strong> “The Times, which first reported the story, said the government’s intervention was over concerns the deal would place an ‘<mark>undue burden</mark>’ on customers.”</p>
+          <p class="def"><strong>English definition:</strong> an unfair, excessive, or unreasonable load of cost, responsibility, difficulty, or risk.</p>
+          <p class="def zh"><strong>中文定義：</strong>不當負擔、過度負擔；指成本、責任、困難或風險被不公平或不合理地加在某人身上。</p>
+          <p><strong>Usage note:</strong> <em>Undue</em> is a formal adjective meaning “more than is reasonable or appropriate.”</p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">special administration regime</div><button class="speak-button" type="button" data-say="special administration regime" aria-label="Play pronunciation for special administration regime"><svg class="sound-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="orig"><strong>In article:</strong> “The form of temporary nationalisation on the table is known as a <mark>special administration regime</mark> (SAR), which ensures vital companies such as water, are kept running by government appointed managers.”</p>
+          <p class="def"><strong>English definition:</strong> a legal process that allows the government or court-appointed managers to keep an essential company operating when it is in serious financial trouble.</p>
+          <p class="def zh"><strong>中文定義：</strong>特別接管制度；在重要公司陷入嚴重財務困境時，讓政府或法院指定管理人維持其營運的法律程序。</p>
+          <p><strong>Usage note:</strong> <em>Regime</em> here means a system of rules, not necessarily a political government.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="notes">
+      <h2>Word Origins &amp; Notes</h2>
+      <p><strong>Compliance:</strong> The word comes from the idea of “bending with” a rule or request; in modern English it means meeting required standards.</p>
+      <p><strong>Undue:</strong> The prefix-like form <em>un-</em> reverses the idea of <em>due</em>, so <em>undue</em> means not properly due, not justified, or excessive.</p>
+      <p><strong>Regime:</strong> In policy and legal English, <em>regime</em> often means a framework of rules, such as a tax regime or regulatory regime.</p>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    function cleanText(text){return (text||'').replace(/^to\s+/i,'').replace(/\s*\/\s*to\s*/i,'; ').trim();}
+    document.addEventListener('click', function(event){
+      const button = event.target.closest('.speak-button');
+      if(!button || !('speechSynthesis' in window)) return;
+      const text = cleanText(button.dataset.say || button.textContent);
+      if(!text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.82;
+      window.speechSynthesis.speak(utterance);
+    });
+  })();
+  </script>
+</body>
+</html>
