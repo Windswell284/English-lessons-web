@@ -256,22 +256,20 @@ html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalon
 .standalone-backdrop{{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}}
 .standalone-drawer{{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
 body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.standalone-menu-open .standalone-backdrop{{opacity:1;pointer-events:auto}}
-.standalone-close{{float:right;border:1px solid #ded3c4;background:#efe4d3;border-radius:999px;min-height:36px;padding:0 12px;font-weight:900;color:#1f1c18}}
-.standalone-drawer h2{{clear:both;margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}}
+.standalone-drawer h2{{margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}}
 .standalone-drawer p{{margin:0 0 14px;color:#6d6459;font-size:14px}}.standalone-drawer h3{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}}
 .standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
 .standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
 </style>
 <div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-close-menu" class="standalone-close" type="button">Close</button><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3>{links_html}</nav>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3>{links_html}</nav>
 <script id="standalone-lesson-nav-script">
 (() => {{
   const btn=document.getElementById('standalone-menu-button');
-  const close=document.getElementById('standalone-close-menu');
   const backdrop=document.getElementById('standalone-backdrop');
   const setMenu=open=>{{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')}};
-  btn?.addEventListener('click',()=>setMenu(true)); close?.addEventListener('click',()=>setMenu(false)); backdrop?.addEventListener('click',()=>setMenu(false));
+  btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false));
   document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
 }})();
 </script>'''
@@ -348,7 +346,6 @@ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc
 .empty{{color:var(--muted);font-size:14px}}
 .viewer-shell{{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}}
 iframe{{width:100%;flex:1;border:0;background:white}}
-.close-menu{{display:none}}
 .language-control{{position:fixed;top:14px;right:18px;z-index:45;display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.94);box-shadow:0 10px 25px rgba(36,24,12,.1);backdrop-filter:blur(10px)}}
 .language-control-mobile{{display:none}}
 .globe-icon{{width:22px;height:22px;color:var(--accent);flex:0 0 auto}}
@@ -373,8 +370,7 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   body.menu-open aside{{transform:translateX(0)}}
   .backdrop{{display:block;position:fixed;inset:0;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:50}}
   body.menu-open .backdrop{{opacity:1;pointer-events:auto}}
-  .close-menu{{display:inline-flex;align-items:center;justify-content:center;float:right;border:1px solid var(--line);background:var(--soft);border-radius:999px;min-height:36px;padding:0 12px;font-weight:900}}
-  aside h1{{font-size:38px;clear:both}}
+  aside h1{{font-size:38px}}
   aside .sub{{font-size:14px}}
   main{{padding:8px;height:calc(100dvh - 58px - env(safe-area-inset-top))}}
   .viewer-shell{{height:100%;border-radius:18px}}
@@ -387,7 +383,6 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
-    <button id="close-menu" class="close-menu" type="button">Close</button>
     <h1>Daily English</h1>
     <p class="sub">Updates 9 AM Hong Kong / Taiwan time</p>
     <h2>Today / Latest</h2>{today_nav}
@@ -403,7 +398,6 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 const links=[...document.querySelectorAll('.nav-item')];
 const viewer=document.getElementById('viewer');
 const menuButton=document.getElementById('menu-button');
-const closeMenu=document.getElementById('close-menu');
 const backdrop=document.getElementById('backdrop');
 const nativeSelects=[...document.querySelectorAll('.native-select')];
 const allowedNative=new Set(['tc','sc','ko','ja']);
@@ -432,7 +426,6 @@ nativeSelects.forEach(selectEl=>selectEl.addEventListener('change',()=>{{
   if(active)viewer.src=lessonSrc(active.dataset.url);
 }}));
 menuButton?.addEventListener('click',()=>setMenu(true));
-closeMenu?.addEventListener('click',()=>setMenu(false));
 backdrop?.addEventListener('click',()=>setMenu(false));
 document.addEventListener('keydown',e=>{{if(e.key==='Escape')setMenu(false)}});
 syncNativeSelects();
