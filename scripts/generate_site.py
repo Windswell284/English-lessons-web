@@ -242,20 +242,20 @@ def standalone_nav_html(items: list[Item], current: Item) -> str:
         links.insert(
             COLLAPSED_DAILY_TOTAL,
             '<button id="standalone-expand-lessons" class="standalone-expand-lessons" type="button" '
-            'aria-expanded="false" aria-label="Show more lessons">…</button>'
+            'aria-expanded="false" aria-label="Show more lessons"><span aria-hidden="true">···</span></button>'
         )
     links.append(f'<a class="standalone-contact-link" href="{html.escape(contact_href)}">Contact us</a>')
     links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
     return f'''<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
-.standalone-nav-bar{{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:58px;padding:8px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
-html:not(.standalone-embedded) body{{padding-top:70px!important}}
+.standalone-nav-bar{{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:64px;padding:calc(12px + env(safe-area-inset-top)) 12px 5px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
+html:not(.standalone-embedded) body{{padding-top:76px!important}}
 html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{{display:none!important}}
 .standalone-menu-button{{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}}
 .standalone-hamburger{{display:block;width:19px;height:14px;position:relative}}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}}
 .standalone-hamburger::before{{top:0}}.standalone-hamburger span{{top:6px}}.standalone-hamburger::after{{bottom:0}}
-.standalone-site-title{{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(23px,6vw,32px);letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}}
+.standalone-site-title{{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}}
 .standalone-language-control{{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}}
 .standalone-globe-icon{{width:20px;height:20px;color:#173f5f;flex:0 0 auto}}
 .standalone-language-divider{{width:1px;height:22px;background:#ded3c4;display:block}}
@@ -265,16 +265,16 @@ html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalon
 body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.standalone-menu-open .standalone-backdrop{{opacity:1;pointer-events:auto}}
 .standalone-drawer-top{{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}}
 .standalone-drawer-top:focus-visible{{outline:3px solid rgba(23,63,95,.35);outline-offset:3px;border-radius:16px}}
-.standalone-drawer h2{{margin:18px 0 4px;font-size:30px;line-height:1.05;font-family:ui-serif,Georgia,serif;color:#1f1c18}}
+.standalone-drawer h2{{margin:18px 0 4px;font-size:29px;font-weight:720;line-height:1.05;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.03em;color:#1f1c18}}
 .standalone-drawer p{{margin:0 0 14px;color:#6d6459;font-size:14px}}.standalone-drawer h3{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}}
 .standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
 .standalone-nav-extra{{display:none}}
 body.standalone-lessons-expanded .standalone-nav-extra{{display:block}}
-.standalone-expand-lessons{{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed #ded3c4;background:#fffaf2;border-radius:16px;color:#173f5f;font-size:24px;font-weight:950;line-height:1;cursor:pointer;text-align:left}}
+.standalone-expand-lessons{{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}}
 body.standalone-lessons-expanded .standalone-expand-lessons{{display:none}}
-.standalone-contact-link{{display:block;text-align:left;text-decoration:none;color:#173f5f;font-weight:900;padding:10px 12px;margin:2px 0 12px;border-radius:999px}}
+.standalone-contact-link{{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}}
 .standalone-contact-link:hover{{background:#efe4d3}}
-.standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
+.standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}}
 </style>
 <div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
@@ -359,7 +359,7 @@ def build_index(items: list[Item]) -> str:
     old_extra = old_daily[collapsed_old_count:OLD_DAILY_LIMIT]
     old_nav_parts = [nav_link(x) for x in old_visible]
     if old_extra:
-        old_nav_parts.append('<button id="expand-lessons" class="expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons">…</button>')
+        old_nav_parts.append('<button id="expand-lessons" class="expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons"><span aria-hidden="true">···</span></button>')
         old_nav_parts.extend(nav_link(x, 'nav-item nav-extra') for x in old_extra)
     old_nav_parts.append('<a class="contact-link" href="contact-us.html">Contact us</a>')
     old_nav = '\n'.join(old_nav_parts) or '<p class="empty">No previous lessons yet.</p>'
@@ -380,20 +380,20 @@ button{{font:inherit}}
 .app{{min-height:100vh;display:grid;grid-template-columns:360px 1fr}}
 aside{{position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid var(--line);background:rgba(255,253,248,.88);padding:22px;backdrop-filter:blur(8px);z-index:20}}
 main{{padding:22px;min-width:0}}
-h1{{font-family:ui-serif,Georgia,serif;font-size:42px;line-height:1.02;letter-spacing:-.045em;margin:0 0 10px}}
+h1{{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:40px;font-weight:720;line-height:1.02;letter-spacing:-.03em;margin:0 0 10px}}
 .sub{{color:var(--muted);font-size:15px;line-height:1.55;margin:0 0 18px}}
 .badge{{display:inline-flex;min-height:34px;align-items:center;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--soft);font-size:13px;font-weight:800;margin:0 0 18px}}
 h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:22px 0 10px}}
 .nav-item{{display:block;text-decoration:none;color:var(--ink);padding:12px;border:1px solid var(--line);background:var(--paper);border-radius:16px;margin:9px 0;transition:.15s ease}}
 .nav-extra{{display:none}}
 body.lessons-expanded .nav-extra{{display:block}}
-.expand-lessons{{display:block;width:100%;min-height:42px;margin:9px 0;padding:8px 12px;border:1px dashed var(--line);background:var(--paper);border-radius:16px;color:var(--accent);font-size:24px;font-weight:950;line-height:1;cursor:pointer;text-align:left}}
+.expand-lessons{{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}}
 body.lessons-expanded .expand-lessons{{display:none}}
-.contact-link{{display:block;text-align:left;text-decoration:none;color:var(--accent);font-weight:900;padding:10px 12px;margin:2px 0 12px;border-radius:999px}}
+.contact-link{{display:block;text-align:left;text-decoration:none;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}}
 .contact-link:hover{{background:var(--soft)}}
 .nav-item:hover,.nav-item.active{{border-color:rgba(23,63,95,.55);transform:translateY(-1px);box-shadow:0 8px 20px rgba(45,31,16,.08)}}
 .date{{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}
-.title{{display:block;font-family:ui-serif,Georgia,serif;font-size:17px;line-height:1.35}}
+.title{{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}}
 .empty{{color:var(--muted);font-size:14px}}
 .viewer-shell{{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}}
 iframe{{width:100%;flex:1;border:0;background:white}}
@@ -403,20 +403,20 @@ iframe{{width:100%;flex:1;border:0;background:white}}
 .language-divider{{width:1px;height:24px;background:var(--line);display:block}}
 .native-select{{border:0;background:transparent;color:var(--ink);font-weight:850;font-size:14px;outline:none;max-width:132px}}
 @media(max-width:860px){{
-  body{{padding-top:calc(58px + env(safe-area-inset-top));overflow:hidden}}
-  .mobile-bar{{display:flex;position:fixed;top:0;left:0;right:0;height:calc(58px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 12px 8px;align-items:center;gap:10px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:40}}
+  body{{padding-top:calc(64px + env(safe-area-inset-top));overflow:hidden}}
+  .mobile-bar{{display:flex;position:fixed;top:0;left:0;right:0;height:calc(64px + env(safe-area-inset-top));padding:calc(10px + env(safe-area-inset-top)) 12px 4px;align-items:center;gap:10px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:40}}
   .menu-button{{border:1px solid var(--line);background:var(--accent);color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-weight:900;flex:0 0 auto}}
   .hamburger{{display:block;width:19px;height:14px;position:relative}}
   .hamburger::before,.hamburger::after,.hamburger span{{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}}
   .hamburger::before{{top:0}}
   .hamburger span{{top:6px}}
   .hamburger::after{{bottom:0}}
-  .site-title{{font-family:ui-serif,Georgia,serif;font-weight:950;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.045em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}}
+  .site-title{{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}}
   .language-control{{position:static;min-height:38px;padding:6px 8px;gap:7px;box-shadow:none;background:transparent;border-color:var(--line);margin-left:auto;flex:0 0 auto}}
   .language-control-mobile{{display:inline-flex}}
   .language-control-desktop{{display:none}}
   .globe-icon{{width:20px;height:20px}}.language-divider{{height:22px}}.native-select{{max-width:86px;font-size:13px}}
-  .app{{display:block;min-height:calc(100vh - 58px - env(safe-area-inset-top))}}
+  .app{{display:block;min-height:calc(100vh - 64px - env(safe-area-inset-top))}}
   aside{{position:fixed;top:0;bottom:0;left:0;width:min(88vw,360px);height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;z-index:60;background:rgba(255,253,248,.98)}}
   .drawer-top{{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}}
   .drawer-top:focus-visible{{outline:3px solid rgba(23,63,95,.35);outline-offset:3px;border-radius:16px}}
@@ -425,7 +425,7 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   body.menu-open .backdrop{{opacity:1;pointer-events:auto}}
   aside h1{{font-size:38px}}
   aside .sub{{font-size:14px}}
-  main{{padding:8px;height:calc(100dvh - 58px - env(safe-area-inset-top))}}
+  main{{padding:8px;height:calc(100dvh - 64px - env(safe-area-inset-top))}}
   .viewer-shell{{height:100%;border-radius:18px}}
 }}
 </style>
