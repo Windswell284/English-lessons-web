@@ -228,7 +228,7 @@ Required format:
 - Do not include the small `Article base: title/source link + short learning snippets only.` description below the article link.
 - English summary heading: `Article Summary`.
 - Traditional Chinese summary heading: `文章摘要`.
-- Vocabulary heading: `5 Daily Keywords`.
+- Vocabulary heading: `5 Daily Words`.
 - Page `<title>`, lesson `<h1>`, and navigation names should use the clean article/topic title only; do not prefix them with labels like `Current Events English:`.
 - Exactly 5 vocabulary cards.
 - Vocabulary mix should be mostly single words, not phrases: normally 3–5 of the 5 items should be single words, with at most 0–2 phrases when especially useful.
@@ -336,7 +336,7 @@ Prompt must include the English preferences above, especially:
 - June 13 benchmark difficulty
 - `Article Summary`
 - `文章摘要`
-- `5 Daily Keywords`
+- `5 Daily Words`
 - pronunciation buttons
 - `In article:` excerpts
 
@@ -409,7 +409,7 @@ Lesson preferences:
 - Chinese and English lessons are daily current-events vocab-first web pages.
 - Chinese lessons use exactly 6 vocabulary cards; English lessons use exactly 5 vocabulary cards.
 - Chinese: Traditional Chinese, `中文摘要`, `Key Words`, no quiz, 國中挑戰版, source link/summary/vocab only, no full copyrighted article. Vocab should be 3–5 two-character words and 1–3 longer terms, with mixed/interleaved ordering. Include Zhuyin, Chinese definition, English definition, and original source sentence with highlight. Use single-button Pinyin/ㄅㄆㄇ toggle on normal daily pages.
-- English: source box, `Article Summary`, `文章摘要`, `5 Daily Keywords`, audio buttons, unlabeled English/native definitions, real source excerpt labeled `In article:`. Vocab should match June 13 harder-intermediate benchmark, not easy headline words.
+- English: source box, `Article Summary`, `文章摘要`, `5 Daily Words`, audio buttons, unlabeled English/native definitions, real source excerpt labeled `In article:`. Vocab should match June 13 harder-intermediate benchmark, not easy headline words.
 - Both sites: mobile-first, daily-only nav capped at 10 links, hamburger direct-page nav, no duplicate iframe nav, Vercel hosting, GitHub sync when possible, confirmations after publish.
 
 Keep this file somewhere safe outside Hermes.
