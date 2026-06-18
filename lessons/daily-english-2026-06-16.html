@@ -11,7 +11,8 @@
       --green-soft:#eef7ef; --shadow:0 18px 45px rgba(36,24,12,.12);
     }
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
     .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
     header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:none;padding:clamp(22px,4vw,38px);margin:18px 0}
     .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
@@ -40,24 +41,27 @@
     .orig+.def.zh{margin-top:1.15rem}
     mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
     .notes{background:var(--green-soft)}
+
+    .feedback-section{background:rgba(255,253,248,.94)}
+    .feedback-section iframe{display:block;width:100%;border:0;margin-top:12px;min-height:260px}
     @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
-.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:64px;padding:calc(12px + env(safe-area-inset-top)) 12px 5px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-html:not(.standalone-embedded) body{padding-top:76px!important}
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:84px!important}
 html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
 .standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
 .standalone-hamburger{display:block;width:19px;height:14px;position:relative}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
 .standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
 .standalone-site-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
-.standalone-language-control{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}
-.standalone-globe-icon{width:20px;height:20px;color:#173f5f;flex:0 0 auto}
+.standalone-language-control{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}
+.standalone-globe-icon{width:25px;height:25px;color:#173f5f;flex:0 0 auto}
 .standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
-.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:850;font-size:13px;outline:none;max-width:86px}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}
 .standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
 .standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
@@ -68,15 +72,16 @@ body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standa
 .standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
 .standalone-nav-extra{display:none}
 body.standalone-lessons-expanded .standalone-nav-extra{display:block}
-.standalone-expand-lessons{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}
+.standalone-expand-lessons{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}
 body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
-.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}
+.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}
 .standalone-contact-link:hover{background:#efe4d3}
 .standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-18.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Iran Oil Tankers Cross Blockade Line</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Jun 17, 2026</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
 <a class="standalone-nav-link active" href="./daily-english-2026-06-16.html"><span class="standalone-date">Jun 16, 2026</span><span class="standalone-title">Thames Water Nationalisation</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-15.html"><span class="standalone-date">Jun 15, 2026</span><span class="standalone-title">UK-Japan Investment</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-14.html"><span class="standalone-date">Jun 14, 2026</span><span class="standalone-title">US-Iran Deal Timing</span></a>
@@ -94,7 +99,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
   const drawerTop=document.getElementById('standalone-drawer-top');
   const expandLessons=document.getElementById('standalone-expand-lessons');
   const nativeSelect=document.getElementById('standalone-native-language');
-  const allowedNative=new Set(['tc','sc','ko','ja']);
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
   let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
   if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
   if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
@@ -116,7 +121,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
 </script>
   <main class="wrap">
     <header>
-      <div class="eyebrow">Daily English · Current Events · June 16, 2026</div>
+      <div class="eyebrow">Current Events · June 16, 2026</div>
       <h1>Thames Water Nationalisation</h1>
       <p class="subtitle">Today’s lesson uses a BBC News business article about the UK government’s objection to a rescue proposal for Thames Water and the policy language used when a major utility is at risk.</p>
       <div class="pills"><span class="pill">Level: intermediate</span><span class="pill">Time: 5–10 minutes</span></div>
@@ -136,9 +141,9 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     </section>
 
     <section class="zh-box zh">
-      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約">文章摘要</h2>
-      <p class="native-text" data-native-tc="BBC News 報導，英國政府反對泰晤士水務的一項救援方案，使這家英國最大供水公司更接近可能的暫時國有化。該公司近年因高額債務、污水排放、管線漏水與營運表現受到批評。" data-native-sc="BBC News 报导，英国政府反对泰晤士水务的一项救援方案，使这家英国最大供水公司更接近可能的暂时国有化。该公司近年因高额债务、污水排放、管线漏水与营运表现受到批评。" data-native-ko="BBC 뉴스에 따르면 영국 정부는 템즈 워터(Thames Water)에 대한 구조 조치에 반대해 영국 최대 물 회사가 임시 국유화 가능성에 가까워졌다고 보도했습니다. 이 회사는 최근 몇 년 동안 높은 부채, 하수 배출, 파이프라인 누출 및 운영 성과로 인해 비판을 받아왔습니다." data-native-ja="BBCニュースの報道によると、英国政府はテムズウォーターの救済策に反対しており、英国最大の水道会社は一時国有化の可能性に近づいている。同社は近年、多額の負債、下水の排出、パイプラインの漏洩、業績などで批判されてきた。">BBC News 報導，英國政府反對泰晤士水務的一項救援方案，使這家英國最大供水公司更接近可能的暫時國有化。該公司近年因高額債務、污水排放、管線漏水與營運表現受到批評。</p>
-      <p class="native-text" data-native-tc="文章指出，放款方提出減免部分債務並注入新資金，但英國政府擔心這項方案不足以保護消費者與環境，也可能把不合理的負擔轉嫁給用戶。" data-native-sc="文章指出，放款方提出减免部分债务并注入新资金，但英国政府担心这项方案不足以保护消费者与环境，也可能把不合理的负担转嫁给用户。" data-native-ko="기사는 대출 기관들이 부채의 일부를 탕감하고 새로운 자금을 투입하자고 제안했지만 영국 정부는 이 계획이 소비자와 환경을 보호하기에 충분하지 않고 사용자들에게도 불합리한 부담을 전가할 수 있다는 점을 우려하고 있다고 지적했습니다." data-native-ja="記事は、金融業者が債務の一部を免除し、新たな資金を注入することを提案しているが、英国政府はこの計画では消費者と環境を保護するのに十分ではなく、利用者に不当な負担を転嫁する可能性があると懸念していると指摘した。">文章指出，放款方提出減免部分債務並注入新資金，但英國政府擔心這項方案不足以保護消費者與環境，也可能把不合理的負擔轉嫁給用戶。</p>
+      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>
+      <p class="native-text" data-native-tc="BBC News 報導，英國政府反對泰晤士水務的一項救援方案，使這家英國最大供水公司更接近可能的暫時國有化。該公司近年因高額債務、污水排放、管線漏水與營運表現受到批評。" data-native-sc="BBC News 报导，英国政府反对泰晤士水务的一项救援方案，使这家英国最大供水公司更接近可能的暂时国有化。该公司近年因高额债务、污水排放、管线漏水与营运表现受到批评。" data-native-ko="BBC 뉴스에 따르면 영국 정부는 템즈 워터(Thames Water)에 대한 구조 조치에 반대해 영국 최대 물 회사가 임시 국유화 가능성에 가까워졌다고 보도했습니다. 이 회사는 최근 몇 년 동안 높은 부채, 하수 배출, 파이프라인 누출 및 운영 성과로 인해 비판을 받아왔습니다." data-native-ja="BBCニュースの報道によると、英国政府はテムズウォーターの救済策に反対しており、英国最大の水道会社は一時国有化の可能性に近づいている。同社は近年、多額の負債、下水の排出、パイプラインの漏洩、業績などで批判されてきた。" data-native-ptbr="O governo britânico opôs-se a um pacote de resgate para a Thames Water, informa a BBC News, aproximando a maior empresa de água da Grã-Bretanha de uma possível nacionalização temporária. A empresa tem sido criticada nos últimos anos por seu alto endividamento, lançamentos de esgoto, vazamentos em tubulações e desempenho operacional.">BBC News 報導，英國政府反對泰晤士水務的一項救援方案，使這家英國最大供水公司更接近可能的暫時國有化。該公司近年因高額債務、污水排放、管線漏水與營運表現受到批評。</p>
+      <p class="native-text" data-native-tc="文章指出，放款方提出減免部分債務並注入新資金，但英國政府擔心這項方案不足以保護消費者與環境，也可能把不合理的負擔轉嫁給用戶。" data-native-sc="文章指出，放款方提出减免部分债务并注入新资金，但英国政府担心这项方案不足以保护消费者与环境，也可能把不合理的负担转嫁给用户。" data-native-ko="기사는 대출 기관들이 부채의 일부를 탕감하고 새로운 자금을 투입하자고 제안했지만 영국 정부는 이 계획이 소비자와 환경을 보호하기에 충분하지 않고 사용자들에게도 불합리한 부담을 전가할 수 있다는 점을 우려하고 있다고 지적했습니다." data-native-ja="記事は、金融業者が債務の一部を免除し、新たな資金を注入することを提案しているが、英国政府はこの計画では消費者と環境を保護するのに十分ではなく、利用者に不当な負担を転嫁する可能性があると懸念していると指摘した。" data-native-ptbr="O artigo apontava que os credores propuseram perdoar parte da dívida e injectar novos fundos, mas o governo britânico está preocupado que este plano não seja suficiente para proteger os consumidores e o ambiente, podendo também transferir encargos excessivos para os utilizadores.">文章指出，放款方提出減免部分債務並注入新資金，但英國政府擔心這項方案不足以保護消費者與環境，也可能把不合理的負擔轉嫁給用戶。</p>
     </section>
 
     <section>
@@ -148,7 +153,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">nationalisation</div><button class="speak-button" type="button" data-say="nationalisation" aria-label="Play pronunciation for nationalisation"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">the process of bringing a private company or industry under government ownership or control.</p>
                     <p class="orig"><strong>In article:</strong> “Thames Water moves step closer to <mark>nationalisation</mark> after government objects to rescue deal.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="國有化；把私人公司或產業轉由政府擁有或控制的過程。" data-native-sc="国有化；把私人公司或产业转由政府拥有或控制的过程。" data-native-ko="국유화; 민간 기업이나 산업을 정부 소유 또는 통제권으로 이전하는 과정입니다." data-native-ja="国有化;民間企業または産業を政府の所有または管理に移管するプロセス。"><span class="native-body">國有化；把私人公司或產業轉由政府擁有或控制的過程。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="國有化；把私人公司或產業轉由政府擁有或控制的過程。" data-native-sc="国有化；把私人公司或产业转由政府拥有或控制的过程。" data-native-ko="국유화; 민간 기업이나 산업을 정부 소유 또는 통제권으로 이전하는 과정입니다." data-native-ja="国有化;民間企業または産業を政府の所有または管理に移管するプロセス。" data-native-ptbr="Nacionalização; o processo de transferência de uma empresa ou indústria privada para propriedade ou controle governamental."><span class="native-body">國有化；把私人公司或產業轉由政府擁有或控制的過程。</span></p>
           <p><strong>Usage note:</strong> British English spells this with <em>-isation</em>; American English usually uses <em>nationalization</em>.</p>
         </article>
 
@@ -156,7 +161,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">lenders</div><button class="speak-button" type="button" data-say="lenders" aria-label="Play pronunciation for lenders"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">people, banks, or institutions that provide money as a loan and expect it to be repaid.</p>
                     <p class="orig"><strong>In article:</strong> “A group of its existing <mark>lenders</mark> has offered to write off £9.4bn of its near £20bn debt pile and inject billions in new money...”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="放款方、貸款機構；提供貸款並期待借款人償還的人、銀行或機構。" data-native-sc="放款方、贷款机构；提供贷款并期待借款人偿还的人、银行或机构。" data-native-ko="대출 기관, 대출 기관 대출을 하고 차용자로부터 상환을 기대하는 사람, 은행 또는 기관." data-native-ja="貸し手、融資機関。融資を行い、借り手からの返済を期待する人、銀行、または機関。"><span class="native-body">放款方、貸款機構；提供貸款並期待借款人償還的人、銀行或機構。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="放款方、貸款機構；提供貸款並期待借款人償還的人、銀行或機構。" data-native-sc="放款方、贷款机构；提供贷款并期待借款人偿还的人、银行或机构。" data-native-ko="대출 기관, 대출 기관 대출을 하고 차용자로부터 상환을 기대하는 사람, 은행 또는 기관." data-native-ja="貸し手、融資機関。融資を行い、借り手からの返済を期待する人、銀行、または機関。" data-native-ptbr="Credor, instituição mutuante; uma pessoa, banco ou instituição que concede um empréstimo e espera o reembolso do mutuário."><span class="native-body">放款方、貸款機構；提供貸款並期待借款人償還的人、銀行或機構。</span></p>
           <p><strong>Usage note:</strong> In business news, <em>lenders</em> often means banks, bondholders, or financial institutions owed money by a company.</p>
         </article>
 
@@ -164,7 +169,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">leniency</div><button class="speak-button" type="button" data-say="leniency" aria-label="Play pronunciation for leniency"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">softer or less severe treatment than the rules might normally allow, especially in punishment, regulation, or enforcement.</p>
                     <p class="orig"><strong>In article:</strong> “...but want <mark>leniency</mark> from future pollution fines in return.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="寬待、從寬處理；在處罰、監管或執法上比通常規則更不嚴厲的做法。" data-native-sc="宽待、从宽处理；在处罚、监管或执法上比通常规则更不严厉的做法。" data-native-ko="관대함, 관대함; 일반적인 규칙보다 덜 엄격한 처벌, 규제 또는 집행에 대한 접근 방식입니다." data-native-ja="寛大、寛大。通常の規則よりも緩い罰則、規制、または執行へのアプローチ。"><span class="native-body">寬待、從寬處理；在處罰、監管或執法上比通常規則更不嚴厲的做法。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="寬待、從寬處理；在處罰、監管或執法上比通常規則更不嚴厲的做法。" data-native-sc="宽待、从宽处理；在处罚、监管或执法上比通常规则更不严厉的做法。" data-native-ko="관대함, 관대함; 일반적인 규칙보다 덜 엄격한 처벌, 규제 또는 집행에 대한 접근 방식입니다." data-native-ja="寛大、寛大。通常の規則よりも緩い罰則、規制、または執行へのアプローチ。" data-native-ptbr="Leniência, clemência; uma abordagem de punição, regulamentação ou aplicação que seja menos severa do que as regras habituais."><span class="native-body">寬待、從寬處理；在處罰、監管或執法上比通常規則更不嚴厲的做法。</span></p>
           <p><strong>Usage note:</strong> In policy news, <em>leniency</em> can suggest that a regulator reduces penalties or applies rules less strictly.</p>
         </article>
 
@@ -172,7 +177,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">compliance</div><button class="speak-button" type="button" data-say="compliance" aria-label="Play pronunciation for compliance"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">the act of obeying laws, regulations, standards, or official requirements.</p>
                     <p class="orig"><strong>In article:</strong> “...fund significant improvements for customers, clean up local rivers and achieve full <mark>compliance</mark> as quickly as possible.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="合規、遵守規定；遵守法律、規章、標準或官方要求的行為。" data-native-sc="合规、遵守规定；遵守法律、规章、标准或官方要求的行为。" data-native-ko="규정 준수, 규정 준수 법률, 규정, 표준 또는 공식 요구 사항을 준수하는 행위." data-native-ja="コンプライアンス、規制の遵守。法律、規制、基準、または公的要件を遵守する行為。"><span class="native-body">合規、遵守規定；遵守法律、規章、標準或官方要求的行為。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="合規、遵守規定；遵守法律、規章、標準或官方要求的行為。" data-native-sc="合规、遵守规定；遵守法律、规章、标准或官方要求的行为。" data-native-ko="규정 준수, 규정 준수 법률, 규정, 표준 또는 공식 요구 사항을 준수하는 행위." data-native-ja="コンプライアンス、規制の遵守。法律、規制、基準、または公的要件を遵守する行為。" data-native-ptbr="Conformidade, cumprimento dos regulamentos; o ato de cumprir leis, regulamentos, normas ou requisitos oficiais."><span class="native-body">合規、遵守規定；遵守法律、規章、標準或官方要求的行為。</span></p>
           <p><strong>Usage note:</strong> <em>Compliance</em> is common in business, law, environmental regulation, banking, and corporate governance.</p>
         </article>
 
@@ -180,17 +185,18 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">regime</div><button class="speak-button" type="button" data-say="regime" aria-label="Play pronunciation for regime"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">a formal system of rules, control, or administration, especially in law, politics, or regulation.</p>
                     <p class="orig"><strong>In article:</strong> “The form of temporary nationalisation on the table is known as a special administration <mark>regime</mark> (SAR)...”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="制度、體制；尤指法律、政治或監管中的一套正式規則、管控或管理安排。" data-native-sc="制度、体制；尤指法律、政治或监管中的一套正式规则、管控或管理安排。" data-native-ko="체계; 체계; 특히 법률, 정치 또는 규제의 일련의 공식적인 규칙, 통제 또는 관리 약정입니다." data-native-ja="システム;システム;特に、法律、政治、または規制における一連の正式な規則、管理、または管理の取り決め。"><span class="native-body">制度、體制；尤指法律、政治或監管中的一套正式規則、管控或管理安排。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="制度、體制；尤指法律、政治或監管中的一套正式規則、管控或管理安排。" data-native-sc="制度、体制；尤指法律、政治或监管中的一套正式规则、管控或管理安排。" data-native-ko="체계; 체계; 특히 법률, 정치 또는 규제의 일련의 공식적인 규칙, 통제 또는 관리 약정입니다." data-native-ja="システム;システム;特に、法律、政治、または規制における一連の正式な規則、管理、または管理の取り決め。" data-native-ptbr="Sistema; sistema; especialmente um conjunto de regras formais, controles ou arranjos de gestão na lei, na política ou na regulamentação."><span class="native-body">制度、體制；尤指法律、政治或監管中的一套正式規則、管控或管理安排。</span></p>
           <p><strong>Usage note:</strong> This is a harder legal-policy word. In this article, <em>regime</em> means a structured set of legal rules for managing a company in distress.</p>
         </article>
       </div>
     </section>
 
-    <section class="notes">
-      <h2>Word Origins &amp; Notes</h2>
-      <p><strong>Nationalisation:</strong> Built from <em>nation</em>, this word describes moving ownership or control from private hands to the state.</p>
-      <p><strong>Compliance:</strong> This word is useful in regulated industries because it means meeting official standards, not just “cooperating.”</p>
-      <p><strong>Regime:</strong> This word originally refers to a system of rule or management; in legal and policy reporting, it often means a formal framework of rules rather than a government alone.</p>
+    <section class="feedback-section" aria-labelledby="feedback-title">
+
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+
+      <iframe data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
+
     </section>
   </main>
 
@@ -210,9 +216,10 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     });
   })();
   </script>
+<script src="https://tally.so/widgets/embed.js" async></script>
 <script data-native-lang-script>
 (function(){
-  const allowed = new Set(['tc','sc','ko','ja']);
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
   const params = new URLSearchParams(location.search);
   let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
   if(!allowed.has(lang)) lang = 'tc';
