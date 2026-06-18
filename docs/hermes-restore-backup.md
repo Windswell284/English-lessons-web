@@ -89,7 +89,7 @@ Publish scripts should self-load `/opt/data/.env` so scheduled jobs do not depen
 - Use a 3-line hamburger menu for direct/standalone lesson pages.
 - Direct lesson pages must have navigation. Embedded homepage lesson views should hide duplicate standalone nav via `?embedded=1`, but only when the lesson is actually inside the homepage iframe; if an iPhone/Safari direct URL opens with `?embedded=1` outside an iframe, the standalone nav should still appear.
 - Menus should be daily-only unless explicitly restored.
-- Daily lesson navigation should be capped at 10 total daily links; nav panels initially show 5 total lesson links, then a `…` control expands the remaining links up to the 10-link cap.
+- Daily lesson navigation should be capped at 10 total daily links; nav panels initially show Today / Latest plus 5 past lesson links (6 total when available), then a left-aligned `…` control expands the remaining links up to the 10-link cap.
 - Do not show weekly/monthly review sections in website navigation unless explicitly asked.
 - Do not show old/test pages in public navigation after a test is accepted.
 - Remove accepted test pages from source and generated folders, rebuild, publish, and verify old URLs return 404.
@@ -178,6 +178,12 @@ Behavior:
 ```text
 https://chinese-lessons-web.vercel.app
 ```
+
+### Chinese look and feel
+
+- Match the newer Daily English/5dailywords visual direction where possible: modern sans/system typography, warm neutral background, flat cards, no blue radial/hero gradients, no large shadowed outer viewer panel, and no duplicate viewer title bar above the iframe.
+- Homepage and standalone lesson navigation drawers should not include an internal `Close` button; dismiss via backdrop/main page, lesson selection, Escape, or tapping the blank/header area above the first nav link.
+- Direct lesson pages with `?embedded=1` should hide standalone nav only when actually inside the homepage iframe.
 
 ### Chinese pages removed / not wanted
 
