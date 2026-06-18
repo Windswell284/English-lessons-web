@@ -17,13 +17,14 @@ SOURCE_DIR = Path('/opt/data/english-lessons')
 LESSONS_DIR = ROOT / 'lessons'
 REVIEWS_DIR = ROOT / 'reviews'
 OLD_DAILY_LIMIT = 9  # plus Today / Latest = 10 daily lesson links total
-COLLAPSED_DAILY_TOTAL = 5  # initial nav shows 5 total, then “…” expands the rest
+COLLAPSED_DAILY_TOTAL = 6  # initial nav shows Today / Latest plus 5 past lessons, then “…” expands the rest
 TRANSLATION_CACHE = Path('/opt/data/.cache/5dailywords_native_translations.json')
 NATIVE_LANGS = {
     'tc': {'label': '繁體中文', 'target': 'zh-TW', 'summary': '文章摘要', 'definition': '中文定義：'},
     'sc': {'label': '简体中文', 'target': 'zh-CN', 'summary': '文章摘要', 'definition': '简体中文定义：'},
     'ko': {'label': '한국어', 'target': 'ko', 'summary': '기사 요약', 'definition': '한국어 정의:'},
     'ja': {'label': '日本語', 'target': 'ja', 'summary': '記事要約', 'definition': '日本語の定義：'},
+    'ptbr': {'label': 'Português (BR)', 'target': 'pt', 'summary': 'Resumo do artigo', 'definition': 'Definição em português:'},
 }
 
 
@@ -65,6 +66,7 @@ def native_attrs(text: str, cache: dict[str, str]) -> str:
     values['sc'] = translate_native(values['tc'], 'zh-CN', cache)
     values['ko'] = translate_native(values['tc'], 'ko', cache)
     values['ja'] = translate_native(values['tc'], 'ja', cache)
+    values['ptbr'] = translate_native(values['tc'], 'pt', cache)
     return ' '.join(f'data-native-{code}="{html.escape(value, quote=True)}"' for code, value in values.items())
 
 
@@ -75,7 +77,7 @@ def enrich_native_language(text: str, cache: dict[str, str]) -> str:
 
     text = re.sub(
         r'<h2>文章摘要</h2>',
-        '<h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約">文章摘要</h2>',
+        '<h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>',
         text,
         count=1,
     )
@@ -112,7 +114,7 @@ def enrich_native_language(text: str, cache: dict[str, str]) -> str:
 
     script = '''<script data-native-lang-script>
 (function(){
-  const allowed = new Set(['tc','sc','ko','ja']);
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
   const params = new URLSearchParams(location.search);
   let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
   if(!allowed.has(lang)) lang = 'tc';
@@ -248,18 +250,18 @@ def standalone_nav_html(items: list[Item], current: Item) -> str:
     links_html = '\n'.join(links) or '<p class="standalone-empty">No daily lessons yet.</p>'
     return f'''<script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
-.standalone-nav-bar{{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:64px;padding:calc(12px + env(safe-area-inset-top)) 12px 5px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
-html:not(.standalone-embedded) body{{padding-top:76px!important}}
+.standalone-nav-bar{{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
+html:not(.standalone-embedded) body{{padding-top:84px!important}}
 html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{{display:none!important}}
 .standalone-menu-button{{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}}
 .standalone-hamburger{{display:block;width:19px;height:14px;position:relative}}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}}
 .standalone-hamburger::before{{top:0}}.standalone-hamburger span{{top:6px}}.standalone-hamburger::after{{bottom:0}}
 .standalone-site-title{{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}}
-.standalone-language-control{{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}}
-.standalone-globe-icon{{width:20px;height:20px;color:#173f5f;flex:0 0 auto}}
+.standalone-language-control{{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}}
+.standalone-globe-icon{{width:25px;height:25px;color:#173f5f;flex:0 0 auto}}
 .standalone-language-divider{{width:1px;height:22px;background:#ded3c4;display:block}}
-.standalone-native-select{{border:0;background:transparent;color:#1f1c18;font-weight:850;font-size:13px;outline:none;max-width:86px}}
+.standalone-native-select{{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}}
 .standalone-backdrop{{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}}
 .standalone-drawer{{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
 body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.standalone-menu-open .standalone-backdrop{{opacity:1;pointer-events:auto}}
@@ -270,13 +272,13 @@ body.standalone-menu-open .standalone-drawer{{transform:translateX(0)}}body.stan
 .standalone-nav-link{{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}}
 .standalone-nav-extra{{display:none}}
 body.standalone-lessons-expanded .standalone-nav-extra{{display:block}}
-.standalone-expand-lessons{{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}}
+.standalone-expand-lessons{{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}}
 body.standalone-lessons-expanded .standalone-expand-lessons{{display:none}}
-.standalone-contact-link{{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}}
+.standalone-contact-link{{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}}
 .standalone-contact-link:hover{{background:#efe4d3}}
 .standalone-nav-link.active{{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}}.standalone-date{{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}.standalone-title{{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
 <nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button>{links_html}</nav>
 <script id="standalone-lesson-nav-script">
@@ -286,7 +288,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{{display:none}}
   const drawerTop=document.getElementById('standalone-drawer-top');
   const expandLessons=document.getElementById('standalone-expand-lessons');
   const nativeSelect=document.getElementById('standalone-native-language');
-  const allowedNative=new Set(['tc','sc','ko','ja']);
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
   let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
   if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
   if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
@@ -372,14 +374,16 @@ def build_index(items: list[Item]) -> str:
 <style>
 :root{{--bg:#f4f0e8;--paper:#fffdf8;--ink:#1f1c18;--muted:#6d6459;--line:#ded3c4;--accent:#173f5f;--soft:#efe4d3;--shadow:0 18px 45px rgba(36,24,12,.12)}}
 *{{box-sizing:border-box}}
-body{{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
+html{{background:var(--bg)}}
+body{{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}
 button{{font:inherit}}
 .drawer-top{{display:block;margin:0;padding:0;border:0;background:transparent;text-align:left;color:inherit;width:100%}}
 .mobile-bar{{display:none}}
 .backdrop{{display:none}}
 .app{{min-height:100vh;display:grid;grid-template-columns:360px 1fr}}
+.desktop-top-strip{{position:fixed;top:0;left:360px;right:0;height:74px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:35;pointer-events:none}}
 aside{{position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid var(--line);background:rgba(255,253,248,.88);padding:22px;backdrop-filter:blur(8px);z-index:20}}
-main{{padding:22px;min-width:0}}
+main{{padding:82px 22px 22px;min-width:0}}
 h1{{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:40px;font-weight:720;line-height:1.02;letter-spacing:-.03em;margin:0 0 10px}}
 .sub{{color:var(--muted);font-size:15px;line-height:1.55;margin:0 0 18px}}
 .badge{{display:inline-flex;min-height:34px;align-items:center;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--soft);font-size:13px;font-weight:800;margin:0 0 18px}}
@@ -387,23 +391,24 @@ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc
 .nav-item{{display:block;text-decoration:none;color:var(--ink);padding:12px;border:1px solid var(--line);background:var(--paper);border-radius:16px;margin:9px 0;transition:.15s ease}}
 .nav-extra{{display:none}}
 body.lessons-expanded .nav-extra{{display:block}}
-.expand-lessons{{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}}
+.expand-lessons{{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:var(--accent);font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}}
 body.lessons-expanded .expand-lessons{{display:none}}
-.contact-link{{display:block;text-align:left;text-decoration:none;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}}
+.contact-link{{display:block;text-align:left;text-decoration:none;color:var(--accent);font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}}
 .contact-link:hover{{background:var(--soft)}}
 .nav-item:hover,.nav-item.active{{border-color:rgba(23,63,95,.55);transform:translateY(-1px);box-shadow:0 8px 20px rgba(45,31,16,.08)}}
 .date{{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}}
 .title{{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}}
 .empty{{color:var(--muted);font-size:14px}}
-.viewer-shell{{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;height:calc(100vh - 44px);display:flex;flex-direction:column}}
-iframe{{width:100%;flex:1;border:0;background:white}}
-.language-control{{position:fixed;top:14px;right:18px;z-index:45;display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.94);box-shadow:0 10px 25px rgba(36,24,12,.1);backdrop-filter:blur(10px)}}
+.viewer-shell{{background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible;height:calc(100vh - 104px);display:flex;flex-direction:column}}
+iframe{{width:100%;flex:1;border:0;background:var(--bg)}}
+.language-control{{position:fixed;top:17px;right:50px;z-index:45;display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}}
 .language-control-mobile{{display:none}}
-.globe-icon{{width:22px;height:22px;color:var(--accent);flex:0 0 auto}}
-.language-divider{{width:1px;height:24px;background:var(--line);display:block}}
-.native-select{{border:0;background:transparent;color:var(--ink);font-weight:850;font-size:14px;outline:none;max-width:132px}}
+.globe-icon{{width:26px;height:26px;color:var(--accent);flex:0 0 auto}}
+.language-divider{{width:1px;height:22px;background:var(--line);display:block}}
+.native-select{{border:0;background:transparent;color:var(--ink);font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:152px;padding:0;appearance:auto;position:relative;top:-1px}}
 @media(max-width:860px){{
-  body{{padding-top:calc(64px + env(safe-area-inset-top));overflow:hidden}}
+  body{{padding-top:calc(64px + env(safe-area-inset-top));overflow:hidden;background:var(--bg)}}
+  .desktop-top-strip{{display:none}}
   .mobile-bar{{display:flex;position:fixed;top:0;left:0;right:0;height:calc(64px + env(safe-area-inset-top));padding:calc(10px + env(safe-area-inset-top)) 12px 4px;align-items:center;gap:10px;background:rgba(255,253,248,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:40}}
   .menu-button{{border:1px solid var(--line);background:var(--accent);color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-weight:900;flex:0 0 auto}}
   .hamburger{{display:block;width:19px;height:14px;position:relative}}
@@ -412,10 +417,10 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   .hamburger span{{top:6px}}
   .hamburger::after{{bottom:0}}
   .site-title{{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}}
-  .language-control{{position:static;min-height:38px;padding:6px 8px;gap:7px;box-shadow:none;background:transparent;border-color:var(--line);margin-left:auto;flex:0 0 auto}}
+  .language-control{{position:static;min-height:44px;padding:7px 8px;gap:9px;box-shadow:none;background:transparent;border-color:var(--line);margin-left:auto;flex:0 0 auto}}
   .language-control-mobile{{display:inline-flex}}
   .language-control-desktop{{display:none}}
-  .globe-icon{{width:20px;height:20px}}.language-divider{{height:22px}}.native-select{{max-width:86px;font-size:13px}}
+  .globe-icon{{width:25px;height:25px}}.language-divider{{height:22px}}.native-select{{max-width:108px;font-size:16px}}
   .app{{display:block;min-height:calc(100vh - 64px - env(safe-area-inset-top))}}
   aside{{position:fixed;top:0;bottom:0;left:0;width:min(88vw,360px);height:100dvh;transform:translateX(-105%);transition:transform .22s ease;box-shadow:var(--shadow);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;z-index:60;background:rgba(255,253,248,.98)}}
   .drawer-top{{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}}
@@ -425,14 +430,16 @@ iframe{{width:100%;flex:1;border:0;background:white}}
   body.menu-open .backdrop{{opacity:1;pointer-events:auto}}
   aside h1{{font-size:38px}}
   aside .sub{{font-size:14px}}
+  .app,main{{background:var(--bg)}}
   main{{padding:8px;height:calc(100dvh - 64px - env(safe-area-inset-top))}}
-  .viewer-shell{{height:100%;border-radius:18px}}
+  .viewer-shell{{height:100%;border-radius:0;background:transparent;border:0;box-shadow:none;overflow:visible}}
 }}
 </style>
 </head>
 <body>
-<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English</div><div class="language-control language-control-mobile" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-mobile" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
-<div class="language-control language-control-desktop" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-desktop" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div>
+<div class="mobile-bar"><button id="menu-button" class="menu-button" type="button" aria-label="Browse lessons" aria-controls="lesson-menu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span></span></button><div class="site-title">Daily English</div><div class="language-control language-control-mobile" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-mobile" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
+<div class="desktop-top-strip" aria-hidden="true"></div>
+<div class="language-control language-control-desktop" aria-label="Native language selector"><svg class="globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="language-divider" aria-hidden="true"></span><select id="native-language-desktop" class="native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">Português (BR)</option></select></div>
 <div id="backdrop" class="backdrop" aria-hidden="true"></div>
 <div class="app">
   <aside id="lesson-menu" aria-label="Lesson archive navigation">
@@ -455,7 +462,7 @@ const drawerTop=document.getElementById('drawer-top');
 const expandLessons=document.getElementById('expand-lessons');
 const backdrop=document.getElementById('backdrop');
 const nativeSelects=[...document.querySelectorAll('.native-select')];
-const allowedNative=new Set(['tc','sc','ko','ja']);
+const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
 let nativeLanguage=localStorage.getItem('nativeLanguage')||'tc';
 if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
 function lessonSrc(url){{return url+(url.includes('?')?'&':'?')+'embedded=1&native='+encodeURIComponent(nativeLanguage)}}
