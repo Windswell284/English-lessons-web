@@ -11,7 +11,8 @@
       --green-soft:#eef7ef; --shadow:0 18px 45px rgba(36,24,12,.12);
     }
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
     .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
     header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:clamp(22px,4vw,38px);margin:18px 0}
     .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
@@ -42,24 +43,27 @@
     .orig+.def.zh{margin-top:1.15rem}
     mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
     .notes{background:var(--green-soft)}
+
+    .feedback-section{background:rgba(255,253,248,.94)}
+    .feedback-section iframe{display:block;width:100%;border:0;margin-top:12px;min-height:260px}
     @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
-.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:64px;padding:calc(12px + env(safe-area-inset-top)) 12px 5px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-html:not(.standalone-embedded) body{padding-top:76px!important}
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:84px!important}
 html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
 .standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
 .standalone-hamburger{display:block;width:19px;height:14px;position:relative}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
 .standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
 .standalone-site-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
-.standalone-language-control{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}
-.standalone-globe-icon{width:20px;height:20px;color:#173f5f;flex:0 0 auto}
+.standalone-language-control{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}
+.standalone-globe-icon{width:25px;height:25px;color:#173f5f;flex:0 0 auto}
 .standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
-.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:850;font-size:13px;outline:none;max-width:86px}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}
 .standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
 .standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
@@ -70,15 +74,16 @@ body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standa
 .standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
 .standalone-nav-extra{display:none}
 body.standalone-lessons-expanded .standalone-nav-extra{display:block}
-.standalone-expand-lessons{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}
+.standalone-expand-lessons{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}
 body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
-.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}
+.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}
 .standalone-contact-link:hover{background:#efe4d3}
 .standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-18.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Iran Oil Tankers Cross Blockade Line</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Jun 17, 2026</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-16.html"><span class="standalone-date">Jun 16, 2026</span><span class="standalone-title">Thames Water Nationalisation</span></a>
 <a class="standalone-nav-link active" href="./daily-english-2026-06-15.html"><span class="standalone-date">Jun 15, 2026</span><span class="standalone-title">UK-Japan Investment</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-14.html"><span class="standalone-date">Jun 14, 2026</span><span class="standalone-title">US-Iran Deal Timing</span></a>
@@ -96,7 +101,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
   const drawerTop=document.getElementById('standalone-drawer-top');
   const expandLessons=document.getElementById('standalone-expand-lessons');
   const nativeSelect=document.getElementById('standalone-native-language');
-  const allowedNative=new Set(['tc','sc','ko','ja']);
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
   let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
   if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
   if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
@@ -118,7 +123,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
 </script>
   <main class="wrap">
     <header>
-      <div class="eyebrow">Daily English · Current Events · June 15, 2026</div>
+      <div class="eyebrow">Current Events · June 15, 2026</div>
       <h1>UK-Japan Investment</h1>
       <p class="subtitle">Today’s lesson uses a BBC News business article about a UK-Japan investment announcement and the careful economic language used in policy and trade reporting.</p>
       <div class="pills"><span class="pill">Level: intermediate</span><span class="pill">Time: 5–10 minutes</span></div>
@@ -138,9 +143,9 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     </section>
 
     <section class="zh-box zh">
-      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約">文章摘要</h2>
-      <p class="native-text" data-native-tc="BBC News 報導，英國與日本宣布一項最高可達 180 億英鎊的投資方案。英國首相府表示，日本企業將投資英國基礎建設、金融服務與離岸風電；英國首相施凱爾則形容與日本首相高市早苗的會談具有成效。" data-native-sc="BBC News 报导，英国与日本宣布一项最高可达 180 亿英镑的投资方案。英国首相府表示，日本企业将投资英国基础建设、金融服务与离岸风电；英国首相施凯尔则形容与日本首相高市早苗的会谈具有成效。" data-native-ko="BBC 뉴스는 영국과 일본이 최대 180억 파운드에 달하는 투자 패키지를 발표했다고 보도했습니다. 영국 총리실은 일본 기업이 영국 인프라, 금융 서비스 및 해상 풍력 발전에 투자할 것이라고 밝혔습니다. 시 키르 영국 총리는 사나에 다카이치 일본 총리와의 회담이 유익했다고 평가했습니다." data-native-ja="BBCニュースは、英国と日本が最大180億ポンドの投資計画を発表したと報じた。英国首相府は、日本企業は英国のインフラ、金融サービス、洋上風力発電に投資すると述べた。英国のシー・ケア首相は、日本の高市早苗首相との会談は実り多かった、と述べた。">BBC News 報導，英國與日本宣布一項最高可達 180 億英鎊的投資方案。英國首相府表示，日本企業將投資英國基礎建設、金融服務與離岸風電；英國首相施凱爾則形容與日本首相高市早苗的會談具有成效。</p>
-      <p class="native-text" data-native-tc="報導也指出，目前尚不清楚其中有多少屬於全新的投資承諾。文章把這項宣布放在英國經濟成長趨緩的背景下說明，並提到分析師預期未來幾個月成長可能偏弱。" data-native-sc="报导也指出，目前尚不清楚其中有多少属于全新的投资承诺。文章把这项宣布放在英国经济成长趋缓的背景下说明，并提到分析师预期未来几个月成长可能偏弱。" data-native-ko="보고서는 또한 이들 중 얼마나 많은 것이 새로운 투자 약속인지 불분명하다고 지적했습니다. 기사에서는 이번 발표를 영국 경제 성장 둔화의 맥락에서 설명하고 분석가들이 앞으로 몇 달 동안 성장이 약할 것으로 예상한다고 언급했습니다." data-native-ja="報告書はまた、そのうち何件が新たな投資約束であるかは不明だと指摘した。記事は今回の発表を英国の経済成長鈍化を背景に置き、アナリストらは今後数カ月間の成長が鈍化すると予想していると述べている。">報導也指出，目前尚不清楚其中有多少屬於全新的投資承諾。文章把這項宣布放在英國經濟成長趨緩的背景下說明，並提到分析師預期未來幾個月成長可能偏弱。</p>
+      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>
+      <p class="native-text" data-native-tc="BBC News 報導，英國與日本宣布一項最高可達 180 億英鎊的投資方案。英國首相府表示，日本企業將投資英國基礎建設、金融服務與離岸風電；英國首相施凱爾則形容與日本首相高市早苗的會談具有成效。" data-native-sc="BBC News 报导，英国与日本宣布一项最高可达 180 亿英镑的投资方案。英国首相府表示，日本企业将投资英国基础建设、金融服务与离岸风电；英国首相施凯尔则形容与日本首相高市早苗的会谈具有成效。" data-native-ko="BBC 뉴스는 영국과 일본이 최대 180억 파운드에 달하는 투자 패키지를 발표했다고 보도했습니다. 영국 총리실은 일본 기업이 영국 인프라, 금융 서비스 및 해상 풍력 발전에 투자할 것이라고 밝혔습니다. 시 키르 영국 총리는 사나에 다카이치 일본 총리와의 회담이 유익했다고 평가했습니다." data-native-ja="BBCニュースは、英国と日本が最大180億ポンドの投資計画を発表したと報じた。英国首相府は、日本企業は英国のインフラ、金融サービス、洋上風力発電に投資すると述べた。英国のシー・ケア首相は、日本の高市早苗首相との会談は実り多かった、と述べた。" data-native-ptbr="A BBC News informa que a Grã-Bretanha e o Japão anunciaram um pacote de investimentos de até 18 bilhões de libras. O Gabinete do Primeiro Ministro britânico afirmou que as empresas japonesas investirão em infra-estruturas britânicas, serviços financeiros e energia eólica offshore; O primeiro-ministro britânico, Shi Keer, descreveu as conversações com o primeiro-ministro japonês, Takaichi Sanae, como frutíferas.">BBC News 報導，英國與日本宣布一項最高可達 180 億英鎊的投資方案。英國首相府表示，日本企業將投資英國基礎建設、金融服務與離岸風電；英國首相施凱爾則形容與日本首相高市早苗的會談具有成效。</p>
+      <p class="native-text" data-native-tc="報導也指出，目前尚不清楚其中有多少屬於全新的投資承諾。文章把這項宣布放在英國經濟成長趨緩的背景下說明，並提到分析師預期未來幾個月成長可能偏弱。" data-native-sc="报导也指出，目前尚不清楚其中有多少属于全新的投资承诺。文章把这项宣布放在英国经济成长趋缓的背景下说明，并提到分析师预期未来几个月成长可能偏弱。" data-native-ko="보고서는 또한 이들 중 얼마나 많은 것이 새로운 투자 약속인지 불분명하다고 지적했습니다. 기사에서는 이번 발표를 영국 경제 성장 둔화의 맥락에서 설명하고 분석가들이 앞으로 몇 달 동안 성장이 약할 것으로 예상한다고 언급했습니다." data-native-ja="報告書はまた、そのうち何件が新たな投資約束であるかは不明だと指摘した。記事は今回の発表を英国の経済成長鈍化を背景に置き、アナリストらは今後数カ月間の成長が鈍化すると予想していると述べている。" data-native-ptbr="O relatório também salientou que não está claro quantos destes são novos compromissos de investimento. O artigo coloca este anúncio no contexto da desaceleração do crescimento económico do Reino Unido e menciona que os analistas esperam que o crescimento seja fraco nos próximos meses.">報導也指出，目前尚不清楚其中有多少屬於全新的投資承諾。文章把這項宣布放在英國經濟成長趨緩的背景下說明，並提到分析師預期未來幾個月成長可能偏弱。</p>
     </section>
 
     <section>
@@ -150,7 +155,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">investment deal</div><button class="speak-button" type="button" data-say="investment deal" aria-label="Play pronunciation for investment deal"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">an agreement in which money is committed to projects, companies, or economic development.</p>
                     <p class="orig"><strong>In article:</strong> “The UK and Japan have agreed a multi-billion pound <mark>investment deal</mark> which UK Prime Minister Sir Keir Starmer said will build a ‘new era of co-operation’ between the two nations.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="投資協議；指一方或多方承諾把資金投入特定計畫、企業或經濟領域的安排。" data-native-sc="投资协议；指一方或多方承诺把资金投入特定计画、企业或经济领域的安排。" data-native-ko="투자 계약: 하나 이상의 당사자가 특정 프로젝트, 기업 또는 경제 부문에 자금을 투자하기로 약속하는 약정입니다." data-native-ja="投資協定: 1 つ以上の当事者が特定のプロジェクト、企業、または経済分野に資金を投資することを約束する取り決め。"><span class="native-body">投資協議；指一方或多方承諾把資金投入特定計畫、企業或經濟領域的安排。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="投資協議；指一方或多方承諾把資金投入特定計畫、企業或經濟領域的安排。" data-native-sc="投资协议；指一方或多方承诺把资金投入特定计画、企业或经济领域的安排。" data-native-ko="투자 계약: 하나 이상의 당사자가 특정 프로젝트, 기업 또는 경제 부문에 자금을 투자하기로 약속하는 약정입니다." data-native-ja="投資協定: 1 つ以上の当事者が特定のプロジェクト、企業、または経済分野に資金を投資することを約束する取り決め。" data-native-ptbr="Acordo de Investimento: Um acordo pelo qual uma ou mais partes se comprometem a investir fundos num projecto, empresa ou sector económico específico."><span class="native-body">投資協議；指一方或多方承諾把資金投入特定計畫、企業或經濟領域的安排。</span></p>
           <p><strong>Usage note:</strong> In news English, <em>deal</em> can mean a formal political or business agreement, not only a purchase.</p>
         </article>
 
@@ -158,7 +163,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">new era of co-operation</div><button class="speak-button" type="button" data-say="new era of co-operation" aria-label="Play pronunciation for new era of co-operation"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">a formal way to describe the start of a period when two sides work together more closely.</p>
                     <p class="orig"><strong>In article:</strong> “The UK and Japan have agreed a multi-billion pound investment deal which UK Prime Minister Sir Keir Starmer said will build a ‘<mark>new era of co-operation</mark>’ between the two nations.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="合作新時代；正式說法，用來表示兩方將進入更密切合作的新階段。" data-native-sc="合作新时代；正式说法，用来表示两方将进入更密切合作的新阶段。" data-native-ko="새로운 협력 시대; 두 당사자가 긴밀한 협력의 새로운 단계에 진입할 것임을 나타내는 데 사용되는 공식 용어입니다." data-native-ja="協力の新時代。両国が緊密な協力の新たな段階に入ることを示すために使用される正式な用語。"><span class="native-body">合作新時代；正式說法，用來表示兩方將進入更密切合作的新階段。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="合作新時代；正式說法，用來表示兩方將進入更密切合作的新階段。" data-native-sc="合作新时代；正式说法，用来表示两方将进入更密切合作的新阶段。" data-native-ko="새로운 협력 시대; 두 당사자가 긴밀한 협력의 새로운 단계에 진입할 것임을 나타내는 데 사용되는 공식 용어입니다." data-native-ja="協力の新時代。両国が緊密な協力の新たな段階に入ることを示すために使用される正式な用語。" data-native-ptbr="Uma nova era de cooperação; um termo formal usado para indicar que as duas partes entrarão em uma nova etapa de cooperação mais estreita."><span class="native-body">合作新時代；正式說法，用來表示兩方將進入更密切合作的新階段。</span></p>
           <p><strong>Usage note:</strong> British spelling often uses <em>co-operation</em>; American spelling is usually <em>cooperation</em>.</p>
         </article>
 
@@ -166,31 +171,32 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">infrastructure</div><button class="speak-button" type="button" data-say="infrastructure" aria-label="Play pronunciation for infrastructure"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">the basic systems and facilities a country or economy needs, such as transport, energy, communications, and public works.</p>
                     <p class="orig"><strong>In article:</strong> “Japanese firms will spend more than £9bn on UK <mark>infrastructure</mark> and financial services and up to £9bn on UK offshore wind, creating tens of thousands of jobs, Downing Street said…”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="基礎建設；一個國家或經濟體運作所需的基本設施，例如交通、能源、通訊與公共工程。" data-native-sc="基础建设；一个国家或经济体运作所需的基本设施，例如交通、能源、通讯与公共工程。" data-native-ko="하부 구조; 교통, 에너지, 통신, 공공사업 등 국가나 경제의 기능에 필요한 기본 시설." data-native-ja="インフラストラクチャー;交通、エネルギー、通信、公共事業など、国や経済の機​​能に必要な基本的な施設。"><span class="native-body">基礎建設；一個國家或經濟體運作所需的基本設施，例如交通、能源、通訊與公共工程。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="基礎建設；一個國家或經濟體運作所需的基本設施，例如交通、能源、通訊與公共工程。" data-native-sc="基础建设；一个国家或经济体运作所需的基本设施，例如交通、能源、通讯与公共工程。" data-native-ko="하부 구조; 교통, 에너지, 통신, 공공사업 등 국가나 경제의 기능에 필요한 기본 시설." data-native-ja="インフラストラクチャー;交通、エネルギー、通信、公共事業など、国や経済の機​​能に必要な基本的な施設。" data-native-ptbr="Infraestrutura; as instalações básicas necessárias ao funcionamento de um país ou economia, como transportes, energia, comunicações e obras públicas."><span class="native-body">基礎建設；一個國家或經濟體運作所需的基本設施，例如交通、能源、通訊與公共工程。</span></p>
         </article>
 
         <article class="vocab-card">
           <div class="phrase-row"><div class="phrase">offshore wind</div><button class="speak-button" type="button" data-say="offshore wind" aria-label="Play pronunciation for offshore wind"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">wind energy produced by turbines built in the sea, usually as part of a renewable-energy strategy.</p>
                     <p class="orig"><strong>In article:</strong> “Japanese firms will spend more than £9bn on UK infrastructure and financial services and up to £9bn on UK <mark>offshore wind</mark>, creating tens of thousands of jobs, Downing Street said…”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="離岸風電；在海上設置風力發電機所產生的能源，通常屬於再生能源政策的一部分。" data-native-sc="离岸风电；在海上设置风力发电机所产生的能源，通常属于再生能源政策的一部分。" data-native-ko="해상 풍력; 종종 재생 에너지 정책의 일환으로 해상에 설치된 풍력 터빈에서 생성된 에너지." data-native-ja="洋上風力発電。多くの場合、再生可能エネルギー政策の一環として、洋上に設置された風力タービンによって生成されるエネルギー。"><span class="native-body">離岸風電；在海上設置風力發電機所產生的能源，通常屬於再生能源政策的一部分。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="離岸風電；在海上設置風力發電機所產生的能源，通常屬於再生能源政策的一部分。" data-native-sc="离岸风电；在海上设置风力发电机所产生的能源，通常属于再生能源政策的一部分。" data-native-ko="해상 풍력; 종종 재생 에너지 정책의 일환으로 해상에 설치된 풍력 터빈에서 생성된 에너지." data-native-ja="洋上風力発電。多くの場合、再生可能エネルギー政策の一環として、洋上に設置された風力タービンによって生成されるエネルギー。" data-native-ptbr="Energia eólica offshore; energia gerada por turbinas eólicas instaladas offshore, muitas vezes como parte de políticas de energias renováveis."><span class="native-body">離岸風電；在海上設置風力發電機所產生的能源，通常屬於再生能源政策的一部分。</span></p>
         </article>
 
         <article class="vocab-card">
           <div class="phrase-row"><div class="phrase">counterpart</div><button class="speak-button" type="button" data-say="counterpart" aria-label="Play pronunciation for counterpart"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">a person who has the same job or role as someone in another organization, government, or country.</p>
                     <p class="orig"><strong>In article:</strong> “Japanese firms will spend more than £9bn on UK infrastructure and financial services and up to £9bn on UK offshore wind, creating tens of thousands of jobs, Downing Street said as the PM met his Japanese <mark>counterpart</mark> Sanae Takaichi in London.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="職位相當的人、對等官員；例如一國首相與另一國首相互為 counterpart。" data-native-sc="职位相当的人、对等官员；例如一国首相与另一国首相互为 counterpart。" data-native-ko="동등한 지위에 있는 사람, 동등한 공무원 예를 들어, 한 국가의 총리와 다른 국가의 총리는 상대입니다." data-native-ja="同等の地位、同等の役人を持つ人々。たとえば、ある国の首相と別の国の首相は対応者です。"><span class="native-body">職位相當的人、對等官員；例如一國首相與另一國首相互為 counterpart。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="職位相當的人、對等官員；例如一國首相與另一國首相互為 counterpart。" data-native-sc="职位相当的人、对等官员；例如一国首相与另一国首相互为 counterpart。" data-native-ko="동등한 지위에 있는 사람, 동등한 공무원 예를 들어, 한 국가의 총리와 다른 국가의 총리는 상대입니다." data-native-ja="同等の地位、同等の役人を持つ人々。たとえば、ある国の首相と別の国の首相は対応者です。" data-native-ptbr="Pessoas com cargos equivalentes, funcionários equivalentes; por exemplo, o primeiro-ministro de um país e o primeiro-ministro de outro país são homólogos."><span class="native-body">職位相當的人、對等官員；例如一國首相與另一國首相互為 counterpart。</span></p>
           <p><strong>Usage note:</strong> This word is common in diplomatic reporting: “the minister met her French counterpart.”</p>
         </article>
       </div>
     </section>
 
-    <section class="notes">
-      <h2>Word Origins &amp; Notes</h2>
-      <p><strong>Infrastructure:</strong> The prefix <em>infra-</em> means “below” or “under.” Infrastructure is the support system beneath visible economic activity.</p>
-      <p><strong>Counterpart:</strong> The word combines <em>counter</em> (“matching or opposite”) and <em>part</em>, suggesting a matching role on the other side.</p>
-      <p><strong>Near term vs. long term:</strong> Economic news often contrasts short-term difficulty with hoped-for long-term benefits.</p>
+    <section class="feedback-section" aria-labelledby="feedback-title">
+
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+
+      <iframe data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
+
     </section>
   </main>
 
@@ -210,9 +216,10 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     });
   })();
   </script>
+<script src="https://tally.so/widgets/embed.js" async></script>
 <script data-native-lang-script>
 (function(){
-  const allowed = new Set(['tc','sc','ko','ja']);
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
   const params = new URLSearchParams(location.search);
   let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
   if(!allowed.has(lang)) lang = 'tc';
