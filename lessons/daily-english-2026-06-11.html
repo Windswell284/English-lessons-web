@@ -7,7 +7,8 @@
   <style>
     :root { --bg:#f4f0e8; --paper:#fffdf8; --ink:#1f1c18; --muted:#6d6459; --line:#ded3c4; --accent:#173f5f; --accent2:#8f3f2f; --soft:#efe4d3; --green:#1f6b4d; --shadow:0 18px 45px rgba(36,24,12,.12); }
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
     .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
     header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:clamp(22px,4vw,38px);margin:18px 0}
     .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
@@ -35,6 +36,9 @@
     mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
     .practice{border-left:6px solid var(--green);background:#f3fbf6}
     .answer{color:var(--muted)}
+
+    .feedback-section{background:rgba(255,253,248,.94)}
+    .feedback-section iframe{display:block;width:100%;border:0;margin-top:12px;min-height:260px}
     @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
   .article-base-note{color:var(--muted);font:700 13px/1.45 ui-sans-serif,system-ui,sans-serif;max-width:72ch;margin:.45rem 0 0}.phrase-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.speak-button{flex:0 0 auto;border:0;background:transparent;color:var(--accent);border-radius:0;width:30px;height:30px;min-width:0;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font:900 15px/1 ui-sans-serif,system-ui,sans-serif;cursor:pointer}.speak-button:active{transform:translateY(1px)}.sound-icon{display:block;width:22px;height:22px}
   </style>
@@ -42,18 +46,18 @@
 <body>
 <script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
-.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:64px;padding:calc(12px + env(safe-area-inset-top)) 12px 5px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-html:not(.standalone-embedded) body{padding-top:76px!important}
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:84px!important}
 html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
 .standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
 .standalone-hamburger{display:block;width:19px;height:14px;position:relative}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
 .standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
 .standalone-site-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
-.standalone-language-control{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}
-.standalone-globe-icon{width:20px;height:20px;color:#173f5f;flex:0 0 auto}
+.standalone-language-control{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}
+.standalone-globe-icon{width:25px;height:25px;color:#173f5f;flex:0 0 auto}
 .standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
-.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:850;font-size:13px;outline:none;max-width:86px}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}
 .standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
 .standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
@@ -64,15 +68,16 @@ body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standa
 .standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
 .standalone-nav-extra{display:none}
 body.standalone-lessons-expanded .standalone-nav-extra{display:block}
-.standalone-expand-lessons{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}
+.standalone-expand-lessons{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}
 body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
-.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}
+.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}
 .standalone-contact-link:hover{background:#efe4d3}
 .standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-18.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Iran Oil Tankers Cross Blockade Line</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Jun 17, 2026</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-16.html"><span class="standalone-date">Jun 16, 2026</span><span class="standalone-title">Thames Water Nationalisation</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-15.html"><span class="standalone-date">Jun 15, 2026</span><span class="standalone-title">UK-Japan Investment</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-14.html"><span class="standalone-date">Jun 14, 2026</span><span class="standalone-title">US-Iran Deal Timing</span></a>
@@ -90,7 +95,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
   const drawerTop=document.getElementById('standalone-drawer-top');
   const expandLessons=document.getElementById('standalone-expand-lessons');
   const nativeSelect=document.getElementById('standalone-native-language');
-  const allowedNative=new Set(['tc','sc','ko','ja']);
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
   let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
   if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
   if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
@@ -112,7 +117,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
 </script>
   <main class="wrap">
     <header>
-      <div class="eyebrow">Daily English · Current Events · June 11, 2026</div>
+      <div class="eyebrow">Current Events · June 11, 2026</div>
       <h1>Taiwan Drills with U.S. Rocket System</h1>
       <p class="subtitle">Today’s English lesson is based on a current-events article from NPR. We will use the article topic to study concise news English, reporting verbs, and security-related vocabulary.</p>
       <div class="pills"><span class="pill">Level: intermediate → advanced</span><span class="pill">Time: 5–10 minutes</span></div>
@@ -132,9 +137,9 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     </section>
 
     <section class="zh-box zh">
-      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約">文章摘要</h2>
-      <p class="native-text" data-native-tc="NPR 報導，台灣進行一場軍事演練，使用美國提供的 HIMARS 火箭系統。這次演練受到注意，因為該系統朝台灣海峽方向發射；台灣海峽因兩岸緊張情勢，一直是國際社會密切關注的區域。" data-native-sc="NPR 报导，台湾进行一场军事演练，使用美国提供的 HIMARS 火箭系统。这次演练受到注意，因为该系统朝台湾海峡方向发射；台湾海峡因两岸紧张情势，一直是国际社会密切关注的区域。" data-native-ko="NPR은 대만이 미국이 제공한 HIMARS 로켓 시스템을 활용해 군사훈련을 실시했다고 보도했다. 이번 훈련은 양안 긴장으로 국제사회의 관심이 쏠린 대만해협 방향으로 체계가 발사돼 눈길을 끌었다." data-native-ja="NPRは、台湾が米国から提供されたHIMARSロケットシステムを使用した軍事訓練を実施したと報じた。この訓練は、海峡両岸の緊張により国際的な懸念が非常に高い地域である台湾海峡に向けてシステムが発射されたため、注目を集めた。">NPR 報導，台灣進行一場軍事演練，使用美國提供的 HIMARS 火箭系統。這次演練受到注意，因為該系統朝台灣海峽方向發射；台灣海峽因兩岸緊張情勢，一直是國際社會密切關注的區域。</p>
-      <p class="native-text" data-native-tc="這篇文章適合用來學英文新聞寫作，因為標題和內文使用許多精簡但含義很重的動詞，例如 drill（演練）、fire（發射）、mark（標誌著）和 supply（提供）。" data-native-sc="这篇文章适合用来学英文新闻写作，因为标题和内文使用许多精简但含义很重的动词，例如 drill（演练）、fire（发射）、mark（标志着）和 supply（提供）。" data-native-ko="이 기사는 제목과 본문에 Drill, Fire, Mark, Supply 등 간결하면서도 의미 있는 동사를 많이 사용하고 있기 때문에 영어 뉴스 작성 학습에 적합합니다." data-native-ja="この記事は、タイトルと本文に、ドリル、ファイア、マーク、サプライなど、簡潔だが意味のある動詞が多く使用されているため、英語のニュース作成の学習に適しています。">這篇文章適合用來學英文新聞寫作，因為標題和內文使用許多精簡但含義很重的動詞，例如 drill（演練）、fire（發射）、mark（標誌著）和 supply（提供）。</p>
+      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>
+      <p class="native-text" data-native-tc="NPR 報導，台灣進行一場軍事演練，使用美國提供的 HIMARS 火箭系統。這次演練受到注意，因為該系統朝台灣海峽方向發射；台灣海峽因兩岸緊張情勢，一直是國際社會密切關注的區域。" data-native-sc="NPR 报导，台湾进行一场军事演练，使用美国提供的 HIMARS 火箭系统。这次演练受到注意，因为该系统朝台湾海峡方向发射；台湾海峡因两岸紧张情势，一直是国际社会密切关注的区域。" data-native-ko="NPR은 대만이 미국이 제공한 HIMARS 로켓 시스템을 활용해 군사훈련을 실시했다고 보도했다. 이번 훈련은 양안 긴장으로 국제사회의 관심이 쏠린 대만해협 방향으로 체계가 발사돼 눈길을 끌었다." data-native-ja="NPRは、台湾が米国から提供されたHIMARSロケットシステムを使用した軍事訓練を実施したと報じた。この訓練は、海峡両岸の緊張により国際的な懸念が非常に高い地域である台湾海峡に向けてシステムが発射されたため、注目を集めた。" data-native-ptbr="A NPR informou que Taiwan conduziu um exercício militar usando o sistema de foguetes HIMARS fornecido pelos Estados Unidos. O exercício chamou a atenção porque o sistema foi lançado na direção do Estreito de Taiwan, uma área de intensa preocupação internacional devido às tensões através do Estreito.">NPR 報導，台灣進行一場軍事演練，使用美國提供的 HIMARS 火箭系統。這次演練受到注意，因為該系統朝台灣海峽方向發射；台灣海峽因兩岸緊張情勢，一直是國際社會密切關注的區域。</p>
+      <p class="native-text" data-native-tc="這篇文章適合用來學英文新聞寫作，因為標題和內文使用許多精簡但含義很重的動詞，例如 drill（演練）、fire（發射）、mark（標誌著）和 supply（提供）。" data-native-sc="这篇文章适合用来学英文新闻写作，因为标题和内文使用许多精简但含义很重的动词，例如 drill（演练）、fire（发射）、mark（标志着）和 supply（提供）。" data-native-ko="이 기사는 제목과 본문에 Drill, Fire, Mark, Supply 등 간결하면서도 의미 있는 동사를 많이 사용하고 있기 때문에 영어 뉴스 작성 학습에 적합합니다." data-native-ja="この記事は、タイトルと本文に、ドリル、ファイア、マーク、サプライなど、簡潔だが意味のある動詞が多く使用されているため、英語のニュース作成の学習に適しています。" data-native-ptbr="Este artigo é adequado para aprender a escrever notícias em inglês porque o título e o corpo do texto usam muitos verbos concisos, mas significativos, como perfurar, disparar, marcar e fornecer.">這篇文章適合用來學英文新聞寫作，因為標題和內文使用許多精簡但含義很重的動詞，例如 drill（演練）、fire（發射）、mark（標誌著）和 supply（提供）。</p>
     </section>
 
     <section>
@@ -143,43 +148,43 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
         <article class="card"><div class="phrase-row"><div class="phrase">drill / to drill</div><button class="speak-button" type="button" data-say="drill / to drill" aria-label="Play pronunciation for drill / to drill"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">to practice a procedure repeatedly, especially for military, safety, or emergency training.</p>
                     <p class="orig"><strong>In article:</strong> “The <mark>drill</mark> on Wednesday marked the first time the U.S.-supplied HIMARS system has been fired into the Taiwan Strait.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="反覆練習某種程序或行動，常用於軍事、救災、消防或安全訓練；可譯為「演練、操練」。" data-native-sc="反覆练习某种程序或行动，常用于军事、救灾、消防或安全训练；可译为「演练、操练」。" data-native-ko="군사, 재난 구호, 소방 또는 안전 훈련에서 흔히 사용되는 특정 절차나 행동을 반복적으로 연습하는 행위 &quot;드릴, 드릴&quot;로 번역될 수 있습니다." data-native-ja="特定の手順や行動を繰り返し練習すること。軍事、災害救援、消防、安全訓練などでよく使用されます。 「ドリル、ドリル」と訳せます。"><span class="native-body">反覆練習某種程序或行動，常用於軍事、救災、消防或安全訓練；可譯為「演練、操練」。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="反覆練習某種程序或行動，常用於軍事、救災、消防或安全訓練；可譯為「演練、操練」。" data-native-sc="反覆练习某种程序或行动，常用于军事、救灾、消防或安全训练；可译为「演练、操练」。" data-native-ko="군사, 재난 구호, 소방 또는 안전 훈련에서 흔히 사용되는 특정 절차나 행동을 반복적으로 연습하는 행위 &quot;드릴, 드릴&quot;로 번역될 수 있습니다." data-native-ja="特定の手順や行動を繰り返し練習すること。軍事、災害救援、消防、安全訓練などでよく使用されます。 「ドリル、ドリル」と訳せます。" data-native-ptbr="Praticar repetidamente um determinado procedimento ou ação, frequentemente usado em treinamento militar, de socorro em desastres, de combate a incêndios ou de segurança; pode ser traduzido como &quot;perfurar, perfurar&quot;."><span class="native-body">反覆練習某種程序或行動，常用於軍事、救災、消防或安全訓練；可譯為「演練、操練」。</span></p>
           <p><strong>Example:</strong> The soldiers drilled with a new system before the live exercise.</p>
         </article>
         <article class="card"><div class="phrase-row"><div class="phrase">to fire into/toward</div><button class="speak-button" type="button" data-say="to fire into/toward" aria-label="Play pronunciation for to fire into/toward"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">to shoot or launch a weapon in a particular direction or area.</p>
                     <p class="orig"><strong>In article:</strong> “The drill on Wednesday marked the first time the U.S.-supplied HIMARS system has been <mark>fired into</mark> the Taiwan Strait.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="朝某個方向或區域射擊、發射武器；新聞中常用於飛彈、火箭或砲彈發射。" data-native-sc="朝某个方向或区域射击、发射武器；新闻中常用于飞弹、火箭或炮弹发射。" data-native-ko="특정 방향이나 지역에 무기를 쏘거나 발사하다. 미사일, 로켓 또는 포탄 발사에 대한 뉴스에서 자주 사용됩니다." data-native-ja="特定の方向または領域に武器を発射または発射すること。ミサイル、ロケット弾、砲弾の発射のニュースでよく使用されます。"><span class="native-body">朝某個方向或區域射擊、發射武器；新聞中常用於飛彈、火箭或砲彈發射。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="朝某個方向或區域射擊、發射武器；新聞中常用於飛彈、火箭或砲彈發射。" data-native-sc="朝某个方向或区域射击、发射武器；新闻中常用于飞弹、火箭或炮弹发射。" data-native-ko="특정 방향이나 지역에 무기를 쏘거나 발사하다. 미사일, 로켓 또는 포탄 발사에 대한 뉴스에서 자주 사용됩니다." data-native-ja="特定の方向または領域に武器を発射または発射すること。ミサイル、ロケット弾、砲弾の発射のニュースでよく使用されます。" data-native-ptbr="Disparar ou lançar uma arma em determinada direção ou área; frequentemente usado nas notícias para o lançamento de mísseis, foguetes ou projéteis de artilharia."><span class="native-body">朝某個方向或區域射擊、發射武器；新聞中常用於飛彈、火箭或砲彈發射。</span></p>
           <p><strong>Example:</strong> The unit fired rockets toward a designated training zone.</p>
         </article>
         <article class="card"><div class="phrase-row"><div class="phrase">to mark</div><button class="speak-button" type="button" data-say="to mark" aria-label="Play pronunciation for to mark"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">to show that something is significant or historically notable.</p>
                     <p class="orig"><strong>In article:</strong> “The drill on Wednesday <mark>marked</mark> the first time the U.S.-supplied HIMARS system has been fired into the Taiwan Strait.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="表示某件事具有重要意義或成為一個值得記錄的時間點；可譯為「標誌著、代表」。" data-native-sc="表示某件事具有重要意义或成为一个值得记录的时间点；可译为「标志着、代表」。" data-native-ko="어떤 일이 매우 중요하거나 기록할 가치가 있는 시점이 되었음을 나타냅니다. 이는 &quot;표시하다, 나타내다&quot;로 번역될 수 있습니다." data-native-ja="何かが非常に重要であるか、記録する価値のある時点になったことを示します。 「マークする、表す」と訳せます。"><span class="native-body">表示某件事具有重要意義或成為一個值得記錄的時間點；可譯為「標誌著、代表」。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="表示某件事具有重要意義或成為一個值得記錄的時間點；可譯為「標誌著、代表」。" data-native-sc="表示某件事具有重要意义或成为一个值得记录的时间点；可译为「标志着、代表」。" data-native-ko="어떤 일이 매우 중요하거나 기록할 가치가 있는 시점이 되었음을 나타냅니다. 이는 &quot;표시하다, 나타내다&quot;로 번역될 수 있습니다." data-native-ja="何かが非常に重要であるか、記録する価値のある時点になったことを示します。 「マークする、表す」と訳せます。" data-native-ptbr="Indica que algo é de grande importância ou se tornou um momento que vale a pena registrar; pode ser traduzido como “marcar, representar”."><span class="native-body">表示某件事具有重要意義或成為一個值得記錄的時間點；可譯為「標誌著、代表」。</span></p>
           <p><strong>Example:</strong> The test marked the first public use of the equipment.</p>
         </article>
         <article class="card"><div class="phrase-row"><div class="phrase">U.S.-supplied</div><button class="speak-button" type="button" data-say="U.S.-supplied" aria-label="Play pronunciation for U.S.-supplied"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">provided by the United States. The hyphen helps the words work together before a noun.</p>
                     <p class="orig"><strong>In article:</strong> “The drill on Wednesday marked the first time the <mark>U.S.-supplied</mark> HIMARS system has been fired into the Taiwan Strait.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="由美國提供的。連字號讓 U.S. 和 supplied 一起修飾後面的名詞，例如 U.S.-supplied equipment。" data-native-sc="由美国提供的。连字号让 U.S. 和 supplied 一起修饰后面的名词，例如 U.S.-supplied equipment。" data-native-ko="미국에서 제공. 하이픈을 사용하면 U.S. 및 공급됨이 U.S. 공급 장비와 같은 다음 명사를 수식할 수 있습니다." data-native-ja="米国から提供されます。ハイフンを使用すると、U.S. および Supplyd を使用して、次の名詞 (U.S.-supplied Equipment など) を修飾できます。"><span class="native-body">由美國提供的。連字號讓 U.S. 和 supplied 一起修飾後面的名詞，例如 U.S.-supplied equipment。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="由美國提供的。連字號讓 U.S. 和 supplied 一起修飾後面的名詞，例如 U.S.-supplied equipment。" data-native-sc="由美国提供的。连字号让 U.S. 和 supplied 一起修饰后面的名词，例如 U.S.-supplied equipment。" data-native-ko="미국에서 제공. 하이픈을 사용하면 U.S. 및 공급됨이 U.S. 공급 장비와 같은 다음 명사를 수식할 수 있습니다." data-native-ja="米国から提供されます。ハイフンを使用すると、U.S. および Supplyd を使用して、次の名詞 (U.S.-supplied Equipment など) を修飾できます。" data-native-ptbr="Fornecido pelos Estados Unidos. O hífen permite que os EUA e fornecidos modifiquem o seguinte substantivo, como equipamento fornecido pelos EUA."><span class="native-body">由美國提供的。連字號讓 U.S. 和 supplied 一起修飾後面的名詞，例如 U.S.-supplied equipment。</span></p>
           <p><strong>Example:</strong> Officials displayed U.S.-supplied defense equipment during the exercise.</p>
         </article>
         <article class="card"><div class="phrase-row"><div class="phrase">the Taiwan Strait</div><button class="speak-button" type="button" data-say="the Taiwan Strait" aria-label="Play pronunciation for the Taiwan Strait"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">the body of water between Taiwan and mainland China; a common term in international news.</p>
                     <p class="orig"><strong>In article:</strong> “The drill on Wednesday marked the first time the U.S.-supplied HIMARS system has been fired into the <mark>Taiwan Strait</mark>.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="台灣與中國大陸之間的海域；在國際新聞中常用來討論區域安全、軍事活動與外交緊張情勢。" data-native-sc="台湾与中国大陆之间的海域；在国际新闻中常用来讨论区域安全、军事活动与外交紧张情势。" data-native-ko="대만과 중국 본토 사이의 해역; 지역 안보, 군사 활동 및 외교적 긴장을 논의하기 위해 국제 뉴스에서 자주 사용됩니다." data-native-ja="台湾と中国本土の間の海域。地域の安全保障、軍事活動、外交的緊張について議論するために国際ニュースでよく使用されます。"><span class="native-body">台灣與中國大陸之間的海域；在國際新聞中常用來討論區域安全、軍事活動與外交緊張情勢。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="台灣與中國大陸之間的海域；在國際新聞中常用來討論區域安全、軍事活動與外交緊張情勢。" data-native-sc="台湾与中国大陆之间的海域；在国际新闻中常用来讨论区域安全、军事活动与外交紧张情势。" data-native-ko="대만과 중국 본토 사이의 해역; 지역 안보, 군사 활동 및 외교적 긴장을 논의하기 위해 국제 뉴스에서 자주 사용됩니다." data-native-ja="台湾と中国本土の間の海域。地域の安全保障、軍事活動、外交的緊張について議論するために国際ニュースでよく使用されます。" data-native-ptbr="A área marítima entre Taiwan e a China continental; frequentemente usado em notícias internacionais para discutir segurança regional, atividades militares e tensões diplomáticas."><span class="native-body">台灣與中國大陸之間的海域；在國際新聞中常用來討論區域安全、軍事活動與外交緊張情勢。</span></p>
           <p><strong>Example:</strong> Activity in the Taiwan Strait is closely watched by regional governments.</p>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2>Word Origins &amp; Notes</h2>
-      <p><strong>drill:</strong> The word originally connects to boring or piercing a hole, then developed the idea of repeated training — doing something again and again until it becomes automatic.</p>
-      <p><strong>strait:</strong> A strait is a narrow water passage. It is related to the idea of something being tight or narrow; that is also why <em>dire straits</em> means a very difficult situation.</p>
-      <p><strong>supplied:</strong> This comes from the idea of providing what is needed. In news English, a hyphenated form like <em>U.S.-supplied</em> quickly tells you who provided the equipment.</p>
-    </section>
+    <section class="feedback-section" aria-labelledby="feedback-title">
 
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+
+      <iframe data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
+
+    </section>
   </main>
 <script>
 (function(){
@@ -197,9 +202,14 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
   });
 })();
 </script>
+<script>
+(function(){
+})();
+</script>
+<script src="https://tally.so/widgets/embed.js" async></script>
 <script data-native-lang-script>
 (function(){
-  const allowed = new Set(['tc','sc','ko','ja']);
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
   const params = new URLSearchParams(location.search);
   let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
   if(!allowed.has(lang)) lang = 'tc';
