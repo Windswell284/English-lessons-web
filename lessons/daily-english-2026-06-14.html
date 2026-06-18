@@ -7,7 +7,8 @@
   <style>
     :root { --bg:#f4f0e8; --paper:#fffdf8; --ink:#1f1c18; --muted:#6d6459; --line:#ded3c4; --accent:#173f5f; --accent2:#8f3f2f; --soft:#efe4d3; --blue-soft:#f7fbff; --shadow:0 18px 45px rgba(36,24,12,.12); }
     *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 0 0,rgba(23,63,95,.13),transparent 30rem),radial-gradient(circle at 100% 100%,rgba(143,63,47,.12),transparent 28rem),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
     .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
     header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:clamp(22px,4vw,38px);margin:18px 0}
     .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
@@ -37,24 +38,27 @@
     .orig{background:rgba(255,253,248,.72);border:1px solid var(--line);padding:12px 14px;border-radius:14px;margin:.75rem 0;font-size:clamp(18px,3.4vw,22px);box-shadow:none}
     .orig+.def.zh{margin-top:1.15rem}
     mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
+
+    .feedback-section{background:rgba(255,253,248,.94)}
+    .feedback-section iframe{display:block;width:100%;border:0;margin-top:12px;min-height:260px}
     @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <script id="standalone-embedded-detector">if(new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');</script>
 <style id="standalone-lesson-nav-style">
-.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:64px;padding:calc(12px + env(safe-area-inset-top)) 12px 5px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-html:not(.standalone-embedded) body{padding-top:76px!important}
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:84px!important}
 html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
 .standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
 .standalone-hamburger{display:block;width:19px;height:14px;position:relative}
 .standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
 .standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
 .standalone-site-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
-.standalone-language-control{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 8px;border:1px solid #ded3c4;border-radius:999px;background:rgba(255,253,248,.92);margin-left:auto;flex:0 0 auto}
-.standalone-globe-icon{width:20px;height:20px;color:#173f5f;flex:0 0 auto}
+.standalone-language-control{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}
+.standalone-globe-icon{width:25px;height:25px;color:#173f5f;flex:0 0 auto}
 .standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
-.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:850;font-size:13px;outline:none;max-width:86px}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}
 .standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
 .standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
@@ -65,15 +69,16 @@ body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standa
 .standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
 .standalone-nav-extra{display:none}
 body.standalone-lessons-expanded .standalone-nav-extra{display:block}
-.standalone-expand-lessons{display:block;width:100%;min-height:34px;margin:5px 0 8px;padding:4px 12px;border:0;background:transparent;border-radius:0;color:rgba(23,63,95,.62);font-size:18px;font-weight:500;letter-spacing:.03em;line-height:1;cursor:pointer;text-align:left}
+.standalone-expand-lessons{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}
 body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
-.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px 10px;margin:18px 0 12px;border-radius:999px}
+.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}
 .standalone-contact-link:hover{background:#efe4d3}
 .standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}
 </style>
-<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option></select></div></div>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
 <div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
-<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link" href="./daily-english-2026-06-18.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Iran Oil Tankers Cross Blockade Line</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-17.html"><span class="standalone-date">Jun 17, 2026</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-16.html"><span class="standalone-date">Jun 16, 2026</span><span class="standalone-title">Thames Water Nationalisation</span></a>
 <a class="standalone-nav-link" href="./daily-english-2026-06-15.html"><span class="standalone-date">Jun 15, 2026</span><span class="standalone-title">UK-Japan Investment</span></a>
 <a class="standalone-nav-link active" href="./daily-english-2026-06-14.html"><span class="standalone-date">Jun 14, 2026</span><span class="standalone-title">US-Iran Deal Timing</span></a>
@@ -91,7 +96,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
   const drawerTop=document.getElementById('standalone-drawer-top');
   const expandLessons=document.getElementById('standalone-expand-lessons');
   const nativeSelect=document.getElementById('standalone-native-language');
-  const allowedNative=new Set(['tc','sc','ko','ja']);
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
   let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
   if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
   if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
@@ -113,7 +118,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
 </script>
   <main class="wrap">
     <header>
-      <div class="eyebrow">Daily English · Current Events · June 14, 2026</div>
+      <div class="eyebrow">Current Events · June 14, 2026</div>
       <h1>US-Iran Deal Timing</h1>
       <p class="subtitle">Today’s lesson uses a BBC News current-events item about a possible US-Iran agreement and careful wording around diplomacy, uncertainty, and scheduling.</p>
       <div class="pills"><span class="pill">Level: intermediate</span><span class="pill">Time: 5–10 minutes</span></div>
@@ -133,9 +138,9 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     </section>
 
     <section class="zh-box zh">
-      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約">文章摘要</h2>
-      <p class="native-text" data-native-tc="BBC News 報導，川普表示美國與伊朗的協議將於週日簽署，但德黑蘭方面對這個時間點提出疑問。BBC 的 RSS 摘要指出，伊朗表示尚未決定確切日期，並稱「不會是明天」。" data-native-sc="BBC News 报导，川普表示美国与伊朗的协议将于周日签署，但德黑兰方面对这个时间点提出疑问。 BBC 的 RSS 摘要指出，伊朗表示尚未决定确切日期，并称「不会是明天」。" data-native-ko="BBC 뉴스는 트럼프 대통령이 미국-이란 협정이 일요일에 서명될 것이라고 말했지만 테헤란은 시기에 대해 의문을 제기했다고 보도했습니다. BBC의 RSS 요약에 따르면 이란은 아직 정확한 날짜를 결정하지 않았으며 &quot;내일은 아닐 것&quot;이라고 말했다." data-native-ja="BBCニュースは、トランプ大統領が米国とイランの合意は日曜日に署名されると述べたが、イラン政府はそのタイミングについて疑問を呈したと報じた。 BBCのRSS要約は、イランが正確な日付はまだ決定していないとし、「明日ではない」と述べたと指摘した。">BBC News 報導，川普表示美國與伊朗的協議將於週日簽署，但德黑蘭方面對這個時間點提出疑問。BBC 的 RSS 摘要指出，伊朗表示尚未決定確切日期，並稱「不會是明天」。</p>
-      <p class="native-text" data-native-tc="這則新聞適合學習外交新聞英文，因為報導常用精準而克制的詞語，例如 casts doubt（使人懷疑）、timing（時間安排）與 exact date（確切日期），來表達不確定性。" data-native-sc="这则新闻适合学习外交新闻英文，因为报导常用精准而克制的词语，例如 casts doubt（使人怀疑）、timing（时间安排）与 exact date（确切日期），来表达不确定性。" data-native-ko="이 뉴스는 외교 뉴스에 대한 영어 학습에 적합합니다. 보도에서는 불확실성을 표현하기 위해 의심스러운 단어, 시기, 정확한 날짜 등 정확하고 절제된 단어를 사용하는 경우가 많기 때문입니다." data-native-ja="このニュースは、不確実性を表現するために、疑問の投げかけ、タイミング、正確な日付など、正確で抑制された言葉を使用することが多いため、外交ニュースに関する英語を学習するのに適しています。">這則新聞適合學習外交新聞英文，因為報導常用精準而克制的詞語，例如 casts doubt（使人懷疑）、timing（時間安排）與 exact date（確切日期），來表達不確定性。</p>
+      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>
+      <p class="native-text" data-native-tc="BBC News 報導，川普表示美國與伊朗的協議將於週日簽署，但德黑蘭方面對這個時間點提出疑問。BBC 的 RSS 摘要指出，伊朗表示尚未決定確切日期，並稱「不會是明天」。" data-native-sc="BBC News 报导，川普表示美国与伊朗的协议将于周日签署，但德黑兰方面对这个时间点提出疑问。 BBC 的 RSS 摘要指出，伊朗表示尚未决定确切日期，并称「不会是明天」。" data-native-ko="BBC 뉴스는 트럼프 대통령이 미국-이란 협정이 일요일에 서명될 것이라고 말했지만 테헤란은 시기에 대해 의문을 제기했다고 보도했습니다. BBC의 RSS 요약에 따르면 이란은 아직 정확한 날짜를 결정하지 않았으며 &quot;내일은 아닐 것&quot;이라고 말했다." data-native-ja="BBCニュースは、トランプ大統領が米国とイランの合意は日曜日に署名されると述べたが、イラン政府はそのタイミングについて疑問を呈したと報じた。 BBCのRSS要約は、イランが正確な日付はまだ決定していないとし、「明日ではない」と述べたと指摘した。" data-native-ptbr="A BBC News informou que Trump disse que o acordo EUA-Irã seria assinado no domingo, mas Teerã levantou questões sobre o momento. O resumo RSS da BBC observou que o Irã disse que ainda não havia decidido uma data exata e disse que “não será amanhã”.">BBC News 報導，川普表示美國與伊朗的協議將於週日簽署，但德黑蘭方面對這個時間點提出疑問。BBC 的 RSS 摘要指出，伊朗表示尚未決定確切日期，並稱「不會是明天」。</p>
+      <p class="native-text" data-native-tc="這則新聞適合學習外交新聞英文，因為報導常用精準而克制的詞語，例如 casts doubt（使人懷疑）、timing（時間安排）與 exact date（確切日期），來表達不確定性。" data-native-sc="这则新闻适合学习外交新闻英文，因为报导常用精准而克制的词语，例如 casts doubt（使人怀疑）、timing（时间安排）与 exact date（确切日期），来表达不确定性。" data-native-ko="이 뉴스는 외교 뉴스에 대한 영어 학습에 적합합니다. 보도에서는 불확실성을 표현하기 위해 의심스러운 단어, 시기, 정확한 날짜 등 정확하고 절제된 단어를 사용하는 경우가 많기 때문입니다." data-native-ja="このニュースは、不確実性を表現するために、疑問の投げかけ、タイミング、正確な日付など、正確で抑制された言葉を使用することが多いため、外交ニュースに関する英語を学習するのに適しています。" data-native-ptbr="Esta notícia é adequada para aprender inglês sobre notícias diplomáticas, porque os relatórios costumam usar palavras precisas e contidas, como dúvida, momento e data exata, para expressar incerteza.">這則新聞適合學習外交新聞英文，因為報導常用精準而克制的詞語，例如 casts doubt（使人懷疑）、timing（時間安排）與 exact date（確切日期），來表達不確定性。</p>
     </section>
 
     <section>
@@ -145,7 +150,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">deal</div><button class="speak-button" type="button" data-say="deal" aria-label="Play pronunciation for deal"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">an agreement between people, groups, companies, or countries.</p>
                     <p class="orig"><strong>In article:</strong> “Trump says US-Iran <mark>deal</mark> to be signed on Sunday as Tehran casts doubt on timing”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="協議、交易、安排；在外交新聞中通常指國家之間談成的協議。" data-native-sc="协议、交易、安排；在外交新闻中通常指国家之间谈成的协议。" data-native-ko="계약, 거래, 주선; 외교 뉴스에서는 대개 국가 간 협상을 통해 이루어지는 합의를 가리킨다." data-native-ja="合意、取引、取決め。外交ニュースでは通常、国家間で取り決められた協定を指します。"><span class="native-body">協議、交易、安排；在外交新聞中通常指國家之間談成的協議。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="協議、交易、安排；在外交新聞中通常指國家之間談成的協議。" data-native-sc="协议、交易、安排；在外交新闻中通常指国家之间谈成的协议。" data-native-ko="계약, 거래, 주선; 외교 뉴스에서는 대개 국가 간 협상을 통해 이루어지는 합의를 가리킨다." data-native-ja="合意、取引、取決め。外交ニュースでは通常、国家間で取り決められた協定を指します。" data-native-ptbr="Acordo, negócio, arranjo; nas notícias diplomáticas geralmente se refere a um acordo negociado entre países."><span class="native-body">協議、交易、安排；在外交新聞中通常指國家之間談成的協議。</span></p>
           <p><strong>Usage note:</strong> In politics, <em>deal</em> usually means a negotiated agreement, not a shopping discount.</p>
         </article>
 
@@ -153,14 +158,14 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">casts doubt</div><button class="speak-button" type="button" data-say="casts doubt" aria-label="Play pronunciation for casts doubt"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">makes something seem uncertain, questionable, or less likely to be true.</p>
                     <p class="orig"><strong>In article:</strong> “Trump says US-Iran deal to be signed on Sunday as Tehran <mark>casts doubt</mark> on timing”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="使人懷疑、讓某事變得不確定；常用於新聞標題，表示某方對說法或計畫提出疑問。" data-native-sc="使人怀疑、让某事变得不确定；常用于新闻标题，表示某方对说法或计画提出疑问。" data-native-ko="사람들을 의심하게 만들거나 어떤 것을 불확실하게 만들다. 누군가가 진술이나 계획에 대해 의구심을 가지고 있음을 나타내기 위해 뉴스 헤드라인에 자주 사용됩니다." data-native-ja="人々に疑いを持たせたり、何かを不確実にしたりすること。誰かが声明や計画に疑問を抱いていることを示すために、ニュースの見出しでよく使用されます。"><span class="native-body">使人懷疑、讓某事變得不確定；常用於新聞標題，表示某方對說法或計畫提出疑問。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="使人懷疑、讓某事變得不確定；常用於新聞標題，表示某方對說法或計畫提出疑問。" data-native-sc="使人怀疑、让某事变得不确定；常用于新闻标题，表示某方对说法或计画提出疑问。" data-native-ko="사람들을 의심하게 만들거나 어떤 것을 불확실하게 만들다. 누군가가 진술이나 계획에 대해 의구심을 가지고 있음을 나타내기 위해 뉴스 헤드라인에 자주 사용됩니다." data-native-ja="人々に疑いを持たせたり、何かを不確実にしたりすること。誰かが声明や計画に疑問を抱いていることを示すために、ニュースの見出しでよく使用されます。" data-native-ptbr="Para deixar as pessoas em dúvida ou tornar algo incerto; frequentemente usado em manchetes de notícias para indicar que alguém tem dúvidas sobre uma declaração ou plano."><span class="native-body">使人懷疑、讓某事變得不確定；常用於新聞標題，表示某方對說法或計畫提出疑問。</span></p>
         </article>
 
         <article class="card">
           <div class="phrase-row"><div class="phrase">timing</div><button class="speak-button" type="button" data-say="timing" aria-label="Play pronunciation for timing"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">the choice or arrangement of when something happens.</p>
                     <p class="orig"><strong>In article:</strong> “Trump says US-Iran deal to be signed on Sunday as Tehran casts doubt on <mark>timing</mark>”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="時機、時間安排；可指某件事何時發生，或安排得是否合適。" data-native-sc="时机、时间安排；可指某件事何时发生，或安排得是否合适。" data-native-ko="타이밍, 시간 배치; 어떤 일이 언제 발생하는지, 또는 그것이 적절하게 배열되었는지 여부를 나타낼 수 있습니다." data-native-ja="タイミング、時間調整。何かが起こったとき、またはそれが適切に手配されているかどうかを指すことができます。"><span class="native-body">時機、時間安排；可指某件事何時發生，或安排得是否合適。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="時機、時間安排；可指某件事何時發生，或安排得是否合適。" data-native-sc="时机、时间安排；可指某件事何时发生，或安排得是否合适。" data-native-ko="타이밍, 시간 배치; 어떤 일이 언제 발생하는지, 또는 그것이 적절하게 배열되었는지 여부를 나타낼 수 있습니다." data-native-ja="タイミング、時間調整。何かが起こったとき、またはそれが適切に手配されているかどうかを指すことができます。" data-native-ptbr="Tempo, organização do tempo; pode se referir a quando algo acontece ou se está organizado de forma adequada."><span class="native-body">時機、時間安排；可指某件事何時發生，或安排得是否合適。</span></p>
           <p><strong>Usage note:</strong> <em>Timing</em> is broader than <em>time</em>; it often includes planning and strategy.</p>
         </article>
 
@@ -168,23 +173,24 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
           <div class="phrase-row"><div class="phrase">exact date</div><button class="speak-button" type="button" data-say="exact date" aria-label="Play pronunciation for exact date"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">the specific calendar day when something will happen.</p>
                     <p class="orig"><strong>In article:</strong> “The US president's comments come as Iran says an <mark>exact date</mark> has not been decided, but it ‘will not be tomorrow’.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="確切日期、明確的日子；用來強調不是大概時間，而是具體哪一天。" data-native-sc="确切日期、明确的日子；用来强调不是大概时间，而是具体哪一天。" data-native-ko="정확한 날짜, 특정 날짜 대략적인 시간이 아니라 특정 날짜를 강조하는 데 사용됩니다." data-native-ja="正確な日付、特定の日。おおよその時刻ではなく、特定の日を強調するために使用されます。"><span class="native-body">確切日期、明確的日子；用來強調不是大概時間，而是具體哪一天。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="確切日期、明確的日子；用來強調不是大概時間，而是具體哪一天。" data-native-sc="确切日期、明确的日子；用来强调不是大概时间，而是具体哪一天。" data-native-ko="정확한 날짜, 특정 날짜 대략적인 시간이 아니라 특정 날짜를 강조하는 데 사용됩니다." data-native-ja="正確な日付、特定の日。おおよその時刻ではなく、特定の日を強調するために使用されます。" data-native-ptbr="Data exata, dia específico; usado para enfatizar não a hora aproximada, mas o dia específico."><span class="native-body">確切日期、明確的日子；用來強調不是大概時間，而是具體哪一天。</span></p>
         </article>
 
         <article class="card">
           <div class="phrase-row"><div class="phrase">decided</div><button class="speak-button" type="button" data-say="decided" aria-label="Play pronunciation for decided"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
 <p class="def">chosen or settled after consideration.</p>
                     <p class="orig"><strong>In article:</strong> “The US president's comments come as Iran says an exact date has not been <mark>decided</mark>, but it ‘will not be tomorrow’.”</p>
-          <p class="def zh native-text" data-native-role="definition" data-native-tc="已決定、已敲定；表示經過考慮後做出選擇或安排。" data-native-sc="已决定、已敲定；表示经过考虑后做出选择或安排。" data-native-ko="결정되고 확정되었습니다. 고려한 후에 선택이나 합의가 이루어졌음을 나타냅니다." data-native-ja="決意し、最終的に決定した。検討の結果、選択または取り決めがなされたことを示します。"><span class="native-body">已決定、已敲定；表示經過考慮後做出選擇或安排。</span></p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="已決定、已敲定；表示經過考慮後做出選擇或安排。" data-native-sc="已决定、已敲定；表示经过考虑后做出选择或安排。" data-native-ko="결정되고 확정되었습니다. 고려한 후에 선택이나 합의가 이루어졌음을 나타냅니다." data-native-ja="決意し、最終的に決定した。検討の結果、選択または取り決めがなされたことを示します。" data-native-ptbr="Determinado, finalizado; indicando que uma escolha ou acordo foi feito após consideração."><span class="native-body">已決定、已敲定；表示經過考慮後做出選擇或安排。</span></p>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2>Word Origins &amp; Notes</h2>
-      <p><strong>Cast doubt:</strong> <em>Cast</em> can mean “throw.” The phrase imagines doubt being thrown onto an idea, making it less clear or less certain.</p>
-      <p><strong>Tehran as shorthand:</strong> International news often uses capital cities as shorthand for governments. This keeps headlines shorter and more formal.</p>
-      <p><strong>Timing:</strong> The suffix <em>-ing</em> turns the verb <em>time</em> into a noun meaning the act or strategy of choosing when something happens.</p>
+    <section class="feedback-section" aria-labelledby="feedback-title">
+
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+
+      <iframe data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
+
     </section>
   </main>
 
@@ -204,9 +210,10 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     });
   })();
   </script>
+<script src="https://tally.so/widgets/embed.js" async></script>
 <script data-native-lang-script>
 (function(){
-  const allowed = new Set(['tc','sc','ko','ja']);
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
   const params = new URLSearchParams(location.search);
   let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
   if(!allowed.has(lang)) lang = 'tc';
