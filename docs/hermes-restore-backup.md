@@ -106,7 +106,7 @@ Skill name to restore/update: `traditional-chinese-current-events`
 - Do not reproduce full copyrighted articles.
 - Include source/title/date/link and short excerpts only.
 - Public page labels should be only `Easy` and `Challenge`; default to Easy and do not show Chinese grade labels.
-- Use the same topic rotation/weighting logic as the Daily English lesson: about 30% world/geopolitics, 20% business/economy, 15% technology/AI, 15% science/health/climate, 15% culture/society/lifestyle, and 5% wildcard/human-interest. Default weekly cadence: Monday business, Tuesday world affairs, Wednesday science/health/climate, Thursday tech/AI, Friday culture/society/lifestyle, Saturday world or biggest major headline, Sunday lighter/wildcard. Choose vocabulary-rich Traditional Chinese articles from the rotating category; avoid several consecutive geopolitics lessons unless major news requires it.
+- Use the same weekly cadence logic as the Daily English lesson, but with this Daily Chinese long-run topic mix: about 20% world/geopolitics, 20% business/economy, 15% technology/AI, 15% science/health/climate, 25% culture/society/lifestyle, and 5% wildcard/human-interest. Default weekly cadence: Monday business, Tuesday world affairs, Wednesday science/health/climate, Thursday tech/AI, Friday culture/society/lifestyle, Saturday world or biggest major headline, Sunday lighter/wildcard. Choose vocabulary-rich Traditional Chinese articles from the rotating category; avoid several consecutive geopolitics lessons unless major news requires it.
 - No quiz unless explicitly requested.
 - Summary heading: `中文摘要`; Easy summary should live in this normal section, not an extra nested panel/card.
 - Vocabulary heading: `Key Words`.
