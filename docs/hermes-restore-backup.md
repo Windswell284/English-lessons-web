@@ -87,7 +87,7 @@ Publish scripts should self-load `/opt/data/.env` so scheduled jobs do not depen
 - Mobile-friendly lesson websites are preferred over Telegram-only attachments.
 - Website navigation should be lesson-first on mobile.
 - Use a 3-line hamburger menu for direct/standalone lesson pages.
-- Direct lesson pages must have navigation; embedded homepage lesson views should hide duplicate standalone nav via `?embedded=1`.
+- Direct lesson pages must have navigation. Embedded homepage lesson views should hide duplicate standalone nav via `?embedded=1`, but only when the lesson is actually inside the homepage iframe; if an iPhone/Safari direct URL opens with `?embedded=1` outside an iframe, the standalone nav should still appear.
 - Menus should be daily-only unless explicitly restored.
 - Daily lesson navigation should be capped at 10 total daily links; nav panels initially show 5 total lesson links, then a `…` control expands the remaining links up to the 10-link cap.
 - Do not show weekly/monthly review sections in website navigation unless explicitly asked.
