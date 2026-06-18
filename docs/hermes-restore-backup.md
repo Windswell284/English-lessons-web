@@ -195,14 +195,13 @@ These should return 404 if removed.
 
 ### Chinese verifier requirements
 
-The Chinese verifier script should check:
+The Chinese verifier script should check generated public Daily Chinese pages:
 
 - `中文摘要` present.
 - `Key Words` present.
-- Exactly 6 vocab cards.
+- Exactly 5 Easy vocab cards and exactly 5 Challenge vocab cards.
 - Each word heading is highlighted in its source snippet with `<mark>`.
-- Vocab length range: 3–5 two-character words and 1–3 longer terms.
-- Vocab order is not grouped by length (`S+L+` or `L+S+` should fail).
+- Vocab uses a reasonable mix of two-character words and longer terms when possible.
 - No quiz terms.
 - Mobile font requirements remain readable.
 
