@@ -105,11 +105,12 @@ Skill name to restore/update: `traditional-chinese-current-events`
 - Traditional Chinese current-events lesson, preferably based on CNA when suitable.
 - Do not reproduce full copyrighted articles.
 - Include source/title/date/link and short excerpts only.
-- Level: `國中挑戰版` by default.
+- Public page labels should be only `Easy` and `Challenge`; default to Easy and do not show Chinese grade labels.
+- Use the same topic rotation/weighting logic as the Daily English lesson: about 30% world/geopolitics, 20% business/economy, 15% technology/AI, 15% science/health/climate, 15% culture/society/lifestyle, and 5% wildcard/human-interest. Default weekly cadence: Monday business, Tuesday world affairs, Wednesday science/health/climate, Thursday tech/AI, Friday culture/society/lifestyle, Saturday world or biggest major headline, Sunday lighter/wildcard. Choose vocabulary-rich Traditional Chinese articles from the rotating category; avoid several consecutive geopolitics lessons unless major news requires it.
 - No quiz unless explicitly requested.
-- Summary heading: `中文摘要`.
+- Summary heading: `中文摘要`; Easy summary should live in this normal section, not an extra nested panel/card.
 - Vocabulary heading: `Key Words`.
-- Exactly 6 vocabulary cards.
+- Exactly 5 Easy vocabulary cards and exactly 5 Challenge vocabulary cards on public generated lesson pages.
 - Each vocabulary card must include:
   - word/phrase
   - Zhuyin
@@ -119,21 +120,17 @@ Skill name to restore/update: `traditional-chinese-current-events`
 - Do not use redundant count labels such as `5 個重點詞彙`, `6 個重點詞彙`, `五個挑戰詞彙`, or `六個挑戰詞彙`.
 - Avoid the literal phrase `Traditional Chinese` in generated Chinese daily lesson HTML.
 
-### Chinese vocabulary length mix
+### Chinese vocabulary count and length mix
 
-For exactly 6 vocabulary cards:
+For public generated Daily Chinese pages:
 
-- Use **3–5 two-character words**.
-- Use **1–3 longer 3–6 character phrases/terms**.
-- This is roughly a **50/50 through 80/20** range of two-character words vs. longer phrases.
-- Do not make all six cards 4-character phrases.
+- Show **exactly 5 Easy cards** and **exactly 5 Challenge cards**.
+- Easy words should be genuinely easier/different where possible, not just a subset of Challenge.
+- Challenge words should remain useful news-reading terms.
+- Use a mix of two-character words and longer terms when possible.
+- Do not make all cards 4-character phrases.
 - Do not group all two-character words first and all longer terms last.
 - Mix/interleave the ordering visually.
-- Good order examples:
-  - short, long, short, long, short, long
-  - short, short, long, short, long, short
-- Bad order example:
-  - short, short, short, long, long, long
 
 Good 2-character examples:
 
