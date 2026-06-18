@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vocabulary Feedback Form Test v2 · Daily English</title>
+  <style>
+    :root{--bg:#f7f3ea;--paper:#fffdf8;--ink:#173f5f;--muted:#6b7280;--line:#e8dfd1;--accent:#173f5f}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#fffaf0 0%,var(--bg) 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+    main{width:min(100% - 28px,760px);margin:0 auto;padding:28px 0 56px}
+    .back{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent);text-decoration:none;font-weight:800;margin-bottom:18px}
+    section{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,4vw,34px);box-shadow:none}
+    .eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:850;margin-bottom:8px}
+    h1{font-size:clamp(30px,6vw,46px);line-height:1.06;letter-spacing:-.04em;margin:.1rem 0 .75rem;font-weight:720}
+    p{font-size:clamp(17px,3.2vw,20px);margin:.65rem 0;color:#27465f}
+    .compare{margin-top:14px;padding:12px 14px;border-radius:16px;background:#f8f3e8;border:1px solid var(--line);color:var(--muted);font-size:15px}
+    .feedback-frame{display:block;width:100%;border:0;margin-top:18px;min-height:300px}
+    code{background:#f4eadb;border:1px solid var(--line);border-radius:8px;padding:.08rem .32rem;font-size:.92em;word-break:break-all}
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="/">← Daily English</a>
+    <section aria-labelledby="test-title">
+      <div class="eyebrow">Vocabulary difficulty feedback · test page</div>
+      <h1 id="test-title">Tally Form Test v2</h1>
+      <p>This page is only for comparing the new vocabulary-difficulty feedback form before deciding whether to use it in daily lessons.</p>
+      <p class="compare">Current production form: <code>QKEb0k</code>. This test page uses v2: <code>zxbkrZ</code>.</p>
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+      <iframe class="feedback-frame" data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="320" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback v2 test"></iframe>
+    </section>
+  </main>
+  <script src="https://tally.so/widgets/embed.js" async></script>
+</body>
+</html>
