@@ -215,11 +215,23 @@ Verifier path:
 
 Skill name to restore/update: `daily-english-lessons`
 
-- Homepage native-language selector: show a simple globe icon, a vertical divider, then a dropdown in the top-right homepage header. Default is `繁體中文`; include options `繁體中文`, `简体中文`, `한국어`, and `日本語`. The selected value controls the native-language translation sections in lesson pages, including the article-summary translation and vocabulary-definition translations.
+- Homepage native-language selector: show a simple globe icon, a vertical divider, then a dropdown in the top-right homepage header. Default is `繁體中文`; include options `繁體中文`, `简体中文`, `한국어`, `日本語`, and Brazilian Portuguese / compact `PT-BR` where space is tight. The selected value controls the native-language translation sections in lesson pages, including the article-summary translation and vocabulary-definition translations.
 
 ### Content format
 
 Each daily English lesson should be a current-events vocabulary page based on a reputable English-language article.
+
+Topic variety matters for reader interest. Do not default mostly to geopolitics. Use this default cadence unless the day's news strongly suggests a better non-repetitive choice:
+
+- Monday: business / economy / markets.
+- Tuesday: world affairs / geopolitics.
+- Wednesday: science / health / climate.
+- Thursday: technology / AI / internet / cybersecurity.
+- Friday: culture / society / lifestyle / education / work.
+- Saturday: world affairs or the genuinely biggest major headline.
+- Sunday: lighter interesting feature, human-interest, science discovery, sports, travel, food, education, or culture.
+
+Long-run target mix: about 30% world affairs/geopolitics, 20% business/economy, 15% technology/AI, 15% science/health/climate, 15% culture/society/lifestyle, and 5% wildcard/human-interest.
 
 Required format:
 
@@ -231,14 +243,15 @@ Required format:
 - Vocabulary heading: `5 Daily Words`.
 - Page `<title>`, lesson `<h1>`, and navigation names should use the clean article/topic title only; do not prefix them with labels like `Current Events English:`.
 - Exactly 5 vocabulary cards.
-- Vocabulary mix should be mostly single words, not phrases: normally 3–5 of the 5 items should be single words, with at most 0–2 phrases when especially useful.
+- Vocabulary should use exactly 5 single-word cards, not phrases. If an article cannot provide five strong single-word items, choose a different reputable article.
 - Each vocabulary card includes:
   - vocabulary word/phrase shown first, with no part-of-speech/type label above it
   - pronunciation button using browser Web Speech API where practical, with a clean inline SVG speaker icon (`class="sound-icon"`) instead of the `🔊` emoji or external `sound-icon.svg` file
   - unlabeled English definition
-  - unlabeled native-language definition (Traditional Chinese by default)
   - article/headline/RSS excerpt labeled exactly `In article:` with highlighted term
-- Optional final section only if useful: `Word Origins & Notes`.
+  - unlabeled native-language definition (Traditional Chinese by default, switchable by selected language)
+- Do not include a `Word Origins & Notes` section in daily English lessons.
+- Add a final feedback section after vocabulary only: heading `How was today’s vocabulary?` with embedded Tally form `https://tally.so/embed/zxbkrZ` and hidden/query metadata `lesson_date` plus selected `language`.
 - Site update label should read exactly `Updates 9 AM Hong Kong / Taiwan time`.
 - Desktop/non-phone homepage shell should not show a separate duplicate current-lesson title bar above the embedded lesson viewer; the embedded lesson already shows the date/topic title.
 - Do not include quiz, mini practice, Language Focus, writing exercises, comprehension questions, Source context, Article Snippets, Behind the Headline, or Open full page link.
@@ -250,16 +263,14 @@ Future English daily lessons should match the **June 13 benchmark difficulty**:
 
 - Still label the page `Level: intermediate`.
 - But choose harder intermediate / B2-ish current-events vocabulary.
-- Prefer formal current-events, diplomacy, policy, economy, abstract nouns, and useful multi-word phrases.
+- Prefer formal current-events, diplomacy, policy, economy, science, technology, culture, and abstract vocabulary from the rotating topic mix.
 
 Benchmark June 13 terms:
 
 - `envisages`
 - `blockade`
 - `obligations`
-- `staged reintegration`
 - `incrementally`
-- `proxy groups`
 
 Avoid easy headline words unless part of a stronger phrase, such as:
 
@@ -268,6 +279,7 @@ Avoid easy headline words unless part of a stronger phrase, such as:
 - `decided`
 - `reopening`
 - `meeting`
+- multi-word phrases when a good single-word article term is available
 
 If the source article does not contain enough June-13-level vocabulary, choose a different reputable article.
 
@@ -325,10 +337,10 @@ Chinese weekly/monthly review jobs were intentionally stopped. Do not restore th
 Daily English lesson generation:
 
 ```cron
-45 0 * * *
+31 0 * * *
 ```
 
-= 8:45 AM Taiwan/HK.
+= 8:31 AM Taiwan/HK. This gives a review window before the publishing job runs.
 
 Prompt must include the English preferences above, especially:
 
@@ -339,6 +351,8 @@ Prompt must include the English preferences above, especially:
 - `5 Daily Words`
 - pronunciation buttons
 - `In article:` excerpts
+- rotating topic cadence / not mostly geopolitics
+- bottom Tally vocabulary feedback form
 
 English website publish:
 
@@ -346,7 +360,7 @@ English website publish:
 57 0 * * *
 ```
 
-= 8:57 AM Taiwan/HK.
+= 8:57 AM Taiwan/HK. If no changes are requested after the 8:31 AM lesson is delivered, publish as usual.
 
 Should run script:
 
@@ -362,7 +376,7 @@ With `no_agent=True` if using Hermes cron. The script should:
 - verify homepage
 - send confirmation with homepage link
 
-English weekly/monthly review jobs may still exist unless intentionally cancelled later. Website navigation should still remain daily-only unless review sections are explicitly restored.
+English weekly/monthly review jobs should not be restored unless explicitly requested. Website navigation should remain daily-only unless review sections are explicitly restored.
 
 ---
 
@@ -409,7 +423,7 @@ Lesson preferences:
 - Chinese and English lessons are daily current-events vocab-first web pages.
 - Chinese lessons use exactly 6 vocabulary cards; English lessons use exactly 5 vocabulary cards.
 - Chinese: Traditional Chinese, `中文摘要`, `Key Words`, no quiz, 國中挑戰版, source link/summary/vocab only, no full copyrighted article. Vocab should be 3–5 two-character words and 1–3 longer terms, with mixed/interleaved ordering. Include Zhuyin, Chinese definition, English definition, and original source sentence with highlight. Use single-button Pinyin/ㄅㄆㄇ toggle on normal daily pages.
-- English: source box, `Article Summary`, `文章摘要`, `5 Daily Words`, audio buttons, unlabeled English/native definitions, real source excerpt labeled `In article:`. Vocab should match June 13 harder-intermediate benchmark, not easy headline words.
+- English: source box, `Article Summary`, `文章摘要`, `5 Daily Words`, audio buttons, unlabeled English/native definitions, real source excerpt labeled `In article:`. Use exactly 5 single-word cards. Vocab should match June 13 harder-intermediate benchmark, not easy headline words. Rotate topics for reader interest rather than mostly geopolitics: roughly 30% world affairs, 20% business/economy, 15% technology/AI, 15% science/health/climate, 15% culture/society/lifestyle, and 5% wildcard/human-interest.
 - Both sites: mobile-first, daily-only nav capped at 10 links, hamburger direct-page nav, no duplicate iframe nav, Vercel hosting, GitHub sync when possible, confirmations after publish.
 
 Keep this file somewhere safe outside Hermes.
