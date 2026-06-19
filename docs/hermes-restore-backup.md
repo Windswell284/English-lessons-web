@@ -253,7 +253,7 @@ Required format:
   - article/headline/RSS excerpt labeled exactly `In article:` with highlighted term
   - unlabeled native-language definition (Traditional Chinese by default, switchable by selected language)
 - Do not include a `Word Origins & Notes` section in daily English lessons.
-- Add a final feedback section after vocabulary only: heading `How was today’s vocabulary?` with embedded Tally form `https://tally.so/embed/zxbkrZ` and hidden/query metadata `lesson_date` plus selected `language`.
+- Add a final feedback section after vocabulary only: heading `How was today’s vocabulary?` with embedded Tally iframe `https://tally.so/embed/zxbkrZ`, both `src` and `data-tally-src`, the Tally widget script, and hidden/query metadata `lesson_date` plus selected `language`; do not use `https://tally.so/r/zxbkrZ` link buttons or contact form `LZojoO` for vocab difficulty.
 - Site update label should read exactly `Updates 9 AM Hong Kong / Taiwan time`.
 - Desktop/non-phone homepage shell should not show a separate duplicate current-lesson title bar above the embedded lesson viewer; the embedded lesson already shows the date/topic title.
 - Do not include quiz, mini practice, Language Focus, writing exercises, comprehension questions, Source context, Article Snippets, Behind the Headline, or Open full page link.
