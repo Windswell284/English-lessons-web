@@ -38,11 +38,8 @@
     .orig{background:rgba(255,253,248,.72);border:1px solid var(--line);padding:12px 14px;border-radius:14px;margin:.75rem 0;font-size:clamp(18px,3.4vw,22px);box-shadow:none}
     .orig+.def.zh{margin-top:1.15rem}
     mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
-    .feedback-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
-    .feedback-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:999px;background:var(--paper);border:1px solid var(--line);color:var(--accent);font:850 16px/1 ui-sans-serif,system-ui,sans-serif;text-decoration:none;box-shadow:none}
-    .feedback-button:hover{background:var(--soft)}
-    .feedback-button:focus-visible{outline:3px solid rgba(23,63,95,.22);outline-offset:3px}
-    @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}.feedback-button{width:100%}}
+    .tally-embed{width:100%;min-height:300px;border:0;background:transparent;display:block}
+    @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -190,12 +187,8 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     </section>
 
     <section class="feedback-section" aria-labelledby="feedback-title">
-      <h2 id="feedback-title">Was today’s vocabulary level right for you?</h2>
-      <div class="feedback-actions" aria-label="Vocabulary difficulty feedback">
-        <a class="feedback-button" href="https://tally.so/r/zxbkrZ?lesson_date=2026-06-19&amp;language=tc&amp;difficulty=too_easy" target="_blank" rel="noopener">Too easy</a>
-        <a class="feedback-button" href="https://tally.so/r/zxbkrZ?lesson_date=2026-06-19&amp;language=tc&amp;difficulty=just_right" target="_blank" rel="noopener">Just right</a>
-        <a class="feedback-button" href="https://tally.so/r/zxbkrZ?lesson_date=2026-06-19&amp;language=tc&amp;difficulty=too_hard" target="_blank" rel="noopener">Too hard</a>
-      </div>
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+      <iframe class="tally-embed" src="https://tally.so/embed/zxbkrZ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;lesson_date=2026-06-19&amp;language=tc" data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;lesson_date=2026-06-19&amp;language=tc" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
     </section>
   </main>
 
@@ -215,6 +208,7 @@ body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
     });
   })();
   </script>
+  <script src="https://tally.so/widgets/embed.js" async></script>
 <script data-native-lang-script>
 (function(){
   const allowed = new Set(['tc','sc','ko','ja','ptbr']);
