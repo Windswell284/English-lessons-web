@@ -108,15 +108,15 @@ Skill name to restore/update: `traditional-chinese-current-events`
 - Public page labels should be only `Easy` and `Challenge`; default to Easy and do not show Chinese grade labels.
 - Use the same weekly cadence logic as the Daily English lesson, but with this Daily Chinese long-run topic mix: about 20% world/geopolitics, 20% business/economy, 15% technology/AI, 15% science/health/climate, 25% culture/society/lifestyle, and 5% wildcard/human-interest. Default weekly cadence: Monday business, Tuesday world affairs, Wednesday science/health/climate, Thursday tech/AI, Friday culture/society/lifestyle, Saturday world or biggest major headline, Sunday lighter/wildcard. Choose vocabulary-rich Traditional Chinese articles from the rotating category; avoid several consecutive geopolitics lessons unless major news requires it.
 - No quiz unless explicitly requested.
-- Summary heading: `中文摘要`; Easy summary should live in this normal section, not an extra nested panel/card.
+- Summary headings: `中文摘要` and `English Summary`; Easy summary should live in the normal `中文摘要` / `English Summary` sections, not extra nested panels/cards. Both Easy and Challenge states need a corresponding English article-summary translation. Add a standalone play/pause button beside `中文摘要` (transparent button, no bubble/background); a single SVG icon changes from triangle play when stopped/paused to pause while reading, without separate play and pause icons/buttons; pressing it reads the currently visible Chinese summary aloud via browser Web Speech API using `zh-TW`, pressing it while reading pauses instead of restarting, and pressing again resumes from the current word/segment. Include the large C-style transparent speed control immediately next to the play/pause button with no panel or bubble around it, proportionally close to the `中文摘要` character size while still fitting on the same line: visible x-speed label, roomy transparent `−` and `+` tap targets, and a longer horizontal slider between them that fills more of the available heading row, all using the same accent color/design as the play/pause button; default around `0.9×`, persisted locally and clamped roughly `0.2×`–`1.4×`; use a continuous full-summary utterance at normal speeds for fluid audio with boundary-based highlighting, but switch to token-by-token playback only below about `0.6×` with timed pauses so `0.2×` is audibly slower. While reading, highlight the currently spoken Chinese word/segment in the visible summary using `Intl.Segmenter('zh-Hant')` with graceful fallback. Support finger-follow reading: tapping/dragging across the Chinese summary highlights the word/segment under the finger with a distinct style such as `.finger-active`; tapping/hitting a token starts token-by-token reading from that token and continues through the rest of the visible summary at the current speed, with light deduping so dragging does not stutter.
 - Vocabulary heading: `Key Words`.
 - Exactly 5 Easy vocabulary cards and exactly 5 Challenge vocabulary cards on public generated lesson pages.
-- Each vocabulary card must include:
-  - word/phrase
-  - Zhuyin
-  - Chinese definition
-  - English definition
-  - `原文句子` with the target word highlighted using `<mark>` when possible
+- Each vocabulary card must include, in this order:
+  - word/phrase plus Zhuyin
+  - unlabeled Chinese definition
+  - `原文句子` source context with the target word highlighted using `<mark>` when possible
+  - unlabeled English definition/translation on **every** Easy and Challenge card
+- Do not show definition/translation row labels such as `中文：`, `意思：`, `Chinese translation`, `English:`, or `English translation`.
 - Do not use redundant count labels such as `5 個重點詞彙`, `6 個重點詞彙`, `五個挑戰詞彙`, or `六個挑戰詞彙`.
 - Avoid the literal phrase `Traditional Chinese` in generated Chinese daily lesson HTML.
 
@@ -198,8 +198,15 @@ These should return 404 if removed.
 The Chinese verifier script should check generated public Daily Chinese pages:
 
 - `中文摘要` present.
+- `English Summary` present, including an English translation/summary for both Easy and Challenge states.
+- Chinese summary play/pause button present and using the browser Web Speech API: transparent button style, one dynamic icon such as `.summary-speak-icon` / `.summary-speak-icon-path`, dynamic icon switching via `updatePlayButtonState` or equivalent, no separate `.play-icon` and `.pause-icon` elements for this control, `data-summary-speak="zh"`, `SpeechSynthesisUtterance`, and `zh-TW` reading of the visible Easy/Challenge Chinese summary.
+- Chinese summary speed control present: `input[type="range"]` / `data-summary-rate-slider`, `data-summary-rate-step` buttons, visible x-speed label, large C-style transparent accent-color style next to the play/pause icon, proportionally close to the `中文摘要` character size while still fitting on the same line, longer slider line that fills more of the heading row, roomy `−`/`+` tap targets, no panel/bubble/top-handle wrapper, persisted speed, clamp around `0.2×`–`1.4×`, fluid continuous playback at normal speeds with `onboundary`/`charIndex` read-along highlighting, low-speed token-by-token fallback with timed pauses below about `0.6×`, and pause/resume play/pause behavior (`pauseSummaryAudio` or equivalent plus current-token index).
+- Chinese summary read-along highlighting present: generated highlighted spans such as `.summary-read-token`, `Intl.Segmenter('zh-Hant')` where available, and `utterance.onboundary` / `charIndex` mapping to the active spoken word/segment.
+- Finger-follow Chinese summary highlighting/audio present but gated to active play mode: `.finger-active` or equivalent, `pointerdown`/`pointermove` handlers, `document.elementFromPoint` or equivalent hit-testing, token index lookup, `fingerPlaybackEnabled` / `summaryAudioPlaying` or equivalent guard, and full token playback from the touched token. Before the user presses Play, tapping/dragging summary characters should not turn them blue and should not start audio; during play mode, dragging/tapping highlights the word/segment under the finger and reads onward through the rest of the visible summary.
 - `Key Words` present.
+- Per-vocab audio controls present when requested: each Easy/Challenge vocab card has a right-side standalone play/pause button matching the Chinese summary icon style, uses the current Chinese summary speed (`data-summary-rate-slider` / `chineseSummarySpeechRate`), and reads the vocab word, Chinese definition, then original/in-article sentence only; it should not read the English translation.
 - Exactly 5 Easy vocab cards and exactly 5 Challenge vocab cards.
+- English definitions/translations are present on all 10 vocab cards.
 - Each word heading is highlighted in its source snippet with `<mark>`.
 - Vocab uses a reasonable mix of two-character words and longer terms when possible.
 - No quiz terms.
@@ -423,8 +430,8 @@ A fresh Hermes restore should do the following:
 Lesson preferences:
 
 - Chinese and English lessons are daily current-events vocab-first web pages.
-- Chinese lessons use exactly 6 vocabulary cards; English lessons use exactly 5 vocabulary cards.
-- Chinese: Traditional Chinese, `中文摘要`, `Key Words`, no quiz, 國中挑戰版, source link/summary/vocab only, no full copyrighted article. Vocab should be 3–5 two-character words and 1–3 longer terms, with mixed/interleaved ordering. Include Zhuyin, Chinese definition, English definition, and original source sentence with highlight. Use single-button Pinyin/ㄅㄆㄇ toggle on normal daily pages.
+- Chinese lessons use exactly 5 Easy vocabulary cards and exactly 5 Challenge vocabulary cards; English lessons use exactly 5 vocabulary cards.
+- Chinese: `Easy`/`Challenge`, `中文摘要`, `English Summary`, `Key Words`, no quiz, source link/summary/vocab only, no full copyrighted article. Both levels need English article-summary translation and English definitions/translations on every vocab card. The `中文摘要` heading has a standalone play/pause control; it reads the visible Easy/Challenge Chinese summary aloud via Web Speech API `zh-TW`, includes a large C-style transparent accent-color speed control (`0.2×`–`1.4×`) next to play/pause with centered x-label, roomy −/+ tap targets, and a longer slider that fills more of the heading row; it highlights the currently spoken word/segment through fluid continuous playback at normal speeds and lets tapped summary tokens start reading onward through the rest of the visible summary. Include Zhuyin, Chinese definition, English definition, and original source sentence with highlight. Use single-button Pinyin/ㄅㄆㄇ toggle on normal daily pages.
 - English: source box, `Article Summary`, `文章摘要`, `5 Daily Words`, audio buttons, unlabeled English/native definitions, real source excerpt labeled `In article:`. Use exactly 5 single-word cards. Vocab should match June 13 harder-intermediate benchmark, not easy headline words. Rotate topics for reader interest rather than mostly geopolitics: roughly 30% world affairs, 20% business/economy, 15% technology/AI, 15% science/health/climate, 15% culture/society/lifestyle, and 5% wildcard/human-interest.
 - Both sites: mobile-first, daily-only nav capped at 10 links, hamburger direct-page nav, no duplicate iframe nav, Vercel hosting, GitHub sync when possible, confirmations after publish.
 
