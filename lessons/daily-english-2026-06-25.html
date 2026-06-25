@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fresh Doubts Over Microsoft’s Quantum Computing Claims</title>
+  <style>
+    :root{
+      --bg:#f4f0e8; --paper:#fffdf8; --ink:#1f1c18; --muted:#6d6459; --line:#ded3c4;
+      --accent:#173f5f; --accent2:#8f3f2f; --soft:#efe4d3; --blue-soft:#f7fbff;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
+    .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
+    header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:none;padding:clamp(22px,4vw,38px);margin:18px 0}
+    .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+    h1{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(28px,5.1vw,48px);font-weight:720;line-height:1.08;letter-spacing:-.04em;margin:10px 0 14px}
+    h2{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(27px,5vw,42px);font-weight:720;line-height:1.12;letter-spacing:-.04em;margin:0 0 16px}
+    p,li{font-size:clamp(19px,3.8vw,23px)}
+    a{color:var(--accent);font-weight:800}
+    .subtitle{color:var(--muted);max-width:72ch}
+    .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font:750 14px/1.2 ui-sans-serif,system-ui,sans-serif}
+    .source-box{border:2px solid rgba(23,63,95,.28);background:var(--blue-soft);border-radius:22px;padding:18px;margin-top:18px}
+    .source-box p{margin:.35rem 0}
+    .zh-box{border-left:0;background:rgba(255,253,248,.94);box-shadow:none}
+    .zh{font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",ui-sans-serif,system-ui,sans-serif}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .vocab-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px}
+    .phrase-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .phrase{font-size:clamp(26px,4.8vw,38px);font-weight:900;line-height:1.1;color:var(--accent)}
+    .speak-button{flex:0 0 auto;border:0;background:transparent;color:var(--accent);border-radius:0;width:30px;height:30px;min-width:0;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .speak-button:focus-visible{outline:3px solid rgba(23,63,95,.22);outline-offset:3px;border-radius:6px}
+    .speak-button:active{transform:translateY(1px)}
+    .sound-icon{display:block;width:22px;height:22px}
+    .def{margin:.55rem 0}
+    .orig{background:rgba(255,253,248,.72);border:1px solid var(--line);padding:12px 14px;border-radius:14px;margin:.75rem 0;font-size:clamp(18px,3.4vw,22px);box-shadow:none}
+    .orig+.def.zh{margin-top:1.15rem}
+    mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
+    .tally-embed{width:100%;min-height:300px;border:0;background:transparent;display:block}
+    @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<script id="standalone-embedded-detector">(()=>{let inFrame=false;try{inFrame=window.self!==window.top;}catch(e){inFrame=true;}if(inFrame&&new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');})();</script>
+<style id="standalone-lesson-nav-style">
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:84px!important}
+html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
+.standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.standalone-hamburger{display:block;width:19px;height:14px;position:relative}
+.standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
+.standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
+.standalone-site-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
+.standalone-language-control{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}
+.standalone-globe-icon{width:25px;height:25px;color:#173f5f;flex:0 0 auto}
+.standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}
+.standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
+.standalone-drawer-top{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}
+.standalone-drawer-top:focus-visible{outline:3px solid rgba(23,63,95,.35);outline-offset:3px;border-radius:16px}
+.standalone-drawer h2{margin:18px 0 4px;font-size:29px;font-weight:720;line-height:1.05;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.03em;color:#1f1c18}
+.standalone-drawer p{margin:0 0 14px;color:#6d6459;font-size:14px}.standalone-drawer h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}
+.standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
+.standalone-nav-extra{display:none}
+body.standalone-lessons-expanded .standalone-nav-extra{display:block}
+.standalone-expand-lessons{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}
+body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
+.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}
+.standalone-contact-link:hover{background:#efe4d3}
+.standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}
+</style>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
+<div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link active" href="./daily-english-2026-06-25.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Fresh Doubts Over Microsoft’s Quantum Computing Claims</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-24.html"><span class="standalone-date">Jun 24, 2026</span><span class="standalone-title">Heat Pump Growth Stalls as UK Climate Advisers Warn on Home Heating</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-23.html"><span class="standalone-date">Jun 23, 2026</span><span class="standalone-title">US Eases Oil Sanctions as Iran Denies Nuclear Inspectors Claim</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-22.html"><span class="standalone-date">Jun 22, 2026</span><span class="standalone-title">Backstage at Gorillaz’ Epic One-Off Stadium Show</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-21.html"><span class="standalone-date">Jun 21, 2026</span><span class="standalone-title">Why an AI Company Cleaned My New York City Apartment for Free</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-06-20.html"><span class="standalone-date">Jun 20, 2026</span><span class="standalone-title">Israel and Hezbollah Agree Ceasefire, US Says</span></a>
+<button id="standalone-expand-lessons" class="standalone-expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons"><span aria-hidden="true">···</span></button>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-06-19.html"><span class="standalone-date">Jun 19, 2026</span><span class="standalone-title">Spain’s Restaurant Napkins Become Cultural Treasures</span></a>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-06-18.html"><span class="standalone-date">Jun 18, 2026</span><span class="standalone-title">Iran Oil Tankers Cross Blockade Line</span></a>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-06-17.html"><span class="standalone-date">Jun 17, 2026</span><span class="standalone-title">Russian Warship Warning Shots</span></a>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-06-16.html"><span class="standalone-date">Jun 16, 2026</span><span class="standalone-title">Thames Water Nationalisation</span></a>
+<a class="standalone-contact-link" href="../contact-us.html">Contact us</a></nav>
+<script id="standalone-lesson-nav-script">
+(() => {
+  const btn=document.getElementById('standalone-menu-button');
+  const backdrop=document.getElementById('standalone-backdrop');
+  const drawerTop=document.getElementById('standalone-drawer-top');
+  const expandLessons=document.getElementById('standalone-expand-lessons');
+  const nativeSelect=document.getElementById('standalone-native-language');
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
+  let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
+  if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
+  if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
+  const setMenu=open=>{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')};
+  const nativeKey=lang=>'native'+lang.charAt(0).toUpperCase()+lang.slice(1);
+  const applyNativeLanguage=()=>{
+    document.documentElement.dataset.nativeLanguage=nativeLanguage;
+    localStorage.setItem('nativeLanguage',nativeLanguage);
+    if(nativeSelect)nativeSelect.value=nativeLanguage;
+    document.querySelectorAll('.native-heading').forEach(el=>{const value=el.dataset[nativeKey(nativeLanguage)]||el.dataset.nativeTc;if(value)el.textContent=value;});
+    document.querySelectorAll('.native-text').forEach(el=>{const value=el.dataset[nativeKey(nativeLanguage)]||el.dataset.nativeTc;const body=el.querySelector('.native-body');if(body)body.textContent=value;else if(value)el.textContent=value;});
+  };
+  nativeSelect?.addEventListener('change',()=>{nativeLanguage=allowedNative.has(nativeSelect.value)?nativeSelect.value:'tc';applyNativeLanguage();});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyNativeLanguage);else applyNativeLanguage();
+  btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false)); drawerTop?.addEventListener('click',()=>setMenu(false));
+  expandLessons?.addEventListener('click',()=>{document.body.classList.add('standalone-lessons-expanded');expandLessons.setAttribute('aria-expanded','true')});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+})();
+</script>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Current Events · June 25, 2026</div>
+      <h1>Fresh Doubts Over Microsoft’s Quantum Computing Claims</h1>
+      <p class="subtitle">Today’s technology lesson uses a BBC News report about Microsoft’s quantum-computing research, scientific criticism, and how experts test big claims in a fast-moving field.</p>
+      <div class="pills"><span class="pill">Level: intermediate</span><span class="pill">Time: 5–10 minutes</span></div>
+      <div class="source-box">
+        <div class="eyebrow">Source article</div>
+        <p><strong>Title:</strong> Scientist publishes fresh doubts over Microsoft’s quantum claims</p>
+        <p><strong>Source:</strong> BBC News</p>
+        <p><strong>Published:</strong> June 24, 2026</p>
+        <p><strong>Original article:</strong> <a href="https://www.bbc.co.uk/news/articles/c05y9pl3ejmo" target="_blank" rel="noopener">BBC article link</a></p>
+      </div>
+    </header>
+
+    <section>
+      <h2>Article Summary</h2>
+      <p>BBC News reports that UK-based physicist Dr Henry Legg has published new criticism of Microsoft’s quantum-computing research in the journal Nature. He argues that a software tool used to check the company’s work had coding errors and was not accurate enough to support some of Microsoft’s conclusions.</p>
+      <p>Microsoft says it stands by its research and has defended its approach, while acknowledging that scepticism and rigour are part of science. The dispute matters because quantum computing is a high-stakes industry: companies hope the technology could one day solve problems too complex for today’s most powerful supercomputers.</p>
+    </section>
+
+    <section class="zh-box zh">
+      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>
+      <p class="native-text" data-native-tc="BBC News 報導，英國物理學家 Henry Legg 博士在《自然》期刊發表新論文，質疑微軟的量子運算研究。他認為，微軟用來檢查研究結果的一項軟體工具存在程式錯誤，而且準確度不足以支撐部分結論。" data-native-sc="BBC News 报导，英国物理学家 Henry Legg 博士在《自然》期刊发表新论文，质疑微软的量子运算研究。他认为，微软用来检查研究结果的一项软体工具存在程式错误，而且准确度不足以支撑部分结论。" data-native-ko="BBC 뉴스는 영국 물리학자 헨리 레그(Henry Legg) 박사가 네이처(Nature) 저널에 마이크로소프트의 양자 컴퓨팅 연구에 의문을 제기하는 새로운 논문을 게재했다고 보도했습니다. 그는 연구 결과를 확인하기 위해 Microsoft가 사용한 소프트웨어 도구에 프로그래밍 오류가 포함되어 있으며 일부 결론을 뒷받침할 만큼 정확하지 않다고 생각합니다." data-native-ja="BBCニュースは、英国の物理学者ヘンリー・レッグ博士が、マイクロソフトの量子コンピューティング研究に疑問を呈する新しい論文をネイチャー誌に発表したと報じた。同氏は、マイクロソフトが研究結果をチェックするために使用したソフトウェア ツールにはプログラミング エラーが含まれており、結論の一部を裏付けるほど正確ではなかったと考えています。" data-native-ptbr="A BBC News informou que o físico britânico Dr. Henry Legg publicou um novo artigo na revista Nature questionando a pesquisa de computação quântica da Microsoft. Ele acredita que uma ferramenta de software usada pela Microsoft para verificar os resultados da pesquisa continha um erro de programação e não era precisa o suficiente para apoiar algumas das conclusões.">BBC News 報導，英國物理學家 Henry Legg 博士在《自然》期刊發表新論文，質疑微軟的量子運算研究。他認為，微軟用來檢查研究結果的一項軟體工具存在程式錯誤，而且準確度不足以支撐部分結論。</p>
+      <p class="native-text" data-native-tc="微軟表示仍堅持自己的研究成果，並強調懷疑與嚴謹是科學過程的一部分。這場爭議之所以重要，是因為量子運算已成為高風險、高投資的科技領域；企業希望未來能用它解決現有超級電腦也難以處理的複雜問題。" data-native-sc="微软表示仍坚持自己的研究成果，并强调怀疑与严谨是科学过程的一部分。这场争议之所以重要，是因为量子运算已成为高风险、高投资的科技领域；企业希望未来能用它解决现有超级电脑也难以处理的复杂问题。" data-native-ko="마이크로소프트는 여전히 연구 결과를 고수하며 회의론과 엄격함이 과학적 과정의 일부임을 강조했다. 양자컴퓨팅이 고위험, 고투자 기술 분야가 되었기 때문에 논란이 중요하다. 기업들은 기존 슈퍼컴퓨터가 처리하기 어려운 복잡한 문제를 해결하는 데 이를 활용하기를 희망하고 있습니다." data-native-ja="Microsoftは、依然として研究結果を支持していると述べ、懐疑論と厳格さは科学的プロセスの一部であると強調した。量子コンピューティングは高リスクで高投資の技術分野となっているため、この論争は重要である。企業は、既存のスーパーコンピューターでは処理が難しい複雑な問題を解決するためにこれを利用したいと考えています。" data-native-ptbr="A Microsoft disse que ainda mantém as descobertas de suas pesquisas e enfatizou que o ceticismo e o rigor fazem parte do processo científico. A controvérsia é importante porque a computação quântica se tornou um campo tecnológico de alto risco e alto investimento; as empresas esperam usá-lo para resolver problemas complexos que são difíceis de serem resolvidos pelos supercomputadores existentes.">微軟表示仍堅持自己的研究成果，並強調懷疑與嚴謹是科學過程的一部分。這場爭議之所以重要，是因為量子運算已成為高風險、高投資的科技領域；企業希望未來能用它解決現有超級電腦也難以處理的複雜問題。</p>
+    </section>
+
+    <section>
+      <h2>5 Daily Words</h2>
+      <div class="grid">
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">claims</div><button class="speak-button" type="button" data-say="claims" aria-label="Play pronunciation for claims"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">statements that something is true, especially when other people may question or test them.</p>
+          <p class="orig"><strong>In article:</strong> “Scientist publishes fresh doubts over Microsoft’s quantum <mark>claims</mark>.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="聲稱、主張；某人或某機構表示為真的說法，尤其是仍可能被質疑或驗證的說法。" data-native-sc="声称、主张；某人或某机构表示为真的说法，尤其是仍可能被质疑或验证的说法。" data-native-ko="청구서; 누군가 또는 어떤 것이 사실인 주장, 특히 아직 의문이 제기되거나 검증될 수 있는 주장." data-native-ja="請求。誰かまたは何かによってなされた真実である主張、特にまだ疑問または検証される可能性のある主張。" data-native-ptbr="Uma reivindicação; uma afirmação feita por alguém ou algo que é verdadeira, especialmente aquela que ainda pode ser questionada ou verificada."><span class="native-body">聲稱、主張；某人或某機構表示為真的說法，尤其是仍可能被質疑或驗證的說法。</span></p>
+          <p><strong>Usage note:</strong> In science and business news, <em>claims</em> often need evidence before the public accepts them.</p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">scepticism</div><button class="speak-button" type="button" data-say="scepticism" aria-label="Play pronunciation for scepticism"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">an attitude of doubting whether something is true or reliable until there is strong evidence.</p>
+          <p class="orig"><strong>In article:</strong> “The tech giant has consistently stood by its conclusions despite <mark>scepticism</mark> from experts in the field.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="懷疑態度；在有充分證據之前，對某件事是否真實或可靠保持保留。" data-native-sc="怀疑态度；在有充分证据之前，对某件事是否真实或可靠保持保留。" data-native-ko="회의론; 충분한 증거가 있을 때까지 어떤 것이 사실인지 신뢰할 수 있는지에 대한 유보." data-native-ja="懐疑論。十分な証拠が得られるまで、何かが真実であるか信頼できるかについて留保すること。" data-native-ptbr="Ceticismo; reserva sobre se algo é verdadeiro ou confiável até que haja evidências suficientes."><span class="native-body">懷疑態度；在有充分證據之前，對某件事是否真實或可靠保持保留。</span></p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">assertion</div><button class="speak-button" type="button" data-say="assertion" aria-label="Play pronunciation for assertion"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">a confident statement that something is true, even if it still needs proof.</p>
+          <p class="orig"><strong>In article:</strong> “Legg also said Microsoft had still not proved its <mark>assertion</mark> that it has managed to create a theoretical quasi-particle called Majorana.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="斷言、明確主張；很有把握地說某事為真，但仍可能需要證明。" data-native-sc="断言、明确主张；很有把握地说某事为真，但仍可能需要证明。" data-native-ko="무언가를 주장하다; 뭔가를 명확하게 말하다; 어떤 것이 사실이라고 높은 확신을 갖고 말하지만 여전히 증거가 필요할 수 있습니다." data-native-ja="何かを主張すること。何かを明確に述べる。何かが真実であると高い自信を持って言うことは、それでも証拠が必要な場合があります。" data-native-ptbr="Para afirmar algo; afirmar algo claramente; dizer que algo é verdade com grande confiança, mas ainda pode exigir provas."><span class="native-body">斷言、明確主張；很有把握地說某事為真，但仍可能需要證明。</span></p>
+          <p><strong>Usage note:</strong> <em>Assertion</em> is more formal than <em>claim</em> and is common in legal, academic, and policy writing.</p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">scrutinise</div><button class="speak-button" type="button" data-say="scrutinise" aria-label="Play pronunciation for scrutinise"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">to examine something very carefully, especially to find errors, weaknesses, or hidden problems.</p>
+          <p class="orig"><strong>In article:</strong> “Legg also accused Microsoft of not sharing enough data for other scientists to <mark>scrutinise</mark>.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="仔細審查、嚴格檢視；特別是為了找出錯誤、弱點或隱藏問題。" data-native-sc="仔细审查、严格检视；特别是为了找出错误、弱点或隐藏问题。" data-native-ko="주의 깊은 조사, 비판적 조사; 특히 오류, 약점 또는 숨겨진 문제를 식별합니다." data-native-ja="慎重な精査、批判的な検討。特にエラー、弱点、隠れた問題を特定します。" data-native-ptbr="Exame cuidadoso, exame crítico; especialmente para identificar erros, pontos fracos ou problemas ocultos."><span class="native-body">仔細審查、嚴格檢視；特別是為了找出錯誤、弱點或隱藏問題。</span></p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">arbitration</div><button class="speak-button" type="button" data-say="arbitration" aria-label="Play pronunciation for arbitration"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">the process of asking an independent person or organisation to judge a dispute and help decide the outcome.</p>
+          <p class="orig"><strong>In article:</strong> “Microsoft said it was sharing all of its data with the US defence agency Darpa for independent <mark>arbitration</mark>.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="仲裁；請獨立第三方判斷爭議並協助決定結果的程序。" data-native-sc="仲裁；请独立第三方判断争议并协助决定结果的程序。" data-native-ko="중재; 독립적인 제3자가 분쟁을 판단하고 결과를 결정하는 데 도움을 주는 프로세스입니다." data-native-ja="仲裁;独立した第三者が紛争を判断し、結果の決定を支援するプロセス。" data-native-ptbr="Arbitragem; um processo no qual um terceiro independente julga a disputa e auxilia na determinação do resultado."><span class="native-body">仲裁；請獨立第三方判斷爭議並協助決定結果的程序。</span></p>
+          <p><strong>Usage note:</strong> This is today’s stretch word. It is common in legal, business, and international-dispute contexts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="feedback-section" aria-labelledby="feedback-title">
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+      <iframe class="tally-embed" src="https://tally.so/embed/zxbkrZ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;lesson_date=2026-06-25&amp;language=tc" data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;lesson_date=2026-06-25&amp;language=tc" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    function cleanText(text){return (text||'').replace(/^to\s+/i,'').replace(/\s*\/\s*to\s*/i,'; ').trim();}
+    document.addEventListener('click', function(event){
+      const button = event.target.closest('.speak-button');
+      if(!button || !('speechSynthesis' in window)) return;
+      const text = cleanText(button.dataset.say || button.textContent);
+      if(!text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.82;
+      window.speechSynthesis.speak(utterance);
+    });
+  })();
+  </script>
+  <script src="https://tally.so/widgets/embed.js" async></script>
+<script data-native-lang-script>
+(function(){
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
+  const params = new URLSearchParams(location.search);
+  let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
+  if(!allowed.has(lang)) lang = 'tc';
+  document.documentElement.dataset.nativeLanguage = lang;
+  localStorage.setItem('nativeLanguage', lang);
+  function applyNativeLanguage(){
+    document.querySelectorAll('.native-heading').forEach(el => {
+      const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
+      if(value) el.textContent = value;
+    });
+    document.querySelectorAll('.native-text').forEach(el => {
+      const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
+      const body = el.querySelector('.native-body');
+      if(body) body.textContent = value;
+      else if(value) el.textContent = value;
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyNativeLanguage);
+  else applyNativeLanguage();
+})();
+</script>
+</body>
+</html>
