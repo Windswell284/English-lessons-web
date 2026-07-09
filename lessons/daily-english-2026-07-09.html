@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Outcry as Meta Lets Users Make AI Images from Public Instagram Profile Pics</title>
+  <style>
+    :root{
+      --bg:#f4f0e8; --paper:#fffdf8; --ink:#1f1c18; --muted:#6d6459; --line:#ded3c4;
+      --accent:#173f5f; --accent2:#8f3f2f; --soft:#efe4d3; --blue-soft:#f7fbff;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72}
+    .wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:30px 0 56px}
+    header,section{background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:26px;box-shadow:none;padding:clamp(22px,4vw,38px);margin:18px 0}
+    .eyebrow{font:800 13px/1.2 ui-sans-serif,system-ui,sans-serif;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+    h1{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(28px,5.1vw,48px);font-weight:720;line-height:1.08;letter-spacing:-.04em;margin:10px 0 14px}
+    h2{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(27px,5vw,42px);font-weight:720;line-height:1.12;letter-spacing:-.04em;margin:0 0 16px}
+    p,li{font-size:clamp(19px,3.8vw,23px)}
+    a{color:var(--accent);font-weight:800}
+    .subtitle{color:var(--muted);max-width:72ch}
+    .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font:750 14px/1.2 ui-sans-serif,system-ui,sans-serif}
+    .source-box{border:2px solid rgba(23,63,95,.28);background:var(--blue-soft);border-radius:22px;padding:18px;margin-top:18px}
+    .source-box p{margin:.35rem 0}
+    .zh-box{border-left:0;background:rgba(255,253,248,.94);box-shadow:none}
+    .zh{font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",ui-sans-serif,system-ui,sans-serif}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .vocab-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:18px}
+    .phrase-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .phrase{font-size:clamp(26px,4.8vw,38px);font-weight:900;line-height:1.1;color:var(--accent)}
+    .speak-button{flex:0 0 auto;border:0;background:transparent;color:var(--accent);border-radius:0;width:30px;height:30px;min-width:0;min-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .speak-button:focus-visible{outline:3px solid rgba(23,63,95,.22);outline-offset:3px;border-radius:6px}
+    .speak-button:active{transform:translateY(1px)}
+    .sound-icon{display:block;width:22px;height:22px}
+    .def{margin:.55rem 0}
+    .orig{background:rgba(255,253,248,.72);border:1px solid var(--line);padding:12px 14px;border-radius:14px;margin:.75rem 0;font-size:clamp(18px,3.4vw,22px);box-shadow:none}
+    .orig+.def.zh{margin-top:1.15rem}
+    mark{background:#ffe08a;padding:0 .15em;border-radius:.18em}
+    .tally-embed{width:100%;min-height:300px;border:0;background:transparent;display:block}
+    @media(max-width:700px){.wrap{width:min(100% - 22px,980px);padding-top:12px}header,section{border-radius:18px}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<script id="standalone-embedded-detector">(()=>{let inFrame=false;try{inFrame=window.self!==window.top;}catch(e){inFrame=true;}if(inFrame&&new URLSearchParams(location.search).has('embedded'))document.documentElement.classList.add('standalone-embedded');})();</script>
+<style id="standalone-lesson-nav-style">
+.standalone-nav-bar{position:fixed;top:0;left:0;right:0;z-index:9998;display:flex;align-items:center;gap:10px;min-height:70px;padding:calc(16px + env(safe-area-inset-top)) 46px 12px 12px;background:rgba(255,253,248,.96);border-bottom:1px solid #ded3c4;box-shadow:0 8px 24px rgba(36,24,12,.08);backdrop-filter:blur(10px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html:not(.standalone-embedded) body{padding-top:84px!important}
+html.standalone-embedded .standalone-nav-bar,html.standalone-embedded .standalone-backdrop,html.standalone-embedded .standalone-drawer{display:none!important}
+.standalone-menu-button{border:1px solid #ded3c4;background:#173f5f;color:white;border-radius:12px;width:42px;height:40px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.standalone-hamburger{display:block;width:19px;height:14px;position:relative}
+.standalone-hamburger::before,.standalone-hamburger::after,.standalone-hamburger span{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:999px}
+.standalone-hamburger::before{top:0}.standalone-hamburger span{top:6px}.standalone-hamburger::after{bottom:0}
+.standalone-site-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:720;font-size:clamp(22px,5.6vw,30px);letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#1f1c18;min-width:0;flex:1}
+.standalone-language-control{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:6px 0;border:0;border-radius:0;background:transparent;margin-left:auto;margin-right:22px;margin-top:12px;flex:0 0 auto;box-shadow:none}
+.standalone-globe-icon{width:25px;height:25px;color:#173f5f;flex:0 0 auto}
+.standalone-language-divider{width:1px;height:22px;background:#ded3c4;display:block}
+.standalone-native-select{border:0;background:transparent;color:#1f1c18;font-weight:550;font-size:16px;line-height:1.05;outline:none;max-width:124px;padding:0;appearance:auto;position:relative;top:-1px}
+.standalone-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.standalone-drawer{position:fixed;top:0;bottom:0;left:0;z-index:9999;width:min(88vw,360px);height:100dvh;overflow:auto;transform:translateX(-105%);transition:transform .22s ease;background:#fffdf8;border-right:1px solid #ded3c4;box-shadow:0 18px 45px rgba(36,24,12,.18);padding:calc(18px + env(safe-area-inset-top)) 18px 24px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body.standalone-menu-open .standalone-drawer{transform:translateX(0)}body.standalone-menu-open .standalone-backdrop{opacity:1;pointer-events:auto}
+.standalone-drawer-top{display:block;margin:-8px -6px 0;padding:8px 6px 2px;border:0;background:transparent;text-align:left;color:inherit;width:calc(100% + 12px);cursor:pointer}
+.standalone-drawer-top:focus-visible{outline:3px solid rgba(23,63,95,.35);outline-offset:3px;border-radius:16px}
+.standalone-drawer h2{margin:18px 0 4px;font-size:29px;font-weight:720;line-height:1.05;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.03em;color:#1f1c18}
+.standalone-drawer p{margin:0 0 14px;color:#6d6459;font-size:14px}.standalone-drawer h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#173f5f;margin:20px 0 10px}
+.standalone-nav-link{display:block;text-decoration:none;color:#1f1c18;padding:12px;border:1px solid #ded3c4;background:#fffaf2;border-radius:16px;margin:9px 0}
+.standalone-nav-extra{display:none}
+body.standalone-lessons-expanded .standalone-nav-extra{display:block}
+.standalone-expand-lessons{display:block;width:100%;min-height:38px;margin:6px 0 9px;padding:3px 12px;border:0;background:transparent;border-radius:0;color:#173f5f;font-size:25px;font-weight:850;letter-spacing:.08em;line-height:1;cursor:pointer;text-align:left}
+body.standalone-lessons-expanded .standalone-expand-lessons{display:none}
+.standalone-contact-link{display:block;text-align:left;text-decoration:none;color:#173f5f;font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px 10px;margin:18px 0 12px;border-radius:999px}
+.standalone-contact-link:hover{background:#efe4d3}
+.standalone-nav-link.active{border-color:rgba(23,63,95,.65);box-shadow:0 8px 20px rgba(45,31,16,.08)}.standalone-date{display:block;color:#173f5f;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.standalone-title{display:block;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.35}
+</style>
+<div class="standalone-nav-bar"><button id="standalone-menu-button" class="standalone-menu-button" type="button" aria-label="Browse lessons" aria-controls="standalone-lesson-menu" aria-expanded="false"><span class="standalone-hamburger" aria-hidden="true"><span></span></span></button><div class="standalone-site-title">Daily English</div><div class="standalone-language-control" aria-label="Native language selector"><svg class="standalone-globe-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9S14.4 18.4 12 21M12 3C9.6 5.6 8.4 8.6 8.4 12S9.6 18.4 12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="standalone-language-divider" aria-hidden="true"></span><select id="standalone-native-language" class="standalone-native-select" aria-label="Native language"><option value="tc">繁體中文</option><option value="sc">简体中文</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="ptbr">PT-BR</option></select></div></div>
+<div id="standalone-backdrop" class="standalone-backdrop" aria-hidden="true"></div>
+<nav id="standalone-lesson-menu" class="standalone-drawer" aria-label="Lesson navigation"><button id="standalone-drawer-top" class="standalone-drawer-top" type="button" aria-label="Hide lesson navigation"><h2>Daily English</h2><p>Updates 9 AM Hong Kong / Taiwan time</p><h3>Daily lessons</h3></button><a class="standalone-nav-link active" href="./daily-english-2026-07-09.html"><span class="standalone-date">Today / Latest</span><span class="standalone-title">Outcry as Meta Lets Users Make AI Images from Public Instagram Profile Pics</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-07-08.html"><span class="standalone-date">Jul 8, 2026</span><span class="standalone-title">Extreme Marine Heatwave Expected for Parts of the UK</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-07-07.html"><span class="standalone-date">Jul 7, 2026</span><span class="standalone-title">Ukraine Warns of Interceptor Missile Shortage After Kyiv Region Attack</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-07-06.html"><span class="standalone-date">Jul 6, 2026</span><span class="standalone-title">EasyJet Reaches Agreement in Principle Over Potential Takeover</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-07-05.html"><span class="standalone-date">Jul 5, 2026</span><span class="standalone-title">Scientists Use Superworms to Clean Animal Skeletons</span></a>
+<a class="standalone-nav-link" href="./daily-english-2026-07-04.html"><span class="standalone-date">Jul 4, 2026</span><span class="standalone-title">Polish PM Warns Critical Months Ahead in Face of Russian Threat</span></a>
+<button id="standalone-expand-lessons" class="standalone-expand-lessons" type="button" aria-expanded="false" aria-label="Show more lessons"><span aria-hidden="true">···</span></button>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-07-03.html"><span class="standalone-date">Jul 3, 2026</span><span class="standalone-title">Exam Board Apologises for Delayed Sats Results in England</span></a>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-07-02.html"><span class="standalone-date">Jul 2, 2026</span><span class="standalone-title">AI Summaries of Tripadvisor Hotel Reviews Downplay Serious Complaints</span></a>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-07-01.html"><span class="standalone-date">Jul 1, 2026</span><span class="standalone-title">Dangerous Heatwave to Hit US Ahead of Holiday Weekend</span></a>
+<a class="standalone-nav-link standalone-nav-extra" href="./daily-english-2026-06-30.html"><span class="standalone-date">Jun 30, 2026</span><span class="standalone-title">South African Leader Warns Anti-Migrant Protesters</span></a>
+<a class="standalone-contact-link" href="../contact-us.html">Contact us</a></nav>
+<script id="standalone-lesson-nav-script">
+(() => {
+  const btn=document.getElementById('standalone-menu-button');
+  const backdrop=document.getElementById('standalone-backdrop');
+  const drawerTop=document.getElementById('standalone-drawer-top');
+  const expandLessons=document.getElementById('standalone-expand-lessons');
+  const nativeSelect=document.getElementById('standalone-native-language');
+  const allowedNative=new Set(['tc','sc','ko','ja','ptbr']);
+  let nativeLanguage=(new URLSearchParams(location.search).get('native'))||localStorage.getItem('nativeLanguage')||'tc';
+  if(!allowedNative.has(nativeLanguage))nativeLanguage='tc';
+  if(document.querySelector('.standalone-nav-link.active.standalone-nav-extra'))document.body.classList.add('standalone-lessons-expanded');
+  const setMenu=open=>{document.body.classList.toggle('standalone-menu-open',open);btn?.setAttribute('aria-expanded',open?'true':'false')};
+  const nativeKey=lang=>'native'+lang.charAt(0).toUpperCase()+lang.slice(1);
+  const applyNativeLanguage=()=>{
+    document.documentElement.dataset.nativeLanguage=nativeLanguage;
+    localStorage.setItem('nativeLanguage',nativeLanguage);
+    if(nativeSelect)nativeSelect.value=nativeLanguage;
+    document.querySelectorAll('.native-heading').forEach(el=>{const value=el.dataset[nativeKey(nativeLanguage)]||el.dataset.nativeTc;if(value)el.textContent=value;});
+    document.querySelectorAll('.native-text').forEach(el=>{const value=el.dataset[nativeKey(nativeLanguage)]||el.dataset.nativeTc;const body=el.querySelector('.native-body');if(body)body.textContent=value;else if(value)el.textContent=value;});
+  };
+  nativeSelect?.addEventListener('change',()=>{nativeLanguage=allowedNative.has(nativeSelect.value)?nativeSelect.value:'tc';applyNativeLanguage();});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyNativeLanguage);else applyNativeLanguage();
+  btn?.addEventListener('click',()=>setMenu(true)); backdrop?.addEventListener('click',()=>setMenu(false)); drawerTop?.addEventListener('click',()=>setMenu(false));
+  expandLessons?.addEventListener('click',()=>{document.body.classList.add('standalone-lessons-expanded');expandLessons.setAttribute('aria-expanded','true')});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+})();
+</script>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Current Events · July 9, 2026</div>
+      <h1>Outcry as Meta Lets Users Make AI Images from Public Instagram Profile Pics</h1>
+      <p class="subtitle">Today’s Thursday technology lesson looks at AI image tools, public profile photos, privacy controls, and the language used when campaigners challenge platform design choices.</p>
+      <div class="pills"><span class="pill">Level: intermediate</span><span class="pill">Time: 5–10 minutes</span></div>
+      <div class="source-box">
+        <div class="eyebrow">Source article</div>
+        <p><strong>Title:</strong> Outcry as Meta lets users make AI images from public Instagram profile pics</p>
+        <p><strong>Source:</strong> BBC News</p>
+        <p><strong>Published:</strong> July 8, 2026</p>
+        <p><strong>Original article:</strong> <a href="https://www.bbc.co.uk/news/articles/cp9lee19y1yo" target="_blank" rel="noopener">BBC News article link</a></p>
+      </div>
+    </header>
+
+    <section>
+      <h2>Article Summary</h2>
+      <p>BBC News reports that Meta is facing criticism over Muse Image, an AI image tool that can generate pictures using other people’s public Instagram profile photos. Meta says users can opt out, but privacy campaigners argue that the feature creates new risks around image manipulation and consent.</p>
+      <p>The article says the tool is available through Meta AI, WhatsApp, Instagram Stories and a web browser for US users. It also notes wider concern from regulators and rights groups about AI-generated images, especially when real people are pulled into altered pictures without clear permission.</p>
+    </section>
+
+    <section class="zh-box zh">
+      <h2 class="native-heading" data-native-tc="文章摘要" data-native-sc="文章摘要" data-native-ko="기사 요약" data-native-ja="記事要約" data-native-ptbr="Resumo do artigo">文章摘要</h2>
+      <p class="native-text" data-native-tc="BBC News 報導，Meta 因其 AI 圖像工具 Muse Image 受到批評；這項工具可以使用他人的公開 Instagram 個人照片來生成圖片。Meta 表示使用者可以選擇退出，但隱私倡議者認為，這項功能在圖像操弄與同意權方面帶來新的風險。" data-native-sc="BBC News 报导，Meta 因其 AI 图像工具 Muse Image 受到批评；这项工具可以使用他人的公开 Instagram 个人照片来生成图片。 Meta 表示使用者可以选择退出，但隐私倡议者认为，这项功能在图像操弄与同意权方面带来新的风险。" data-native-ko="BBC 뉴스는 Meta가 다른 사람의 공개 Instagram 프로필을 사용하여 이미지를 생성하는 AI 이미징 도구인 Muse Image로 인해 비판을 받았다고 보도했습니다. Meta는 사용자가 이를 거부할 수 있다고 말하지만 개인 정보 보호 옹호자들은 이 기능이 이미지 조작 및 동의와 관련하여 새로운 위험을 초래한다고 말합니다." data-native-ja="BBCニュースの報道によると、Metaは他人のインスタグラムの公開プロフィールを利用して画像を生成するAI画像ツール「Muse Image」が批判されているという。メタ社は、ユーザーはオプトアウトできるとしているが、プライバシー擁護派は、この機能が画像の操作や同意に関して新たなリスクを生み出すと主張している。" data-native-ptbr="A BBC News relata que a Meta foi criticada por sua ferramenta de imagem de IA, Muse Image, que gera imagens usando perfis públicos do Instagram de outras pessoas. Meta diz que os usuários podem cancelar, mas os defensores da privacidade dizem que o recurso cria novos riscos em torno da manipulação e consentimento de imagens.">BBC News 報導，Meta 因其 AI 圖像工具 Muse Image 受到批評；這項工具可以使用他人的公開 Instagram 個人照片來生成圖片。Meta 表示使用者可以選擇退出，但隱私倡議者認為，這項功能在圖像操弄與同意權方面帶來新的風險。</p>
+      <p class="native-text" data-native-tc="文章指出，這項工具目前可透過 Meta AI、WhatsApp、Instagram Stories 與網頁瀏覽器提供給美國使用者。報導也提到，監管機構與權利團體對 AI 生成圖片越來越擔心，特別是當真實人物在沒有清楚許可下被放入改造後的圖片時。" data-native-sc="文章指出，这项工具目前可透过 Meta AI、WhatsApp、Instagram Stories 与网页浏览器提供给美国使用者。报导也提到，监管机构与权利团体对 AI 生成图片越来越担心，特别是当真实人物在没有清楚许可下被放入改造后的图片时。" data-native-ko="기사에서는 이 도구가 현재 Meta AI, WhatsApp, Instagram Stories 및 웹 브라우저를 통해 미국 사용자에게 제공된다는 점을 지적합니다. 보고서는 또한 규제 기관과 권리 단체가 AI로 생성된 이미지에 대해 점점 더 우려하고 있다고 언급했습니다. 특히 명확한 허가 없이 수정된 이미지에 실제 사람이 포함될 때 더욱 그렇습니다." data-native-ja="記事では、このツールは現在、Meta AI、WhatsApp、Instagram Stories、Webブラウザを通じて米国のユーザーに利用可能であると指摘している。同報告書はまた、規制当局や権利団体がAI生成画像、特に明確な許可なく改変された画像に本物の人間が含まれている場合について懸念を強めているとも述べた。" data-native-ptbr="O artigo destaca que esta ferramenta está atualmente disponível para usuários dos EUA através de Meta AI, WhatsApp, Instagram Stories e navegadores web. O relatório também mencionou que os reguladores e grupos de direitos humanos estão cada vez mais preocupados com as imagens geradas pela IA, especialmente quando pessoas reais são incluídas nas imagens modificadas sem permissão clara.">文章指出，這項工具目前可透過 Meta AI、WhatsApp、Instagram Stories 與網頁瀏覽器提供給美國使用者。報導也提到，監管機構與權利團體對 AI 生成圖片越來越擔心，特別是當真實人物在沒有清楚許可下被放入改造後的圖片時。</p>
+    </section>
+
+    <section>
+      <h2>5 Daily Words</h2>
+      <div class="grid">
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">backlash</div><button class="speak-button" type="button" data-say="backlash" aria-label="Play pronunciation for backlash"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">a strong negative public reaction to a decision, policy, product, or event.</p>
+          <p class="orig"><strong>In article:</strong> “Meta is facing a <mark>backlash</mark> over its new AI tool Muse Image, which can generate pictures using other people’s profile pictures without telling them.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="強烈反彈；大眾對某項決定、政策、產品或事件的負面回應。" data-native-sc="强烈反弹；大众对某项决定、政策、产品或事件的负面回应。" data-native-ko="백래시; 결정, 정책, 제품 또는 이벤트에 대한 대중의 부정적인 반응입니다." data-native-ja="バックラッシュ;決定、政策、製品、または出来事に対する世間の否定的な反応。" data-native-ptbr="Retaliação; uma resposta pública negativa a uma decisão, política, produto ou evento."><span class="native-body">強烈反彈；大眾對某項決定、政策、產品或事件的負面回應。</span></p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">advocacy</div><button class="speak-button" type="button" data-say="advocacy" aria-label="Play pronunciation for advocacy"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">public support or organized action for a cause, policy, or group of people.</p>
+          <p class="orig"><strong>In article:</strong> “Donald Campbell, <mark>advocacy</mark> director at tech justice non-profit Foxglove told the BBC it was an ‘obvious recipe for disaster’.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="倡議、倡導；為某個理念、政策或群體進行公開支持或組織行動。" data-native-sc="倡议、倡导；为某个理念、政策或群体进行公开支持或组织行动。" data-native-ko="이니셔티브, 옹호; 아이디어, 정책 또는 그룹에 대한 대중의 지지 또는 조직적 활동." data-native-ja="イニシアチブ、擁護。アイデア、政策、またはグループに対する公的支援または組織的行動。" data-native-ptbr="Iniciativa, defesa; apoio público ou ação organizacional para uma ideia, política ou grupo."><span class="native-body">倡議、倡導；為某個理念、政策或群體進行公開支持或組織行動。</span></p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">consent</div><button class="speak-button" type="button" data-say="consent" aria-label="Play pronunciation for consent"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">clear permission for something to happen, especially after someone understands what is being agreed to.</p>
+          <p class="orig"><strong>In article:</strong> “Pulling real users into generated photos without explicit <mark>consent</mark> is a privacy landmine waiting to detonate.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="同意、許可；在了解情況後明確允許某件事發生，常見於法律、醫療與隱私語境。" data-native-sc="同意、许可；在了解情况后明确允许某件事发生，常见于法律、医疗与隐私语境。" data-native-ko="동의, 허가; 상황을 이해한 후 어떤 일이 발생하도록 명시적으로 허가하는 것입니다. 일반적으로 법률, 의료 및 개인 정보 보호 측면에서 사용됩니다." data-native-ja="同意、許可。状況を理解した上で何かが起こることに対する明示的な許可。法律、医療、プライバシーの文脈でよく使用されます。" data-native-ptbr="Consentimento, permissão; permissão explícita para que algo aconteça após a compreensão da situação, comumente usada em contextos jurídicos, médicos e de privacidade."><span class="native-body">同意、許可；在了解情況後明確允許某件事發生，常見於法律、醫療與隱私語境。</span></p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">scrutiny</div><button class="speak-button" type="button" data-say="scrutiny" aria-label="Play pronunciation for scrutiny"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">careful and often critical examination by the public, media, regulators, or experts.</p>
+          <p class="orig"><strong>In article:</strong> “The feature is likely to face heightened <mark>scrutiny</mark> as regulators and campaigners raise concerns about AI-generated images.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="審視、仔細檢查；通常指媒體、公眾、監管機構或專家帶有批判性的檢視。" data-native-sc="审视、仔细检查；通常指媒体、公众、监管机构或专家带有批判性的检视。" data-native-ko="조사하고 면밀히 조사하십시오. 일반적으로 언론, 대중, 규제 기관 또는 전문가의 비판적 조사를 의미합니다." data-native-ja="調べる、精査する。通常、メディア、国民、規制当局、専門家による批判的な調査を指します。" data-native-ptbr="Examinar, examinar; geralmente se refere ao exame crítico da mídia, do público, de agências reguladoras ou de especialistas."><span class="native-body">審視、仔細檢查；通常指媒體、公眾、監管機構或專家帶有批判性的檢視。</span></p>
+        </article>
+
+        <article class="vocab-card">
+          <div class="phrase-row"><div class="phrase">facilitating</div><button class="speak-button" type="button" data-say="facilitating" aria-label="Play pronunciation for facilitating"><svg class="sound-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 9.5v5h3.2L12 18.3V5.7L7.2 9.5H4Z" fill="currentColor"/><path d="M15.2 8.2a5.2 5.2 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17.9 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+          <p class="def">making an action or process easier or more likely to happen; often used formally when discussing responsibility for enabling harm.</p>
+          <p class="orig"><strong>In article:</strong> “It is hard to see why Mark Zuckerberg thinks <mark>facilitating</mark> yet more of this creepy image manipulation is a good idea.”</p>
+          <p class="def zh native-text" data-native-role="definition" data-native-tc="促成、使便利；讓某個行動或過程更容易發生，在討論平台是否助長問題時常帶有正式或批判語氣。" data-native-sc="促成、使便利；让某个行动或过程更容易发生，在讨论平台是否助长问题时常带有正式或批判语气。" data-native-ko="활성화하고 촉진합니다. 플랫폼이 문제에 기여하는지 여부를 논의할 때 종종 공식적이거나 비판적인 어조로 작업이나 프로세스가 더 쉽게 발생하도록 만듭니다." data-native-ja="可能にし、促進します。プラットフォームが問題の一因となっているかどうかを議論する際に、多くの場合、形式的または批判的なトーンで、アクションやプロセスを実行しやすくします。" data-native-ptbr="Habilitar, facilitar; tornar uma ação ou processo mais fácil de acontecer, muitas vezes com um tom formal ou crítico ao discutir se uma plataforma contribui para problemas."><span class="native-body">促成、使便利；讓某個行動或過程更容易發生，在討論平台是否助長問題時常帶有正式或批判語氣。</span></p>
+          <p><strong>Usage note:</strong> This is today’s stretch word. In policy and technology reporting, <em>facilitating</em> can imply that a system helped make a harmful action possible, even if it did not directly perform the action.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="feedback-section" aria-labelledby="feedback-title">
+      <h2 id="feedback-title">How was today’s vocabulary?</h2>
+      <iframe class="tally-embed" src="https://tally.so/embed/zxbkrZ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;lesson_date=2026-07-09&amp;language=tc" data-tally-src="https://tally.so/embed/zxbkrZ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;lesson_date=2026-07-09&amp;language=tc" loading="lazy" width="100%" height="300" frameborder="0" marginheight="0" marginwidth="0" title="Vocabulary difficulty feedback"></iframe>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    function cleanText(text){return (text||'').replace(/^to\s+/i,'').replace(/\s*\/\s*to\s*/i,'; ').trim();}
+    document.addEventListener('click', function(event){
+      const button = event.target.closest('.speak-button');
+      if(!button || !('speechSynthesis' in window)) return;
+      const text = cleanText(button.dataset.say || button.textContent);
+      if(!text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.82;
+      window.speechSynthesis.speak(utterance);
+    });
+  })();
+  </script>
+  <script src="https://tally.so/widgets/embed.js" async></script>
+<script data-native-lang-script>
+(function(){
+  const allowed = new Set(['tc','sc','ko','ja','ptbr']);
+  const params = new URLSearchParams(location.search);
+  let lang = params.get('native') || localStorage.getItem('nativeLanguage') || 'tc';
+  if(!allowed.has(lang)) lang = 'tc';
+  document.documentElement.dataset.nativeLanguage = lang;
+  localStorage.setItem('nativeLanguage', lang);
+  function applyNativeLanguage(){
+    document.querySelectorAll('.native-heading').forEach(el => {
+      const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
+      if(value) el.textContent = value;
+    });
+    document.querySelectorAll('.native-text').forEach(el => {
+      const value = el.dataset['native' + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset.nativeTc;
+      const body = el.querySelector('.native-body');
+      if(body) body.textContent = value;
+      else if(value) el.textContent = value;
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyNativeLanguage);
+  else applyNativeLanguage();
+})();
+</script>
+</body>
+</html>
