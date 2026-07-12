@@ -394,10 +394,11 @@ English weekly/monthly review jobs should not be restored unless explicitly requ
 For both English and Chinese:
 
 - Vercel is the live hosting layer.
-- GitHub is backup/source control and should be synced when token is available.
-- Website publishing should not be blocked by GitHub divergence.
-- Prefer GitHub Contents API for reliable small static-site sync if normal `git push` conflicts.
-- Vercel direct deploy should work from a temporary copy excluding `.git` and `.vercel` metadata.
+- GitHub is the canonical source of truth/source control and must be updated before a publish is considered complete.
+- English publishing should commit and push `/opt/data/english-lessons-web` to `Windswell284/English-lessons-web`, then Vercel should deploy from that GitHub push.
+- A Vercel-only direct deploy is only a temporary workaround; if it ever happens, sync the exact deployed state back to GitHub immediately afterward.
+- Website publishing should not ignore GitHub divergence; reconcile it safely with a backup branch/bundle before pushing.
+- Prefer normal `git push` with a fine-grained token that has `Contents: Read and write`; use GitHub Contents API only as a recovery fallback, not the primary workflow.
 - Scripts should use private safe cache dirs if npm/Vercel cache ownership issues appear.
 - Scripts should self-load `/opt/data/.env`.
 - Do not store tokens in scripts, repos, or this backup file.
