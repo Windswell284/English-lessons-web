@@ -42,7 +42,7 @@ The publish scripts refresh these copies during site publishing.
 
 ### Chinese lessons
 
-- Live site: https://chinese-lessons-web.vercel.app
+- Live site: https://chinese.5dailywords.com
 - GitHub repo: https://github.com/Windswell284/Chinese-lessons-web
 - Local source lessons: `/opt/data/chinese-lessons/`
 - Local generated website: `/opt/data/chinese-lessons-web/`
@@ -173,7 +173,7 @@ Behavior:
 - The top `Daily Chinese` label should be clickable and link to:
 
 ```text
-https://chinese-lessons-web.vercel.app
+https://chinese.5dailywords.com
 ```
 
 ### Chinese look and feel
