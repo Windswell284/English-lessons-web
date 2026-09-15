@@ -1,16 +1,17 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "/",
       "has": [{ "type": "host", "value": "journal.5dailywords.com" }],
-      "destination": "/journal/index.html"
+      "dest": "/journal/index.html"
     },
     {
-      "source": "/privacy",
+      "src": "/privacy",
       "has": [{ "type": "host", "value": "journal.5dailywords.com" }],
-      "destination": "/journal/privacy/index.html"
+      "dest": "/journal/privacy/index.html"
+    },
+    {
+      "handle": "filesystem"
     }
   ],
   "headers": [
